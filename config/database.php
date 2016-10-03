@@ -60,8 +60,8 @@ return [
             'username' => env('DB_USERNAME', 'forge'),
             'password' => env('DB_PASSWORD', ''),*/
             'database' => env('DB_DATABASE', 'pmo_intranet'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', 'root'),
+            'username' => env('DB_USERNAME', 'advanzer_pmo'),
+            'password' => env('DB_PASSWORD', 'pmointranet'),
             'charset' => 'utf8',
             'collation' => 'utf8_spanish_ci',
             'prefix' => '',
