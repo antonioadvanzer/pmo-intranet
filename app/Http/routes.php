@@ -11,6 +11,10 @@
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('construction');
-});
+});*/
+
+Route::get('/', ['as' => 'company', 'uses' => 'MainController@index']);
+
+Route::get('/companies', ['as' => 'company', 'uses' => 'MainController@companies']);
