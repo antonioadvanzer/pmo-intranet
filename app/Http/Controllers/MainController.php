@@ -19,6 +19,16 @@ class MainController extends Controller
     }
 
     /**
+     * Display a menu with companies options.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function companies()
+    {
+        return View::make('main.companies');
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
