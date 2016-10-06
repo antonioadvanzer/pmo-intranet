@@ -10,18 +10,18 @@
 
     <link rel="icon" href="img/favicon.ico'">
 
-    <link rel="stylesheet" href="css/bootstrap-theme.css">
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" href="{{ URL::to('css/bootstrap-theme.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('css/bootstrap-theme.min.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ URL::to('css/bootstrap.min.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ URL::to('css/entuizer/styles.css') }}">
 
     <link href="http://fonts.googleapis.com/css?family=Oswald:700|Droid+Serif:400,700italic" rel="stylesheet" type="text/css" />
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet"/>
 
     <!--<script type="text/javascript" src="js/TweenLite.min.js"></script>
 	<script type="text/javascript" src="js/TweenMax.min.js"></script>-->
-    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="{{ URL::to('js/jquery-1.8.3.min.js') }}"></script>
 
 
 </head>
@@ -33,9 +33,9 @@
     <div>
         <div id="caption"> </div>
         <div id="backbutton">
-            <img src="img/AD_logo.png" width="20%" />
+            <img src="img/EN_logo.png" width="20%" />
         </div>
-        <div id="pagecaption" align="center"> <h2>PMO Web, Demo Cloud Edition</h2> </div>
+        <div id="pagecaption" align="center"> <h2>PMO Intranet</h2> </div>
     </div>
 
 </div>

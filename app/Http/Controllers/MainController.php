@@ -19,13 +19,43 @@ class MainController extends Controller
     }
 
     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getLoginView()
+    {
+        return View::make('general.login');
+    }
+
+    /**
      * Display a menu with companies options.
      *
      * @return \Illuminate\Http\Response
      */
-    public function companies()
+    public function pmo_getCompaniesView()
     {
         return View::make('main.companies');
+    }
+
+    /**
+     * Display a menu Advanzer.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getMenuAdvanzerView()
+    {
+        return View::make('main.advanzer.menu');
+    }
+
+    /**
+     * Display a menu Entuizer.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getMenuEntuizerView()
+    {
+        return View::make('main.entuizer.menu');
     }
 
     /**

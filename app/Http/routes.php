@@ -15,6 +15,11 @@
     return view('construction');
 });*/
 
+Route::get('/login', ['as' => 'login', 'uses' => 'MainController@pmo_getLoginView']);
+
 Route::get('/', ['as' => 'company', 'uses' => 'MainController@index']);
 
-Route::get('/companies', ['as' => 'company', 'uses' => 'MainController@companies']);
+//Route::get('/companies', ['as' => 'company', 'uses' => 'MainController@pmo_getCompaniesView']);
+
+Route::get('/advanzer', ['as' => 'ad', 'uses' => 'MainController@pmo_getMenuAdvanzerView']);
+Route::get('/entuizer', ['as' => 'en', 'uses' => 'MainController@pmo_getMenuEntuizerView']);
