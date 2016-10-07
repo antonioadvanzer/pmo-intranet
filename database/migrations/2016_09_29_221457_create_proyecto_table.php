@@ -17,7 +17,7 @@ class CreateProyectoTable extends Migration
             $table->increments('id');
             $table->string('name',30);
             // check to join to second table
-            $table->integer('customer')->unsigned();
+            //$table->integer('customer')->unsigned();
             $table->boolean('status')->default(1);
             $table->timestamps();
             $table->softDeletes();

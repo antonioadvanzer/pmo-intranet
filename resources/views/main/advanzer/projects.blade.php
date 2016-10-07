@@ -1,0 +1,154 @@
+@extends('layout.advanzer.mainLayout')
+
+@section('content')
+    <!-- desktop-->
+    <div class="container" align="center">
+        <!--<h1 class="titleMenu">Unidades de Negocio</h1>-->
+    </div>
+    <div id="desktop" class="container" >
+        <br><br>
+        <div class=''>
+
+            <span class="toggler active" data-toggle="grid"><span class="entypo-layout"></span></span>
+            <span class="toggler" data-toggle="list"><span class="entypo-list"></span></span>
+
+            <ul class="surveys grid">
+
+                <li class="survey-item">
+
+                    <span class="survey-country list-only">
+                    Cliente A
+                    </span>
+
+                    <span class="survey-name">
+                    Proyecto 1
+                    </span>
+
+                    <span class="survey-country grid-only">
+                    Cliente A
+                    </span>
+
+                    <div class="pull-right">
+
+                    <span class="survey-progress">
+                    <span class="survey-progress-bg">
+                    <span class="survey-progress-fg" style="width: 88%;"></span>
+                    </span>
+
+                    <span class="survey-progress-labels">
+                    <span class="survey-progress-label">
+                    88%
+                    </span>
+
+                    <span class="survey-completes">
+                    490 / 500
+                    </span>
+                    </span>
+                    </span>
+
+                    <span class="survey-end-date ended">
+                    2014 - May 10
+                    </span>
+                    <span class="survey-stage">
+                    <span class="stage draft">Draft</span>
+                    <span class="stage awarded">Awarded</span>
+                    <span class="stage live">Live</span>
+                    <span class="stage ended active">Ended</span>
+                    </span>
+                    </div>
+                </li>
+
+                <li class="survey-item">
+                    <span class="survey-country list-only">
+                    Cliente B
+                    </span>
+
+                    <span class="survey-name">
+                    Proyecto 2
+                    </span>
+
+                    <span class="survey-country grid-only">
+                    Cliente B
+                    </span>
+
+                    <div class="pull-right">
+
+                    <span class="survey-progress">
+                    <span class="survey-progress-bg">
+                    <span class="survey-progress-fg" style="width: 25%;"></span>
+                    </span>
+
+                    <span class="survey-progress-labels">
+                    <span class="survey-progress-label">
+                    25%
+                    </span>
+
+                    <span class="survey-completes">
+                    150 / 500
+                    </span>
+                    </span>
+                    </span>
+
+                    <span class="survey-end-date">
+                    2014 - July 12
+                    </span>
+                    <span class="survey-stage">
+                    <span class="stage draft">Draft</span>
+                    <span class="stage awarded">Awarded</span>
+                    <span class="stage live active">Live</span>
+                    <span class="stage ended">Ended</span>
+                    </span>
+                    </div>
+                </li>
+
+                <li class="survey-item">
+                    <span class="survey-country list-only">
+                    Cliente C
+                    </span>
+
+                    <span class="survey-name">
+                    Proyecto 3
+                    </span>
+
+                    <span class="survey-country grid-only">
+                    Cliente C
+                    </span>
+
+                    <div class="pull-right">
+                    <span class="survey-end-date">
+                    2014 - Oct 1
+                    </span>
+                    <span class="survey-stage">
+                    <span class="stage draft">Draft</span>
+                    <span class="stage awarded active">Awarded</span>
+                    <span class="stage live">Live</span>
+                    <span class="stage ended">Ended</span>
+                    </span>
+                    </div>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+@endsection
+
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function(){
+
+            (function () {
+                $(function () {
+                    return $('[data-toggle]').on('click', function () {
+                        var toggle;
+                        toggle = $(this).addClass('active').attr('data-toggle');
+                        $(this).siblings('[data-toggle]').removeClass('active');
+                        return $('.surveys').removeClass('grid list').addClass(toggle);
+                    });
+                });
+            }.call(this));
+
+        });
+    </script>
+@endsection

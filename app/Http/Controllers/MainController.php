@@ -35,7 +35,7 @@ class MainController extends Controller
      */
     public function pmo_getCompaniesView()
     {
-        return View::make('main.companies');
+        return View::make('general.companies');
     }
 
     /**
@@ -49,6 +49,16 @@ class MainController extends Controller
     }
 
     /**
+     * Display a menu with project of Advanzer.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getMenuProjectsAdvanzerView()
+    {
+        return View::make('main.advanzer.projects');
+    }
+
+    /**
      * Display a menu Entuizer.
      *
      * @return \Illuminate\Http\Response
@@ -56,6 +66,16 @@ class MainController extends Controller
     public function pmo_getMenuEntuizerView()
     {
         return View::make('main.entuizer.menu');
+    }
+
+    /**
+     * Display a menu with project of Entuizer.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getMenuProjectsEntuizerView()
+    {
+        return View::make('main.entuizer.projects');
     }
 
     /**

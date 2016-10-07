@@ -19,7 +19,10 @@ Route::get('/login', ['as' => 'login', 'uses' => 'MainController@pmo_getLoginVie
 
 Route::get('/', ['as' => 'company', 'uses' => 'MainController@index']);
 
-//Route::get('/companies', ['as' => 'company', 'uses' => 'MainController@pmo_getCompaniesView']);
+Route::get('/companies', ['as' => 'company', 'uses' => 'MainController@pmo_getCompaniesView']);
 
 Route::get('/advanzer', ['as' => 'ad', 'uses' => 'MainController@pmo_getMenuAdvanzerView']);
 Route::get('/entuizer', ['as' => 'en', 'uses' => 'MainController@pmo_getMenuEntuizerView']);
+
+Route::get('/advanzer/projects', ['as' => 'projectsA', 'uses' => 'MainController@pmo_getMenuProjectsAdvanzerView']);
+Route::get('/entuizer/projects', ['as' => 'projectsE', 'uses' => 'MainController@pmo_getMenuProjectsEntuizerView']);

@@ -17,7 +17,7 @@ class CreateUsuarioTable extends Migration
             $table->increments('id');
             $table->string('name',50);
             $table->string('email')->unique();
-            $table->string('company');
+            $table->integer('company');
             $table->timestamps();
             $table->softDeletes();
         });

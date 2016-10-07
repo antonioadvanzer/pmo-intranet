@@ -33,7 +33,7 @@
     <div>
         <div id="caption"> </div>
         <div id="backbutton">
-            <img src="img/AD_logo.png" width="20%" />
+            <img src="{{ URL::to('img/AD_logo.png')}}" width="20%" />
         </div>
         <div id="pagecaption" align="center"> <h2>PMO Intranet</h2> </div>
     </div>

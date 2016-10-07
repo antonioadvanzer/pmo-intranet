@@ -19,7 +19,8 @@
                         <input type="password" placeholder="Contraseña"/>
                     </div>
                     <!-- button -->
-                    <button class="btn">Iniciar Sesion</button>
+                    <!--<button class="btn">Iniciar Sesion</button>-->
+                    <a class="btn" href="{{ URL::to('/companies')  }}">Iniciar Sesion</a>
                     <p>
                         ¿Olvido su contraseña? <a href="#" class="link">Sign up now <span class="entypo-right-thin"></span></a>
                     </p>
