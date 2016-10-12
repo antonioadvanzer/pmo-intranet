@@ -56,12 +56,12 @@ return [
             'driver' => 'mysql',
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '3306'),
-            /*'database' => env('DB_DATABASE', 'pmo_intranet'),
-            'username' => env('DB_USERNAME', 'root'),
-            'password' => env('DB_PASSWORD', 'root'),*/
             'database' => env('DB_DATABASE', 'pmo_intranet'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', 'root'),
+            /*'database' => env('DB_DATABASE', 'pmo_intranet'),
             'username' => env('DB_USERNAME', 'advanzer_pmo'),
-            'password' => env('DB_PASSWORD', 'pmointranet'),
+            'password' => env('DB_PASSWORD', 'pmointranet'),*/
             'charset' => 'utf8',
             'collation' => 'utf8_spanish_ci',
             'prefix' => '',

@@ -7,7 +7,7 @@
     </div>
     <div id="desktop" class="container" >
         <br><br>
-        <div class=''>
+        <div class="">
 
             <span class="toggler active" data-toggle="grid"><span class="entypo-layout"></span></span>
             <span class="toggler" data-toggle="list"><span class="entypo-list"></span></span>
@@ -21,7 +21,7 @@
                     </span>
 
                     <span class="survey-name">
-                    Proyecto 1
+                        <a href="{{ URL::to('advanzer/projects/project') }}">Proyecto 1</a>
                     </span>
 
                     <span class="survey-country grid-only">

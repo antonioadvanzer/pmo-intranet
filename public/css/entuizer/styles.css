@@ -328,7 +328,7 @@ background-size:cover;
   color: #F3F5F4;
   font-weight: 300;
   width: 100%;
-  background-color: #C0D339;
+  background-color: #478FCB;
   text-transform: uppercase;
     -webkit-border-radius: 6px 6px 0 0;
   -moz-border-radius: 6px 6px 0 0;
@@ -626,6 +626,11 @@ background-size:cover;
     100% { opacity: 0; -webkit-transform: scale3d(0.8, 0.8, 1); transform: scale3d(0.8, 0.8, 1); }
 }
 
+/* entypo */
+[class*="entypo-"]:before {
+    font-family: 'entypo', sans-serif;
+}
+
 /* Projects */
 
 /** {
@@ -860,7 +865,7 @@ body {
 .survey-progress-label {
     vertical-align: middle;
     margin: 0 10px;
-    color: #286cc6;
+    color: #4273EA;
 }
 
 .survey-progress-bg {
@@ -881,5 +886,5 @@ body {
     height: 100%;
     left: 0;
     margin: 0;
-    background: #286cc6;
+    background: #4273EA;
 }

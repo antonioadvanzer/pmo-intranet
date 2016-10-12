@@ -37,7 +37,21 @@
         </div>
         <div id="pagecaption" align="center"> <h2>PMO Intranet</h2> </div>
     </div>
-
+    
+    <header id="header">
+        <nav class="dc-menu">
+            <a href="#" class="dc-menu-trigger"><span>Menu</span></a>
+            <div class="menu-overlay">
+                <ul>
+                <li>Perfil</li> 
+                <li>Ajustes</li>
+                <li>Modo Administrador</li> 
+                <li>Cerrar Sesi&oacute;n</li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    
 </div>
 
 <!-- Maint Container-->
@@ -57,7 +71,31 @@
     </div>-->
 </footer>
 
-<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'>
+</script>
+<script type="text/javascript">
+    $(document).ready(function(){
+
+        $('.dc-menu-trigger').click(function(){
+            $('nav').toggleClass( "dc-menu-open" );
+            $('.menu-overlay').toggleClass( "open" );
+            $('#header').toggleClass( "shownav" );
+         }); 
+        
+        $('.dc-menu-trigger').click(function(event){
+            event.stopPropagation();
+        });
+        
+        $(window).click(function(){
+            if($('nav').hasClass("dc-menu-open")){
+                $('nav').toggleClass( "dc-menu-open" );
+                $('.menu-overlay').toggleClass( "open" );
+                $('#header').toggleClass( "shownav" );
+            }
+        });
+
+    });
+</script>
 
 @yield('script')
 

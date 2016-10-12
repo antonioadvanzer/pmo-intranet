@@ -59,6 +59,16 @@ class MainController extends Controller
     }
 
     /**
+     * Display a menu with a specified project of Advanzer.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getMenuProjectAdvanzerView()
+    {
+        return View::make('main.advanzer.project');
+    }
+
+    /**
      * Display a menu Entuizer.
      *
      * @return \Illuminate\Http\Response

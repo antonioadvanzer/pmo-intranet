@@ -7,7 +7,7 @@
     </div>
     <div id="desktop" class="container" >
         <br><br>
-        <div class=''>
+        <div class="">
 
             <span class="toggler active" data-toggle="grid"><span class="entypo-layout"></span></span>
             <span class="toggler" data-toggle="list"><span class="entypo-list"></span></span>
