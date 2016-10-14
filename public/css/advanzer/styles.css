@@ -107,6 +107,13 @@ background-size:cover;
   color: white;
 }
 
+
+@media screen and (max-width: 480px) {
+    #pagecaption h2 {
+        font-size: 15px;
+    }
+}
+
 .pie{
     width:100%; 
     height:70px; 
@@ -400,6 +407,13 @@ background-size:cover;
     height:100px;
     box-shadow:0 200px 150px -150px rgba(192, 211, 57, 0.7) inset;
 }
+
+@media screen and (max-width: 480px) {
+    .titleMenu{
+        font-size: 25px;
+    }
+}
+
 .btn {
     background: rgba(0,0,0,0.6);
     color: #fff;
@@ -686,6 +700,13 @@ body {
     font-size: 14px;
     line-height: 40px;
 }
+
+@media screen and (max-width: 480px) {
+    .list .survey-item {
+        height: 80px;
+    }
+}
+
 .list .survey-item .pull-right {
     position: absolute;
     right: 0;
