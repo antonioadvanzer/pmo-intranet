@@ -15,13 +15,15 @@
             <ul class="surveys grid">
 
                 <li class="survey-item">
-
+                    
+                    <input type="hidden" id="route" class="route" value="{{ URL::to('advanzer/projects/project') }}">
+                    
                     <span class="survey-country list-only">
                     Cliente A
                     </span>
 
                     <span class="survey-name">
-                        <a href="{{ URL::to('advanzer/projects/project') }}">Proyecto 1</a>
+                        Proyecto 1
                     </span>
 
                     <span class="survey-country grid-only">
@@ -59,6 +61,9 @@
                 </li>
 
                 <li class="survey-item">
+                    
+                    <input type="hidden" id="route" class="route" value="{{ URL::to('advanzer/projects/project') }}">
+                    
                     <span class="survey-country list-only">
                     Cliente B
                     </span>
@@ -102,6 +107,9 @@
                 </li>
 
                 <li class="survey-item">
+                    
+                    <input type="hidden" id="route" class="route" value="{{ URL::to('advanzer/projects/project') }}">
+                    
                     <span class="survey-country list-only">
                     Cliente C
                     </span>
@@ -148,7 +156,11 @@
                     });
                 });
             }.call(this));
-
+            
+            $('.survey-item').click(function (){
+                location.href = $(this).find(".route").val();
+            });
+            
         });
     </script>
 @endsection

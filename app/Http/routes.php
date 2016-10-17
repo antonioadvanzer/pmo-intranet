@@ -28,3 +28,10 @@ Route::get('/advanzer/projects', ['as' => 'projectsA', 'uses' => 'MainController
 Route::get('/advanzer/projects/project', ['as' => 'project', 'uses' => 'MainController@pmo_getMenuProjectAdvanzerView']);
 
 Route::get('/entuizer/projects', ['as' => 'projectsE', 'uses' => 'MainController@pmo_getMenuProjectsEntuizerView']);
+
+//Access to dashboard admin
+Route::group(['prefix' => 'pmo-admin'], function(){
+
+    Route::get('/', ['as' => 'index', 'uses' => 'AdminController@index']);
+
+});

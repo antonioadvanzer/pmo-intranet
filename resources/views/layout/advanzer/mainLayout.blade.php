@@ -100,3 +100,4 @@
 @yield('script')
 
 </body>
+</html>
