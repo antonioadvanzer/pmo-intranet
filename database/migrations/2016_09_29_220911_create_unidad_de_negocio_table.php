@@ -16,6 +16,7 @@ class CreateUnidadDeNegocioTable extends Migration
         Schema::create('business_unit', function (Blueprint $table){
             $table->increments('id');
             $table->string('name',30);
+            $table->string('description',150);
             $table->timestamps();
             $table->softDeletes();
         });

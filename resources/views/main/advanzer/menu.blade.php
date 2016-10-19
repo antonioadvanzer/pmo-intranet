@@ -42,10 +42,15 @@
             <div class="dialog-overlay"></div>
             <div class="dialog-content">
                 <h2>Categorias</h2>
-                <div>
-                    <!--<a href="#" class="close btn btn-close">I'm Jelly</a>-->
-                    <a href="{{ URL::to('advanzer/projects')  }}" class="alert alert-success">Proyectos</a><br><br><br>
+                <!--<div>
+                    <a href="{{ URL::to('advanzer/projects')  }}" class="nav open">Proyectos</a><br><br><br>
                     <a href="#" class="alert alert-success">Empaquetamiento</a>
+                </div>-->
+                <div class="row">
+                    <!--<div class="col-md-3 col-sm-3 col-xs-6"> <a href="#" class="btn btn-sm animated-button sandy-one">Sign up</a> </div>-->
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12"> <a href="#" class="animated-button victoria-three">Proyectos</a> </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12"> <a href="#" class="animated-button victoria-three">Administraci&oacute;n del Conocimiento</a> </div>
                 </div>
             </div>
         </div>

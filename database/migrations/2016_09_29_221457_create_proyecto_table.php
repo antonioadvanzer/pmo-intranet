@@ -15,7 +15,7 @@ class CreateProyectoTable extends Migration
         //Create table to save projects information
         Schema::create('project', function (Blueprint $table){
             $table->increments('id');
-            $table->string('name',30);
+            $table->string('name',50);
             // check to join to second table
             //$table->integer('customer')->unsigned();
             $table->boolean('status')->default(1);
