@@ -9,8 +9,8 @@
         <br><br>
         <div class="">
 
-            <span class="toggler active" data-toggle="grid"><span class="entypo-layout"></span></span>
-            <span class="toggler" data-toggle="list"><span class="entypo-list"></span></span>
+            <span class="toggler active" data-toggle="grid"><span class="glyphicon glyphicon-th"></span></span>
+            <span class="toggler" data-toggle="list"><span class="glyphicon glyphicon-th-list"></span></span>
 
             <ul class="surveys grid">
 
