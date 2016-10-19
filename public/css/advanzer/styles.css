@@ -1083,12 +1083,16 @@ body {
 }
 
 /* Global Button Styles */
+a.animated-button{
+    background: #C0D339;
+}
+
 a.animated-button:link, a.animated-button:visited {
 	position: relative;
 	display: block;
 	margin: 30px auto 0;
 	padding: 14px 15px;
-	color: #000;
+	color: #fff;
 	font-size:14px;
 	font-weight: bold;
 	text-align: center;
@@ -1117,8 +1121,9 @@ a.animated-button:link:after, a.animated-button:visited:after {
 	transition: all 0.75s ease 0s;
 }
 a.animated-button:link:hover, a.animated-button:visited:hover {
-	color: #FFF;
+	color: #000;
 	text-shadow: none;
+    background: transparent;
 }
 a.animated-button:link:hover:after, a.animated-button:visited:hover:after {
 	height: 450%;
@@ -1128,7 +1133,7 @@ a.animated-button:link, a.animated-button:visited {
 	display: block;
 	margin: 30px auto 0;
 	padding: 14px 15px;
-	color: #000;
+	color: #fff;
 	font-size:14px;
 	border-radius: 0;
 	font-weight: bold;
@@ -1150,7 +1155,7 @@ a.animated-button.victoria-one {
 	border: 2px solid #C0D339;
 }
 a.animated-button.victoria-one:after {
-	background: #C0D339;
+	background: RGB(240, 240, 240);
 	-moz-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
 	-ms-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
 	-webkit-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
