@@ -7,14 +7,12 @@
         <div class=''>
             <a class="rr-left" href="{{ URL::to('/advanzer')  }}">
                 <div class="rr-text">
-                    <h3>Proyectos Advanzer</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                    <h3>Advanzer</h3>
                 </div>
             </a>
             <a class="rr-right" href="{{ URL::to('/entuizer')  }}">
                 <div class="rr-text">
-                    <h3>Proyectos Entuizer</h3>
-                    <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                    <h3>Entuizer</h3>
                 </div>
             </a>
         </div>

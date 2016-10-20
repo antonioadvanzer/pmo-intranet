@@ -378,10 +378,10 @@ background-size:cover;
 
 /* text positioning & styles */
 .rr-text {
-    margin-top: 5%;
-    margin-left: 10%;
+    margin-top: 90px;
+    
     width: 80%;
-    text-align: left;
+    text-align: center;
     font-family: Arial;
     color: #FFFFFF;
 }
