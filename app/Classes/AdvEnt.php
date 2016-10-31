@@ -145,50 +145,56 @@ class AdvEnt
      *
      * @return Object
      */
-    private static function permissionZone($id_rol)
+    private static function permissionZone($id_rol=null)
     {
-        //$user = session("user")[0];
+        if($id_rol != null){
 
-        $rol = Rol::where('id', $id_rol)->get()->first();
+            //$user = session("user")[0];
 
-        //$permissions = $rol->getAllPermissions()->get();
+            $rol = Rol::where('id', $id_rol)->get()->first();
 
-        $permissions = $rol->getAllPermissions()->where('E',null)->get();
+            //$permissions = $rol->getAllPermissions()->get();
 
-        //dd(count($permissions));
-        //dd($permissions);
-        //exit;
+            $permissions = $rol->getAllPermissions()->where('E', null)->get();
 
-        if(count($permissions) >= 1){
+            //dd(count($permissions));
+            //dd($permissions);
+            //exit;
 
-            $permissions = $permissions->first();
 
-            //dd($permissions);exit;
+            if (count($permissions) >= 1) {
 
-            $routesAllowed = array();
+                $permissions = $permissions->first();
 
-            array_push($routesAllowed,
-                [ 'companies', [ $permissions->create, $permissions->read, $permissions->update, $permissions->delete ] ],
-                [ 'advanzer', [ $permissions->create, $permissions->read, $permissions->update, $permissions->delete ] ],
-                [ 'entuizer', [ $permissions->create, $permissions->read, $permissions->update, $permissions->delete ] ]
-            );
+                //dd($permissions);exit;
 
-            $bussines = BusinessUnit::all();
-
-            foreach($bussines as $b){
+                $routesAllowed = array();
 
                 array_push($routesAllowed,
-                    [ AdvEnt::createRouteFormat($b->name), [ $permissions->create, $permissions->read, $permissions->update, $permissions->delete ] ]
+                    ['companies', [$permissions->create, $permissions->read, $permissions->update, $permissions->delete]],
+                    ['advanzer', [$permissions->create, $permissions->read, $permissions->update, $permissions->delete]],
+                    ['entuizer', [$permissions->create, $permissions->read, $permissions->update, $permissions->delete]]
                 );
+
+                $bussines = BusinessUnit::all();
+
+                foreach ($bussines as $b) {
+
+                    array_push($routesAllowed,
+                        [AdvEnt::createRouteFormat($b->name), [$permissions->create, $permissions->read, $permissions->update, $permissions->delete]]
+                    );
+                }
+
             }
 
+            //dd($routesAllowed);
+
+            return $routesAllowed;
+
+
+        }else{
+            return null;
         }
-
-
-
-        //dd($routesAllowed);
-
-        return $routesAllowed;
 
     }
 
