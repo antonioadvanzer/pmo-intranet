@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUnidadDeNegocioTable extends Migration
+class CreateUnidadNegocioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,24 @@ class CreateUnidadDeNegocioTable extends Migration
      */
     public function up()
     {
-        //Create table to save business unit information
+        // Create table to save business units
         Schema::create('business_unit', function (Blueprint $table){
             $table->increments('id');
             $table->string('name',30);
-            $table->string('description',150);
+            $table->string('description',100);
+
+            /* foreign key ----------------------- */
+            $table->integer('company')->unsigned();
+            /* ----------------------------------- */
+
+            $table->string('icon',30);
             $table->timestamps();
             $table->softDeletes();
+
+            /* Relations ---------------------------------------------- */
+            $table->foreign('company')->references('id')->on('company');
+            /* -------------------------------------------------------- */
+
         });
     }
 

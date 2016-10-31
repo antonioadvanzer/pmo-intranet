@@ -46,7 +46,7 @@
                 <li>Perfil</li> 
                 <li>Ajustes</li>
                 <li>Modo Administrador</li> 
-                <li>Cerrar Sesi&oacute;n</li>
+                <li><a href="{{ URL::to('/logout') }}">Cerrar Sesi&oacute;n</a></li>
                 </ul>
             </div>
         </nav>

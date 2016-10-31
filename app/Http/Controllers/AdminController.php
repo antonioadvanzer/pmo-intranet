@@ -1,5 +1,8 @@
 <?php
-
+/*
+    Company: Advanzer S.A de C.V.
+    Author: Antonio Báez
+*/
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

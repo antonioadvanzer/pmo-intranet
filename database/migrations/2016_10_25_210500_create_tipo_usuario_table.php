@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmpaquetamientoTable extends Migration
+class CreateTipoUsuarioTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class CreateEmpaquetamientoTable extends Migration
      */
     public function up()
     {
-        //Create table to save packing information
-        Schema::create('packing', function (Blueprint $table){
+        //Create table to save type users
+        Schema::create('type_user', function (Blueprint $table){
             $table->increments('id');
             $table->string('name',30);
+            $table->string('description',100);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,6 +29,6 @@ class CreateEmpaquetamientoTable extends Migration
      */
     public function down()
     {
-        Schema::dropifExists('packing');
+        Schema::dropifExists('type_user');
     }
 }

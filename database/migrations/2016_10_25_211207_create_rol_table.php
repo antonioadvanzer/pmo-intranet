@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsuarioTable extends Migration
+class CreateRolTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,12 +12,11 @@ class CreateUsuarioTable extends Migration
      */
     public function up()
     {
-        //Create table to save users information
-        Schema::create('user', function (Blueprint $table){
+        //Create table to save rol
+        Schema::create('rol', function (Blueprint $table){
             $table->increments('id');
-            $table->string('name',50);
-            $table->string('email')->unique();
-            $table->integer('company');
+            $table->string('name',30);
+            $table->string('description',100);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +29,6 @@ class CreateUsuarioTable extends Migration
      */
     public function down()
     {
-        Schema::dropifExists('user');
+        Schema::dropifExists('rol');
     }
 }

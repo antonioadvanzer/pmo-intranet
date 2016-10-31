@@ -49,5 +49,10 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Foundation\Http\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'advent.unknown' => \App\Http\Middleware\AdvEnt\AdvUnknownEnt::class,
+        'advent.partner' => \App\Http\Middleware\AdvEnt\AdvPartnerEnt::class,
+        'advent.admin' => \App\Http\Middleware\AdvEnt\AdvAdminEnt::class,
+        'advent.employed' => \App\Http\Middleware\AdvEnt\AdvEmployedEnt::class,
+        'advent.client' => \App\Http\Middleware\AdvEnt\AdvCustomerEnt::class,
     ];
 }
