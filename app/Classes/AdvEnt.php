@@ -126,10 +126,10 @@ class AdvEnt
     {
         $path = url()->current();
 
-        if(strpos($path, 'advanzer') !== false){
-            return Html::style('css/advanzer/styles.css');
-        }elseif(strpos($path, 'entuizer') !== false){
+        if(strpos($path, 'entuizer') !== false){
             return Html::style('css/entuizer/styles.css');
+        }elseif(strpos($path, 'advanzer') !== false){
+            return Html::style('css/advanzer/styles.css');
         }
     }
 

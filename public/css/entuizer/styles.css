@@ -889,7 +889,7 @@ body {
 .survey-progress-label {
     vertical-align: middle;
     margin: 0 10px;
-    color: #8DC63F;
+    color: #478FCB;
 }
 
 .survey-progress-bg {
@@ -910,7 +910,7 @@ body {
     height: 100%;
     left: 0;
     margin: 0;
-    background: #8DC63F;
+    background: #478FCB;
 }
 
 /* Admin Settings */
