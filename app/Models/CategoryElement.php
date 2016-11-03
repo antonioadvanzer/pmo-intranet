@@ -35,7 +35,7 @@ class CategoryElement extends Model
     /**
      * Get projects associated with some category.
      */
-    public function getBusinessUnitAssociated()
+    public function getProjectsAssociated()
     {
         return $this->hasMany('App\Models\Project','category_project');
     }

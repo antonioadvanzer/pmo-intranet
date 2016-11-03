@@ -1,4 +1,4 @@
-@extends('layout.advanzer.mainLayout')
+@extends('layout.mainLayout')
 
 @section('content')
     <!-- desktop-->

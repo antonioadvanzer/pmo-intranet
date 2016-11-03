@@ -8,6 +8,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use View;
+use Route;
 use Google_Client;
 use Google_Service_Drive;
 use AdvEnt;
@@ -114,64 +115,59 @@ class MainController extends Controller
     }
 
     /**
-     * Display a menu Advanzer.
+     * Display a menu business unit Advanzer/Entuizer.
      *
      * @return \Illuminate\Http\Response
      */
-    public function pmo_getMenuAdvanzerView()
+    public function pmo_getMenuBusinessUnitView($company = null)
     {
-        return View::make('main.advanzer.menu');
+        $business = array();
+
+        if($company == "advanzer"){
+            $business = AdvEnt::getBusinessUnits(1);
+        }elseif($company == "entuizer"){
+            $business = AdvEnt::getBusinessUnits(2);
+        }
+
+        return View::make('main.menu',compact('business'));
     }
 
     /**
-     * Display a menu with project of Advanzer.
+     * Display a menu with projects of Advaner/Entuizer.
      *
      * @return \Illuminate\Http\Response
      */
-    public function pmo_getMenuProjectsAdvanzerView()
+    public function pmo_getMenuProjectsView(Request $request, $company = null, $businessunit = null, $category = null)
     {
-        return View::make('main.advanzer.projects');
+        $projects = AdvEnt::getMenuProjects($request->path());
+
+        return View::make('main.projects',['projects' => $projects]);
     }
 
     /**
-     * Display a menu with a specified project of Advanzer.
+     * Display the specified of Advaner/Entuizer project.
      *
      * @return \Illuminate\Http\Response
      */
-    public function pmo_getMenuProjectAdvanzerView()
+    public function pmo_getProject(Request $request, $company = null, $businessunit = null, $category = null, $project = null)
     {
-        return View::make('main.advanzer.project');
+        //$project = Project::where('id', $project)->get();
+
+        $project = AdvEnt::getProject($request->path());
+
+        return View::make('main.pmo',['pmo' => $project]);
     }
 
-    /**
-     * Display a menu Entuizer.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function pmo_getMenuEntuizerView()
-    {
-        return View::make('main.entuizer.menu');
-    }
-
-    /**
-     * Display a menu with project of Entuizer.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function pmo_getMenuProjectsEntuizerView()
-    {
-        return View::make('main.entuizer.projects');
-    }
 
     /**
      * Display a menu with a specified project of Advanzer.
      *
      * @return \Illuminate\Http\Response
      */
-    public function pmo_getPMOWeb($slug = null)
+    public function pmo_getPMOWeb($company=null, $slug = null)
     {
-        if($slug == AdvEnt::getPMORoute()){
-            return View::make('main.advanzer.project', ['pmo' => AdvEnt::getPMO()]);
+        if(($company."/".$slug) == AdvEnt::getPMORoute()){
+            return View::make('main.pmo', ['pmo' => AdvEnt::getPMO()]);
         }else {
             return redirect('');
         }

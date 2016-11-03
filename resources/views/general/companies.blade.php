@@ -5,12 +5,12 @@
     <div id="desktop" class="container" >
         <br><br>
         <div class=''>
-            <a class="rr-left" href="{{ URL::to('/advanzer')  }}">
+            <a class="rr-left" href="{{ URL::to('/advanzer/businessUnit')  }}">
                 <div class="rr-text">
                     <h3>Advanzer</h3>
                 </div>
             </a>
-            <a class="rr-right" href="{{ URL::to('/entuizer')  }}">
+            <a class="rr-right" href="{{ URL::to('/entuizer/businessUnit')  }}">
                 <div class="rr-text">
                     <h3>Entuizer</h3>
                 </div>

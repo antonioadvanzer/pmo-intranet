@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
-@import "http://fontawesome.io/assets/font-awesome/css/font-awesome.css";
+@import url(http://fontawesome.io/assets/font-awesome/css/font-awesome.css);
 @import url(http://fonts.googleapis.com/css?family=Lato:300,400,700);
-@import url(http://weloveiconfonts.com/api/?family=entypo);
+/*@import url(http://weloveiconfonts.com/api/?family=entypo);*/
 
 body {
 /*background-image: url('/img/geometric04.jpg') no-repeat center center fixed;*/
@@ -20,6 +20,8 @@ background-size:cover;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    
+    font-family: 'Lato', sans-serif;
 }
 /*.menu{
   margin:100px auto auto 70px;
@@ -63,7 +65,7 @@ background-size:cover;
 .cabecera {
   width:100%; 
   height:60px; 
-  overflow:hidden; 
+  /*overflow:hidden;*/ 
   margin: 0 auto; 
   background-color:#FFF;
 
@@ -73,7 +75,7 @@ background-size:cover;
 }
 
 .cabecera > div{
-  width:950px; 
+  /*width:950px;*/ 
   height:80px; 
   margin: 0 auto; 
   overflow:hidden; 
@@ -100,9 +102,16 @@ background-size:cover;
   height:44px; 
   /*margin-top:20px;*/
   float:left; 
-  margin-left: 200px;
+  margin-left: 40%;
   position:absolute
   color: white;
+}
+
+
+@media screen and (max-width: 480px) {
+    #pagecaption h2 {
+        font-size: 15px;
+    }
 }
 
 .pie{
@@ -127,7 +136,7 @@ background-size:cover;
 .pie > div > p{
   text-align:center; 
   color:#000; 
-  font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif; 
+  /*font-family:'Lucida Sans Unicode', 'Lucida Grande', sans-serif;*/ 
   /*font-size:x-small;*/
 }
 
@@ -162,7 +171,7 @@ background-size:cover;
 }
 
 .nav{
-  font-family:'Oswald', sans-serif;
+  /*font-family:'Oswald', sans-serif;*/
   text-transform:uppercase;
   text-decoration:none;
   display:inline;
@@ -173,7 +182,7 @@ background-size:cover;
   float:left;
   text-align: center;
   font-size: 30px;
-  background: #478FCB;
+  background: #5D91C8;
   color: #fff;
   transition: all .2s ease, box-shadow .5s ease;
   -webkit-transition: all .2s ease,box-shadow 5.s ease;
@@ -186,7 +195,7 @@ background-size:cover;
 }
 .nav:hover {
     background: rgba(255,255,255,.5);
-    color: #478FCB;
+    color: #5D91C8;
     box-shadow: 0px 0px 0px 20px rgba(255,255,255,.5),0px 0px 0px 40px rgba(255,255,255,0);
     transform::scale(1);
     -webkit-transform:scale(1);
@@ -198,7 +207,8 @@ background-size:cover;
     height: 60px;
     /*width: 120px;*/
     /*line-height: 120px;*/
-    font-size: 20px;
+    font-size: 24px;
+    font-weight: bold;
     transition: margin 0.8s;
     -webkit-transition: margin 0.8s;
   }
@@ -328,7 +338,7 @@ background-size:cover;
   color: #F3F5F4;
   font-weight: 300;
   width: 100%;
-  background-color: #478FCB;
+  background-color: #5D91C8;
   text-transform: uppercase;
     -webkit-border-radius: 6px 6px 0 0;
   -moz-border-radius: 6px 6px 0 0;
@@ -396,8 +406,15 @@ background-size:cover;
     font-weight:400;
     color: rgba(0, 0, 0, 0.9);
     height:100px;
-    box-shadow:0 200px 150px -150px rgba(71, 143, 203, 0.7) inset;
+    box-shadow:0 200px 150px -150px rgba(93, 145, 200, 1.00) inset;
 }
+
+@media screen and (max-width: 480px) {
+    .titleMenu{
+        font-size: 25px;
+    }
+}
+
 .btn {
     background: rgba(0,0,0,0.6);
     color: #fff;
@@ -684,6 +701,13 @@ body {
     font-size: 14px;
     line-height: 40px;
 }
+
+@media screen and (max-width: 480px) {
+    .list .survey-item {
+        height: 80px;
+    }
+}
+
 .list .survey-item .pull-right {
     position: absolute;
     right: 0;
@@ -865,7 +889,7 @@ body {
 .survey-progress-label {
     vertical-align: middle;
     margin: 0 10px;
-    color: #4273EA;
+    color: #8DC63F;
 }
 
 .survey-progress-bg {
@@ -886,5 +910,295 @@ body {
     height: 100%;
     left: 0;
     margin: 0;
-    background: #4273EA;
+    background: #8DC63F;
+}
+
+/* Admin Settings */
+
+#header{
+    width:50px;
+    height:50px;
+    position:relative;
+    z-index: 2;
+    top:-75px;
+    left:100%;
+    transform: translateX(-100%);
+    background:#fff;
+    /*box-shadow: 0 0 10px #000;*/
+    overflow:hidden;
+    backface-visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.7, 0.01, 0.3, 1);	
+    transition-delay: 400ms;
+}
+
+/*let your hair down and show the goods*/
+#header.shownav{
+    width: 220px;
+    height: 250px;
+}
+
+.dc-menu{
+	width: 50px;
+	height: 50px;
+	/*background: rgba(0,0,0,0.2);*/
+    background-color: #5D91C8;
+	
+}
+
+.dc-menu-trigger {
+	position: absolute;
+	top: 0px;
+	left: 11px;
+	display: block;
+	width: 28px;
+	height: 50px;
+	cursor: pointer;
+	z-index: 30;
+	transition: all 0.5s cubic-bezier(0.7, 0, 0.36, 0.63);
+    transition-delay: 600ms;
+}
+
+.dc-menu-trigger span {
+	position: absolute;
+	top: 50%;
+	left: 0;
+	display: block;
+	width: 100%;
+	height: 3px;
+	margin-top: -2px;
+	background-color: #fff;
+	font-size: 0px;
+	user-select: none;
+	transition: background-color 0.5s;
+}
+
+.dc-menu-open .dc-menu-trigger span {
+	/*background-color: transparent;*/
+    background-color: #5D91C8;
+}
+
+.dc-menu-open .dc-menu-trigger {
+	left:88%; 
+	transition: all 0.4s cubic-bezier(0.7, 0, 0.36, 0.63);
+}
+
+.dc-menu-trigger span:before,
+.dc-menu-trigger span:after {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	content: '';
+  transition: all 0.5s cubic-bezier(0.7, 0, 0.36, 0.63);
+}
+
+.dc-menu-trigger span:before {
+	transform: translateY(-250%);
+}
+
+.dc-menu-trigger span:after {
+	transform: translateY(250%);
+}
+
+/*Just bust a move*/
+.dc-menu-open .dc-menu-trigger span:before {
+	transform: translateY(0) rotate(45deg);
+}
+
+.dc-menu-open .dc-menu-trigger span:after {
+	transform: translateY(0) rotate(-45deg);
+}
+
+
+.dc-menu-close .dc-menu-trigger:before {
+	animation: plusVertical 0.3s ease forwards;
+}
+
+.dc-menu-close .dc-menu-trigger:after {
+	animation: plusHorizontal 0.3s ease forwards;
+}
+
+.menu-overlay {
+	z-index: 10;
+	position: absolute;
+	top: 0px;
+	width: 100%;
+	height: 100%;
+	background: none;
+}
+
+.menu-overlay.open {
+	background:#fff;
+	height: 100%;
+}
+
+.menu-overlay ul {
+	position: absolute;
+	visibility: hidden;
+    list-style-type:none;
+	top: -40%;
+	left: 0;
+	width: 100%;
+	padding: 0;
+	opacity: 0;
+	display: table-cell;
+	vertical-align: middle;
+    transition: all 0.6s cubic-bezier(0.7, 0, 0.36, 0.63);
+	transform: perspective(600px) rotateX(20deg) rotateY(-20deg);
+}
+
+.menu-overlay ul li{
+  text-align:center;
+  font-size:1.5rem;
+  font-weight:100;
+  margin:18px 0;
+  text-transform:uppercase;
+  letter-spacing:2px;
+}
+
+.menu-overlay ul li:after {
+  content:"";
+  display:block;
+  width:30px;
+  height:1px;
+  background:#333;
+  margin:10px auto 0 auto;
+}
+
+.menu-overlay ul li:hover {
+    color:#eee;
+    cursor:pointer;
+    background-color: #5D91C8;
+}
+
+.menu-overlay.open ul {
+	top: 40px;
+	left:0;
+	visibility: visible;
+	opacity: 1;
+	margin-top: 0;
+	transform: perspective(600px) rotateX(0deg) rotateY(0deg);
+	transition: all 0.6s cubic-bezier(0.7, 0, 0.36, 0.63);
+	transition-delay: 400ms;
+}
+
+/* Global Button Styles */
+a.animated-button{
+    background: #5D91C8;
+}
+
+a.animated-button:link, a.animated-button:visited {
+	position: relative;
+	display: block;
+	margin: 30px auto 0;
+	padding: 14px 15px;
+	color: #fff;
+	font-size:14px;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	overflow: hidden;
+	letter-spacing: .08em;
+	border-radius: 0;
+	text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+a.animated-button:link:after, a.animated-button:visited:after {
+	content: "";
+	position: absolute;
+	height: 0%;
+	left: 50%;
+	top: 50%;
+	width: 150%;
+	z-index: -1;
+	-webkit-transition: all 0.75s ease 0s;
+	-moz-transition: all 0.75s ease 0s;
+	-o-transition: all 0.75s ease 0s;
+	transition: all 0.75s ease 0s;
+}
+a.animated-button:link:hover, a.animated-button:visited:hover {
+	color: #000;
+	text-shadow: none;
+    background: transparent;
+}
+a.animated-button:link:hover:after, a.animated-button:visited:hover:after {
+	height: 450%;
+}
+a.animated-button:link, a.animated-button:visited {
+	position: relative;
+	display: block;
+	margin: 30px auto 0;
+	padding: 14px 15px;
+	color: #fff;
+	font-size:14px;
+	border-radius: 0;
+	font-weight: bold;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	overflow: hidden;
+	letter-spacing: .08em;
+	text-shadow: 0 0 1px rgba(0, 0, 0, 0.2), 0 1px 0 rgba(0, 0, 0, 0.2);
+	-webkit-transition: all 1s ease;
+	-moz-transition: all 1s ease;
+	-o-transition: all 1s ease;
+	transition: all 1s ease;
+}
+
+/* Victoria Buttons */
+
+a.animated-button.victoria-one {
+	border: 2px solid #5D91C8;
+}
+a.animated-button.victoria-one:after {
+	background: RGB(240, 240, 240);
+	-moz-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+	-ms-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+	-webkit-transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+	transform: translateX(-50%) translateY(-50%) rotate(-25deg);
+}
+a.animated-button.victoria-two {
+	border: 2px solid #5D91C8;
+}
+a.animated-button.victoria-two:after {
+	background: #5D91C8;
+	-moz-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+	-ms-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+	-webkit-transform: translateX(-50%) translateY(-50%) rotate(25deg);
+	transform: translateX(-50%) translateY(-50%) rotate(25deg);
+}
+a.animated-button.victoria-three {
+	border: 2px solid #5D91C8;
+}
+a.animated-button.victoria-three:after {
+	background: #5D91C8;
+	opacity: .5;
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	transform: translateX(-50%) translateY(-50%);
+}
+a.animated-button.victoria-three:hover:after {
+	height: 140%;
+	opacity: 1;
+}
+a.animated-button.victoria-four {
+	border: 2px solid #5D91C8;
+}
+a.animated-button.victoria-four:after {
+	background: #5D91C8;
+	opacity: .5;
+	-moz-transform: translateY(-50%) translateX(-50%) rotate(90deg);
+	-ms-transform: translateY(-50%) translateX(-50%) rotate(90deg);
+	-webkit-transform: translateY(-50%) translateX(-50%) rotate(90deg);
+	transform: translateY(-50%) translateX(-50%) rotate(90deg);
+}
+a.animated-button.victoria-four:hover:after {
+	opacity: 1;
+	height: 600% !important;
 }

@@ -1,4 +1,4 @@
-@extends('layout.advanzer.mainLayout')
+@extends('layout.mainLayout')
 
 @section('content')
     <!-- desktop-->
@@ -13,7 +13,7 @@
             <span class="toggler" data-toggle="list"><span class="glyphicon glyphicon-th-list"></span></span>
 
             <ul class="surveys grid">
-
+                <!--
                 <li class="survey-item">
                     
                     <input type="hidden" id="route" class="route" value="{{ URL::to('advanzer/projects/project') }}">
@@ -134,7 +134,58 @@
                     </span>
                     </div>
                 </li>
+                -->
+                
+                @foreach($projects as $p)
+                
+                    <li class="survey-item">
+                    
+                    <input type="hidden" id="route" class="route" value="{{ $p['route'] }}">
+                    
+                    <span class="survey-country list-only">
+                        {{ $p['client'] }}
+                    </span>
 
+                    <span class="survey-name">
+                        {{ $p['name'] }}
+                    </span>
+
+                    <span class="survey-country grid-only">
+                        {{ $p['client'] }}
+                    </span>
+
+                    <div class="pull-right">
+
+                    <span class="survey-progress">
+                    <span class="survey-progress-bg">
+                    <span class="survey-progress-fg" style="width: {{ $p['progress'] }}%;"></span>
+                    </span>
+
+                    <span class="survey-progress-labels">
+                    <span class="survey-progress-label">
+                    {{ $p['progress'] }}%
+                    </span>
+
+                    <span class="survey-completes">
+                    490 / 500
+                    </span>
+                    </span>
+                    </span>
+
+                    <span class="survey-end-date ended">
+                    2014 - May 10
+                    </span>
+                    <span class="survey-stage">
+                    <span class="stage draft">Draft</span>
+                    <span class="stage awarded">Awarded</span>
+                    <span class="stage live">Live</span>
+                    <span class="stage ended active">Ended</span>
+                    </span>
+                    </div>
+                </li>
+                
+                @endforeach
+                
             </ul>
 
         </div>
