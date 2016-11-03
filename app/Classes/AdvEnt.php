@@ -142,10 +142,10 @@ class AdvEnt
     {
         $path = url()->current();
 
-        if(strpos($path, 'advanzer') !== false){
-            return Html::image('img/AD_logo.png',"Logo",array('width'=>'20%'));
-        }elseif(strpos($path, 'entuizer') !== false){
+        if(strpos($path, 'entuizer') !== false){
             return Html::image('img/EN_logo.png',"Logo",array('width'=>'20%'));
+        }elseif(strpos($path, 'advanzer') !== false){
+            return Html::image('img/AD_logo.png',"Logo",array('width'=>'20%'));
         }
     }
 
