@@ -36,6 +36,7 @@
             {{ AdvEnt::logo() }}
         </div>
         <div id="pagecaption" align="center"> <h2>PMO Intranet</h2> </div>
+        <div id="current-user"><h5><i>{{ AdvEnt::getCurrentUser()['name']." ".AdvEnt::getCurrentUser()['lastname']}}</i></h5></div>
     </div>
     
     <header id="header">
@@ -45,7 +46,9 @@
                 <ul>
                 <li>Perfil</li> 
                 <li>Ajustes</li>
-                <li>Modo Administrador</li> 
+                @if(AdvEnt::isAdmin())    
+                <li><a href="{{ URL::to('/pmo-admin') }}">Modo Administrador</a></li>
+                @endif    
                 <li><a href="{{ URL::to('/logout') }}">Cerrar Sesi&oacute;n</a></li>
                 </ul>
             </div>
@@ -53,7 +56,11 @@
     </header>
     
 </div>
-
+<div class="">
+    <br>
+    <br>
+    <br>
+</div>
 <!-- Maint Container-->
 @yield('content')
 

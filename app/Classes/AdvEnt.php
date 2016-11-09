@@ -41,6 +41,8 @@ class AdvEnt
 
                 $member = [
                     'id' => $u->id,
+                    'name' => $u->name,
+                    'lastname' => $u->last_name,
                     'username' => $u->nickname,
                     'password' => $u->password,
                     'type' => $u->type,
@@ -72,6 +74,17 @@ class AdvEnt
     {
         Session::forget("user");
     }
+
+    /**
+     * Get user's information
+     *
+     * @return Boolean
+     */
+    public static function getCurrentUser()
+    {
+        return session("user")[0];
+    }
+
 
     /**
      * If current user is customer, this function gets pmo object
@@ -141,7 +154,7 @@ class AdvEnt
     public static function logo()
     {
         $path = url()->current();
-
+        //dd($path);
         if(strpos($path, 'entuizer') !== false){
             return Html::image('img/EN_logo.png',"Logo",array('width'=>'20%'));
         }elseif(strpos($path, 'advanzer') !== false){

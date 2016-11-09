@@ -30,7 +30,7 @@
         <div class="col-md-3 left_col menu_fixed">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>PMO Intranet Advanzer</span></a>
+              <a href="{{ URL::to('') }}" class="site_title"><i class="fa fa-briefcase"></i> <span>PMO Intranet Advanzer</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -41,8 +41,8 @@
                 <img src="images/img.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
-                <span>Welcome,</span>
-                <h2>Melisa Valdes</h2>
+                <span>Bienvenido,</span>
+                <h2>{{ AdvEnt::getCurrentUser()['name']." ".AdvEnt::getCurrentUser()['lastname']}}</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -183,23 +183,24 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">Melisa Valdes
+                    <img src="images/img.jpg" alt="">{{ AdvEnt::getCurrentUser()['name']." ".AdvEnt::getCurrentUser()['lastname']}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="javascript:;"> Profile</a></li>
+                    <li><a href="javascript:;"> Perfil</a></li>
                     <li>
                       <a href="javascript:;">
-                        <span class="badge bg-red pull-right">50%</span>
-                        <span>Settings</span>
+                        <!--<span class="badge bg-red pull-right">50%</span>-->
+                        <span>Ajustes</span>
                       </a>
                     </li>
-                    <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="javascript:;">Ayuda</a></li>
+                    <li><a href="{{ URL::to('companies') }}">Modo Empleado</a></li>
+                    <li><a href="{{ URL::to('/logout') }}"><i class="fa fa-sign-out pull-right"></i> Cerrar Sesi&oacute;n</a></li>
                   </ul>
                 </li>
 
-                <li role="presentation" class="dropdown">
+                <!--<li role="presentation" class="dropdown">
                   <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-envelope-o"></i>
                     <span class="badge bg-green">6</span>
@@ -262,7 +263,7 @@
                       </div>
                     </li>
                   </ul>
-                </li>
+                </li>-->
               </ul>
             </nav>
           </div>
@@ -287,7 +288,8 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
+            <!--Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>-->
+              Advanzer S.A de C.V
           </div>
           <div class="clearfix"></div>
         </footer>
