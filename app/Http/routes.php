@@ -72,6 +72,7 @@ Route::group(['middleware' => 'advent.partner'], function(){
     Route::group(['prefix' => 'pmo-admin', 'middleware' => 'advent.admin'], function(){
 
         Route::get('/', ['as' => 'index', 'uses' => 'AdminController@index']);
+        Route::get('/users', ['as' => 'users', 'uses' => 'AdminController@admin_getUsers']);
 
     });
 

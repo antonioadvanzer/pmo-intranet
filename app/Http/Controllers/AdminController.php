@@ -5,6 +5,7 @@
 */
 namespace App\Http\Controllers;
 
+use App\Models\Users;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use View;
@@ -19,6 +20,16 @@ class AdminController extends Controller
     public function index()
     {
         return View::make('admin.index');
+    }
+
+    /**
+     * Display a listing of the users.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getUsers()
+    {
+        return View::make('admin.users',["users" => Users::all()]);
     }
 
     /**

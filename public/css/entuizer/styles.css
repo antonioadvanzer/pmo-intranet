@@ -126,6 +126,12 @@ background-size:cover;
     }
 }
 
+@media screen and (max-width: 700px) {
+    #current-user {
+        visibility: hidden;
+    }
+}
+
 .pie{
     width:100%; 
     height:70px; 
@@ -941,6 +947,10 @@ body {
     backface-visibility: hidden;
     transition: all 0.3s cubic-bezier(0.7, 0.01, 0.3, 1);	
     transition-delay: 400ms;
+}
+
+#header a{
+    color: black;
 }
 
 /*let your hair down and show the goods*/

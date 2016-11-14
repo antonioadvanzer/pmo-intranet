@@ -35,7 +35,7 @@ class TypeUser extends Model
     /**
      * Get users associated.
      */
-    public function getAllPermissions()
+    public function getUsers()
     {
         return $this->hasMany('App\Models\Users','type');
     }

@@ -38,7 +38,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46b18e2a80.png" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Bienvenido,</span>
@@ -51,7 +51,36 @@
 
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-              <div class="menu_section">
+                <div class="menu_section">
+                    <h3>General</h3>
+                    <ul class="nav side-menu">
+                      <li><a><i class="fa fa-home"></i> Princial <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="#">Menu</a></li>
+                        </ul>
+                      </li>
+                      <li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{URL::to('pmo-admin/users')}}">Todos</a></li>
+                            <li><a href="#">Nuevo</a></li>
+                        </ul>
+                      </li>
+                      <li><a><i class="fa fa-low-vision"></i> Roles <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="#">Todos</a></li>
+                            <li><a href="#">Nuevo</a></li>
+                        </ul>
+                      </li>
+                      <li><a><i class="fa fa-folder-open"></i> Proyetos <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="#">Todos</a></li>
+                          <li><a href="#">Nuevo</a></li>
+                        </ul>
+                      </li>
+                    </ul>
+                </div>
+                
+              <!--<div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
@@ -106,8 +135,9 @@
                     </ul>
                   </li>
                 </ul>
-              </div>
-              <div class="menu_section">
+              </div>-->
+              <!--<div class="menu_section">
+            
                 <h3>Live On</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-bug"></i> Additional Pages <span class="fa fa-chevron-down"></span></a>
@@ -148,7 +178,7 @@
                   </li>                  
                   <li><a href="javascript:void(0)"><i class="fa fa-laptop"></i> Landing Page <span class="label label-success pull-right">Coming Soon</span></a></li>
                 </ul>
-              </div>
+              </div>-->
 
             </div>
             <!-- /sidebar menu -->
