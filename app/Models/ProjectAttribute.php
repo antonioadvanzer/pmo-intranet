@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CategoryElement extends Model
+class ProjectAttribute extends Model
 {
     use SoftDeletes;
 
@@ -23,7 +23,7 @@ class CategoryElement extends Model
      *
      * @var string
      */
-    protected $table = 'category_element';
+    protected $table = 'project_attribute';
 
     /**
      * The attributes that should be mutated to dates.
@@ -33,10 +33,10 @@ class CategoryElement extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * Get projects associated with some category.
+     * Get Values.
      */
-    public function getProjectsAssociated()
+    public function getValues()
     {
-        return $this->hasMany('App\Models\Project','category_project');
+        return $this->hasMany('App\Models\ProjectAttributeValues','project_attribute');
     }
 }

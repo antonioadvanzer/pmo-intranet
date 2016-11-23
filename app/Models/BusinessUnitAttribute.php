@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PMO extends Model
+class BusinessUnitAttribute extends Model
 {
     use SoftDeletes;
 
@@ -15,7 +15,7 @@ class PMO extends Model
      * @var array
      */
     protected $fillable = [
-        'organization', 'model', 'planning_methodology', 'tracing', 'implementation', 'go_live', 'close_project'
+        'name', 'description'
     ];
 
     /**
@@ -23,7 +23,7 @@ class PMO extends Model
      *
      * @var string
      */
-    protected $table = 'pmo';
+    protected $table = 'business_unit_attribute';
 
     /**
      * The attributes that should be mutated to dates.
@@ -33,10 +33,10 @@ class PMO extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * Get project associated.
+     * Get Values.
      */
-    public function getProject()
+    public function getValues()
     {
-        return $this->hasOne('App\Models\Project','pmo');
+        return $this->hasMany('App\Models\BusinessUnitAttributeValue','business_unit_attribute');
     }
 }

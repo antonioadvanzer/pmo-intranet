@@ -44,11 +44,12 @@
                 </div>
                 <i class="fa {{$b['icon']}} fa-6" aria-hidden="true"></i>
                 <div class="icon">{{$b['name']}}</div>
-                <!--<h2>{{$b['rute1']}}</h2>
-                <h2>{{$b['rute2']}}</h2>-->
                 
-                <input id="{{'1r'.$b['id']}}" type="hidden" value="{{$b['rute1']}}">
-                <input id="{{'2r'.$b['id']}}" type="hidden" value="{{$b['rute2']}}">
+                <input id="{{'project'.$b['id']}}" type="hidden" value="{{ $b['rute'] }}">
+                
+                @foreach($b['attributes'] as $atts => $at)
+                    <input id="{{ $atts }}" type="hidden" value="{{ $at }}" class="attributes">
+                @endforeach
             </a>
             
             @endforeach
@@ -66,8 +67,11 @@
                 <div class="row">
                     <!--<div class="col-md-3 col-sm-3 col-xs-6"> <a href="#" class="btn btn-sm animated-button sandy-one">Sign up</a> </div>-->
                     
-                    <div class="col-md-12 col-sm-12 col-xs-12"> <a id="rute1" href="#" class="animated-button victoria-one">Proyectos</a> </div>
-                    <div class="col-md-12 col-sm-12 col-xs-12"> <a id="rute2" href="#" class="animated-button victoria-one">Administraci&oacute;n del Conocimiento</a> </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12"> <a id="rute" href="#" class="animated-button victoria-one">Proyectos</a> </div>
+                    <!--<div class="col-md-12 col-sm-12 col-xs-12"> <a id="rute2" href="#" class="animated-button victoria-one">Administraci&oacute;n del Conocimiento</a> </div>-->
+                    
+                    <div id="attributesWindow"></div>
+                    
                 </div>
             </div>
         </div>
@@ -80,16 +84,29 @@
         $(document).ready(function(){
 
             var d = $('#somedialog');
+            
             $('.open').click(function(e){
                 
-                $("#rute1").attr("href", $("#1r"+this.id).val());
-                $("#rute2").attr("href", $("#2r"+this.id).val());
+                //alert($(this).children("attributes"));
+                
+                $('#attributesWindow').html("");
+                
+                $(this).find(".attributes").each( function() {
+                    
+                    ruta = $(this).val();
+                    
+                    $('#attributesWindow').html(""+$('#attributesWindow').html()+'<div class="col-md-12 col-sm-12 col-xs-12"> <a href="'+ruta+'" class="animated-button victoria-one">'+$(this).attr('id')+'</a> </div>');
+                });
+                
+                $("#rute").attr("href", $("#project"+this.id).val());
+                //$("#rute2").attr("href", $("#2r"+this.id).val());
                 
                 d.removeClass('dialog-close');
                 d.addClass('dialog-open');
                 
                 //alert($("#1r"+this.id).val()+" "+$("#2r"+this.id).val());
             });
+            
             $('.close, .dialog-overlay').click(function(e){
                 d.removeClass('dialog-open');
                 d.addClass('dialog-close');

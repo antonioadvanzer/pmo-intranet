@@ -47,4 +47,12 @@ class BusinessUnit extends Model
     {
         return $this->hasMany('App\Models\Project','business_unit');
     }
+
+    /**
+     * Get attributes by Business Unit.
+     */
+    public function getAttributesValues()
+    {
+        return $this->hasMany('App\Models\BusinessUnitAttributeValue','business_unit');
+    }
 }

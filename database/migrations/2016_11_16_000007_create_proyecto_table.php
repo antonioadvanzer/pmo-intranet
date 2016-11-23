@@ -24,22 +24,14 @@ class CreateProyectoTable extends Migration
             $table->integer('progress');
 
             /* foreign key --------------------------------- */
-            $table->integer('category_project')->unsigned();
             $table->integer('business_unit')->unsigned();
-            $table->integer('pmo')->unsigned();
             /* --------------------------------------------- */
-
-            /* id google drive -------- */
-            $table->string('link',100);
-            /* ------------------------ */
 
             $table->timestamps();
             $table->softDeletes();
 
             /* Relations ----------------------------------------------------------------- */
-            $table->foreign('category_project')->references('id')->on('category_element');
             $table->foreign('business_unit')->references('id')->on('business_unit');
-            $table->foreign('pmo')->references('id')->on('pmo');
             /* --------------------------------------------------------------------------- */
         });
     }

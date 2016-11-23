@@ -35,7 +35,7 @@ class CreateUsuarioTable extends Migration
             $table->foreign('type')->references('id')->on('type_user');
             $table->foreign('company')->references('id')->on('company');
             $table->foreign('rol')->references('id')->on('rol');
-            $table->foreign('pmo')->references('id')->on('pmo');
+            $table->foreign('pmo')->references('id')->on('pmo_project');
             /* --------------------------------------------------------------------------- */
         });
     }

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCategoriaElementoTable extends Migration
+class CreateCategoriaPmoTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,10 @@ class CreateCategoriaElementoTable extends Migration
      */
     public function up()
     {
-        //Create table to save elements categories
-        Schema::create('category_element', function (Blueprint $table){
+        //Create table to save pmo categories
+        Schema::create('pmo_category', function (Blueprint $table){
             $table->increments('id');
-            $table->string('name',30);
-            $table->string('description',100);
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +28,6 @@ class CreateCategoriaElementoTable extends Migration
      */
     public function down()
     {
-        Schema::dropifExists('category_element');
+        Schema::dropifExists('pmo_category');
     }
 }

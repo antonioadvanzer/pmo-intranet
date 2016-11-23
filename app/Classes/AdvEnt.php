@@ -13,15 +13,22 @@ use Hash;
 use URL;
 use Html;
 use Exception;
-use App\Models\BusinessUnit;
-use App\Models\CategoryElement;
-use App\Models\Company;
-use App\Models\Permission;
-use App\Models\PMO;
-use App\Models\Project;
-use App\Models\Rol;
-use App\Models\TypeUser;
 use App\Models\Users;
+use App\Models\TypeUser;
+use App\Models\Rol;
+use App\Models\Project;
+use App\Models\ProjectAttribute;
+use App\Models\ProjectAttributeValue;
+use App\Models\Permission;
+use App\Models\Company;
+use App\Models\BusinessUnit;
+use App\Models\BusinessUnitAttribute;
+use App\Models\BusinessUnitAttributeValue;
+use App\Models\PMOAttribute;
+use App\Models\PMOCategory;
+use App\Models\PMOProject;
+use App\Models\PMOProjectAttribute;
+use App\Models\GDLink;
 
 class AdvEnt
 {
@@ -52,7 +59,7 @@ class AdvEnt
                     // Load permissions and routes allowed
                     'routesAllowed' => AdvEnt::permissionZone($u->rol)
                 ];
-
+//dd($member);
                 Session::push("user", $member);
 
                 return true;
@@ -93,7 +100,29 @@ class AdvEnt
      */
     public static function getPMO()
     {
-        return PMO::where('id',(session("user")[0]['pmo']))->get()->first();
+        $pmo = PMOProject::where('id',(session("user")[0]['pmo']))->get()->first()->getPmoProjectAttributes()->get();
+
+        //dd($pmo->getPmoProjectAttributes()->get());
+        //$pmo = $pmo->getPmoProjectAttributes();
+
+        $elementsPMO = array();
+
+        foreach($pmo as $p){
+            //dd($p->getPmoProjectAttributes());
+
+            $attributeElement = $p->getPmoAttributeAssociated()->get()->first();
+
+            //dd($attributeElement);
+
+            // Pendiente de agregar mas campos.....
+            array_push($elementsPMO,[
+                'elementName'=> $attributeElement->name,
+                'icon' => $attributeElement->icon,
+                'link' => $p->getLinkAssociated()->get()->first()->link_format
+            ]);
+        }
+
+        return $elementsPMO;
     }
 
     /**
@@ -103,7 +132,7 @@ class AdvEnt
      */
     public static function getPMORoute()
     {
-        $pmo = PMO::where('id',(session("user")[0]['pmo']))->get()->first();
+        $pmo = PMOProject::where('id',(session("user")[0]['pmo']))->get()->first();
 
         $user = session("user")[0];
 
@@ -115,7 +144,7 @@ class AdvEnt
             $route = "entuizer/";
         }
 
-        $route .= AdvEnt::createRouteFormat($pmo->getProject()->get()->first()->name);
+        $route .= AdvEnt::createRouteFormat($pmo->getProjectAssociated()->get()->first()->name);
 
         return $route;
     }
@@ -225,7 +254,7 @@ class AdvEnt
 
             // Level 2: companies -------------------------------------------------------------------------------------------------
 
-            $permissions = $rol->getAllPermissions()->where('E', null)->get();
+            $permissions = $rol->getAllPermissions()->where('C', null)->get();
 
             $permissions = $permissions->first();
 
@@ -240,14 +269,14 @@ class AdvEnt
                 //exit;
             }else{
 
-                $permissions = $rol->getAllPermissions()->where('E', AdvEnt::createRouteFormat("Advanzer"))->get();
+                $permissions = $rol->getAllPermissions()->where('C', AdvEnt::createRouteFormat("Advanzer"))->get();
                 if($permissions != null){
                     array_push($routesAllowed,
                         ["route" => 'advanzer/businessUnit']
                     );
                 }
 
-                $permissions = $rol->getAllPermissions()->where('E', AdvEnt::createRouteFormat("Entuizer"))->get();
+                $permissions = $rol->getAllPermissions()->where('C', AdvEnt::createRouteFormat("Entuizer"))->get();
                 if($permissions != null){
                     array_push($routesAllowed,
                         ["route" => 'entuizer/businessUnit']
@@ -256,6 +285,10 @@ class AdvEnt
 
             }
 
+            // Destroy variable
+            unset($permissions);
+
+//dd($routesAllowed);
             //---------------------------------------------------------------------------------------------------------------------
 
             // Level 3: business units and categories -------------------------------------------------------------------------------------------------
@@ -271,38 +304,28 @@ class AdvEnt
 
                 $business = null;
 
-                if($p->E == null){
+                if($p->C == null){
                     $business = BusinessUnit::all();
                 }else{
-                    $business = BusinessUnit::where('company', $p->E)->get();
+                    $business = BusinessUnit::where('company', $p->C)->get();
                 }
 
                 foreach($business as $b){
 
                     $projects = null;
 
-                    if($p->UN == null){
+                    if($p->BU == null){
                         $projects = Project::all();
                     }else{
-                        $projects = Project::where('business_unit', $p->UN)->get();
+                        $projects = Project::where('business_unit', $p->BU)->get();
                     }
 
-                    $category = null;
+                    array_push($routesAllowed,
+                       ["route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/projects", "businessunit" => $b->id]);
 
-                    if($p->C == null){
-                        $category = CategoryElement::all();
-                    }else{
-                        $category = CategoryElement::where('id',$p->C)->get();
-                    }
-
-                    foreach($category as $ce){
-                        array_push($routesAllowed,
-                           ["route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/".AdvEnt::createRouteFormat($ce->name)."/projects", "businessunit" => $b->id, "category" => $ce->id]
-                        );
-                    }
 
                     foreach($projects as $pr){
-                        $route = AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->getCategoryAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->name);
+                        $route = AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->name);
 
                         array_push($routesAllowed,
                             ["route" => $route, "permissions" => [$p->create, $p->read, $p->update, $p->delete], "project" => $pr->id ]
@@ -336,22 +359,37 @@ class AdvEnt
 
         $resources = BusinessUnit::where('company',$company)->get();
 
-        $category = CategoryElement::all();
-
         foreach($resources as $r){
 
             $catel = array("id" => $r->id, "name" => $r->name, "icon" => $r->icon);
 
-            $cont=1;
+            $urlRoute = AdvEnt::createRouteFormat($r->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($r->name)."/projects";
 
-            foreach($category as $ca){
-                $urlRoute = AdvEnt::createRouteFormat($r->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($r->name)."/".AdvEnt::createRouteFormat($ca->name)."/projects";
+            $catel["rute"] = URL::to($urlRoute);
 
-                $catel["rute".$cont] = URL::to($urlRoute);
+            $attributes = array();
 
-                //$catel["rute".$cont] = AdvEnt::createRouteFormat($r->name)."/".AdvEnt::createRouteFormat($ca->name)."/projects";
-                $cont++;
+            $buat = $r->getAttributesValues()->get();
+
+            //dd($buat);
+
+            //$c = 1;
+
+            foreach($buat as $bt){
+                //dd($bt->getBusinessUnitAttributeAssociated()->get()->first()->name);
+
+                /*array_push($atributes, [
+                    'name' => $bt->getBusinessUnitAttributeAssociated()->get()->first()->name,
+                    'link' => $bt->getGDLink()->get()->first()->link_format,
+                    'route' => AdvEnt::createRouteFormat($r->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($r->name)."/".AdvEnt::createRouteFormat($bt->getBusinessUnitAttributeAssociated()->get()->first()->name)
+                ]);*/
+
+                $url = AdvEnt::createRouteFormat($r->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($r->name)."/".AdvEnt::createRouteFormat($bt->getBusinessUnitAttributeAssociated()->get()->first()->name);
+
+                $attributes[$bt->getBusinessUnitAttributeAssociated()->first()->name] = URL::to($url);
             }
+
+            $catel['attributes'] = $attributes;
 
             array_push($businessUnits, $catel);
         }
@@ -374,19 +412,34 @@ class AdvEnt
         foreach($resources as $re){
             if($path == $re['route']){
                 //dd($path." ".$re['route']);
-                $projects = Project::where('business_unit', $re['businessunit'])->where('category_project', $re['category'])->get();
+                $projects = Project::where('business_unit', $re['businessunit'])->get();
                 //dd($elements);
 
                 foreach($projects as $p){
 
-                    $urlRoute = AdvEnt::createRouteFormat($p->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($p->getBusinessUnitAssociated()->first()->name)."/".AdvEnt::createRouteFormat($p->getCategoryAssociated()->first()->name)."/".AdvEnt::createRouteFormat($p->name);
+                    $urlRoute = AdvEnt::createRouteFormat($p->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($p->getBusinessUnitAssociated()->first()->name)."/".AdvEnt::createRouteFormat($p->name);
                     //dd($urlRoute);
+
+                    $attributes = array();
+
+                    $poat = $p->getAttributesValues()->get();
+
+                    $bu = $p->getBusinessUnitAssociated()->first();
+
+                    foreach($poat as $pa){
+
+                        $url = AdvEnt::createRouteFormat($bu->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($bu->name)."/".AdvEnt::createRouteFormat($p->name)."/".AdvEnt::createRouteFormat($pa->getProjectAttributeAssociated()->get()->first()->name);
+
+                        $attributes[$pa->getProjectAttributeAssociated()->first()->name] = URL::to($url);
+                    }
+
                     array_push($elements, array(
                         "id" => $p->id,
                         "name" => $p->name,
                         "client" => $p->client,
                         "progress" => $p->progress,
-                        "route" => URL::to($urlRoute)
+                        "route" => URL::to($urlRoute),
+                        "attributes" => $attributes
                     ));
                 }
 
@@ -418,6 +471,55 @@ class AdvEnt
         }
 
         return $elements;
+    }
+
+    /**
+     * Get pmo project
+     *
+     * @return Elements
+     */
+    public static function getPMOProject($path)
+    {
+        $user = session("user")[0];
+        $resources = $user['routesAllowed'];
+        $elements = null;
+
+        foreach($resources as $re){
+            if($path == $re['route']){
+                //dd($path." ".$re['route']);
+                $elements = Project::where('id', $re['project'])->first()->getPMO()->first();
+                //dd($re['project']);
+                //dd($elements);
+                break;
+            }
+        }
+
+        return $elements;
+    }
+
+    /**
+     * Get pmo project
+     *
+     * @return Elements
+     */
+    public static function getPMOAttributesProject($pmoid)
+    {
+        $pmo = PMOProject::where('id', $pmoid)->first()->getPmoProjectAttributes()->get();
+
+        $pmoA = array();
+
+        foreach($pmo as $p){
+
+            $attributeElement = $p->getPmoAttributeAssociated()->get()->first();
+
+            array_push($pmoA,[
+                'elementName'=> $attributeElement->name,
+                'icon' => $attributeElement->icon,
+                'link' => $p->getLinkAssociated()->get()->first()->link_format
+            ]);
+        }
+
+        return $pmoA;
     }
 
     /**

@@ -46,8 +46,8 @@
                             <th>Nombre</th>
                             <th>Apellidos</th>
                             <th>Nickname</th>
-                            <th>Email</th>
-                            <th>Password</th>
+                            <th>Direcci&oacute;n de Correo Electr&oacute;nico</th>
+                            <th>Contraseña</th>
                             <th>Tipo de Usuario</th>
                         </tr>
                       </thead>

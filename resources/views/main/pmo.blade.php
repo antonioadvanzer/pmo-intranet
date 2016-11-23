@@ -9,55 +9,68 @@
         <br><br>
         
         <nav id="mm" class='menu'>
-            <a class="nav" href="pmo/organizacion.html" target="main">
+            <!--<a class="nav" href="pmo/organizacion.html" target="main">
                 <div class="icon">
-                    <!--<i class="fa fa-sitemap" aria-hidden="true"></i>-->
+                    <--<i class="fa fa-sitemap" aria-hidden="true"></i>--
                 </div>
                 <i class="fa fa-sitemap fa-6" aria-hidden="true"></i>
                 <div class="icon">Organización</div>
             </a>
             <a class="nav" href="pmo/modelo.html" target="main">
                 <div class="icon">
-                    <!--<i class="fa fa-gear fa-spin"></i>-->
+                    <--<i class="fa fa-gear fa-spin"></i>--
                 </div>
                 <i class="fa fa-gear fa-spin fa-6" aria-hidden="true"></i>
                 <div class="icon">Modelo</div>
             </a>
             <a class="nav" href="pmo/planeacion_y_metodologia.html" target="main">
                 <div class="icon">
-                    <!--<i class="fa fa-book fa-fw"></i>-->
+                    <--<i class="fa fa-book fa-fw"></i>--
                 </div>
                 <i class="fa fa-book fa-fw fa-6" aria-hidden="true"></i>
                 <div class="icon">Planeación y Metodología</div>
             </a>
             <a class="nav" href="pmo/seguimiento.html" target="main">
                 <div class="icon">
-                    <!--<i class="fa fa-retweet"></i>-->
+                    <--<i class="fa fa-retweet"></i>--
                 </div>
                 <i class="fa fa-retweet fa-6" aria-hidden="true"></i>
                 <div class="icon">Seguimiento</div>
             </a>
             <a class="nav" href="pmo/implementacion.html" target="main">
                 <div class="icon">
-                    <!--<i class="fa fa-cloud-upload"></i>-->
+                    <--<i class="fa fa-cloud-upload"></i>--
                 </div>
                 <i class="fa fa-cloud-upload fa-6" aria-hidden="true"></i>
                 <div class="icon">Implementación</div>
             </a>
             <a class="nav" href="pmo/golive.html" target="main">
                 <div class="icon">
-                    <!--<i class="fa fa-rss"></i>-->
+                    <--<i class="fa fa-rss"></i>--
                 </div>
                 <i class="fa fa-rss fa-6" aria-hidden="true"></i>
                 <div class="icon">GoLive</div>
             </a>
             <a class="nav" href="pmo/cierre_de_proyecto.html" target="main">
                 <div class="icon">
-                    <!--<i class="fa fa-sign-out"></i>-->
+                    <--<i class="fa fa-sign-out"></i>--
                 </div>
                 <i class="fa fa-sign-out fa-6" aria-hidden="true"></i>
                 <div class="icon">Cierre del Proyecto</div>
+            </a>-->
+            
+            @foreach($pmo as $p)
+            
+            <a class="nav" href="pmo-web/main" target="main">
+                <div class="icon">
+                    <!--<i class="fa fa-sitemap" aria-hidden="true"></i>-->
+                </div>
+                <i class="fa {{ $p['icon'] }} fa-6" aria-hidden="true"></i>
+                <div class="icon">{{ $p['elementName'] }}</div>
             </a>
+            
+            @endforeach
+            
         </nav>
             
         <!-- Modal Window -->

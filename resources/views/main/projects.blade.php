@@ -138,9 +138,13 @@
                 
                 @foreach($projects as $p)
                 
-                    <li class="survey-item">
+                <li id="{{$p['id']}}" name="{{'ub'.$p['id']}}"  class="survey-item">
                     
-                    <input type="hidden" id="route" class="route" value="{{ $p['route'] }}">
+                    <input id="{{'project'.$p['id']}}" type="hidden" value="{{ $p['route'] }}">
+                    
+                    @foreach($p['attributes'] as $atts => $at)
+                    <input id="{{ $atts }}" type="hidden" value="{{ $at }}" class="attributes">
+                    @endforeach
                     
                     <span class="survey-country list-only">
                         {{ $p['client'] }}
@@ -189,6 +193,21 @@
             </ul>
 
         </div>
+        
+        <div id="somedialog" class="dialog">
+            <div class="dialog-overlay"></div>
+            <div class="dialog-content">
+                <h2>Elementos</h2>
+                
+                <div class="row">
+                    
+                    <div class="col-md-12 col-sm-12 col-xs-12"> <a id="rute" href="#" class="animated-button victoria-one">PMO</a> </div>
+                    
+                    <div id="attributesWindow"></div>
+                    
+                </div>
+            </div>
+        </div>
 
     </div>
 @endsection
@@ -196,7 +215,9 @@
 @section('script')
     <script type="text/javascript">
         $(document).ready(function(){
-
+            
+            var d = $('#somedialog');
+            
             (function () {
                 $(function () {
                     return $('[data-toggle]').on('click', function () {
@@ -209,7 +230,26 @@
             }.call(this));
             
             $('.survey-item').click(function (){
-                location.href = $(this).find(".route").val();
+                //location.href = $(this).find(".route").val();
+                
+                $('#attributesWindow').html("");
+                
+                $(this).find(".attributes").each( function() {
+                    
+                    ruta = $(this).val();
+                    
+                    $('#attributesWindow').html(""+$('#attributesWindow').html()+'<div class="col-md-12 col-sm-12 col-xs-12"> <a href="'+ruta+'" class="animated-button victoria-one">'+$(this).attr('id')+'</a> </div>');
+                });
+                
+                $("#rute").attr("href", $("#project"+this.id).val());
+                
+                d.removeClass('dialog-close');
+                d.addClass('dialog-open');
+            });
+            
+            $('.close, .dialog-overlay').click(function(e){
+                d.removeClass('dialog-open');
+                d.addClass('dialog-close');
             });
             
         });

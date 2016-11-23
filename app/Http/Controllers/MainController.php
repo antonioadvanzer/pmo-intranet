@@ -52,7 +52,6 @@ class MainController extends Controller
 
         exit;*/
 
-        //dd(Session::get('user'));exit;
 
         if(AdvEnt::isAdmin()){
             return redirect('/pmo-admin');
@@ -129,6 +128,8 @@ class MainController extends Controller
             $business = AdvEnt::getBusinessUnits(2);
         }
 
+        // attributes
+
         return View::make('main.menu',compact('business'));
     }
 
@@ -140,7 +141,7 @@ class MainController extends Controller
     public function pmo_getMenuProjectsView(Request $request, $company = null, $businessunit = null, $category = null)
     {
         $projects = AdvEnt::getMenuProjects($request->path());
-
+        //dd($projects);
         return View::make('main.projects',['projects' => $projects]);
     }
 
@@ -149,13 +150,15 @@ class MainController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function pmo_getProject(Request $request, $company = null, $businessunit = null, $category = null, $project = null)
+    public function pmo_getProject(Request $request, $company = null, $businessunit = null, $project = null)
     {
-        //$project = Project::where('id', $project)->get();
+        $pmoProject = AdvEnt::getPMOProject($request->path());
+        //dd($project);
 
-        $project = AdvEnt::getProject($request->path());
+        $pmoAttributes = AdvEnt::getPMOAttributesProject($pmoProject->id);
+        //dd($pmoAttributes);
 
-        return View::make('main.pmo',['pmo' => $project]);
+        return View::make('main.pmo',['pmo' => $pmoAttributes]);
     }
 
 

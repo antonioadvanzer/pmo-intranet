@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Permission extends Model
+class PMOCategory extends Model
 {
     use SoftDeletes;
 
@@ -15,7 +15,7 @@ class Permission extends Model
      * @var array
      */
     protected $fillable = [
-        'rol', 'C', 'BU', 'P', 'ABU', 'AP','create', 'read', 'update', 'delete'
+        'name'
     ];
 
     /**
@@ -23,7 +23,7 @@ class Permission extends Model
      *
      * @var string
      */
-    protected $table = 'permission';
+    protected $table = 'pmo_category';
 
     /**
      * The attributes that should be mutated to dates.
@@ -33,10 +33,18 @@ class Permission extends Model
     protected $dates = ['deleted_at'];
 
     /**
-     * Set relation of permission with his rol.
+     * get PMO Attributes
      */
-    public function getRol()
+    public function getPmoAttribute()
     {
-        return $this->belongsTo('App\Models\Rol','rol');
+        return $this->hasMany('App\Models\PMOAttribute','pmo_category');
+    }
+
+    /**
+     * get PMO Projects
+     */
+    public function getPmoProject()
+    {
+        return $this->hasMany('App\Models\PMOProject','pmo_category');
     }
 }

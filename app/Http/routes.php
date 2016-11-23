@@ -34,6 +34,13 @@ Route::group(['middleware' => 'advent.partner'], function(){
 
     });*/
 
+    // Access to pmo web, only for customers
+    Route::group(['prefix' => 'pmo-web', 'middleware' => 'advent.client'], function(){
+
+        Route::get('/{company}/{slug}', ['as' => 'pmo', 'uses' => 'MainController@pmo_getPMOWeb']);
+
+    });
+
     // Access to folder and files depending of their permissions
     Route::group(['middleware' => 'advent.employed'], function(){
 
@@ -50,21 +57,14 @@ Route::group(['middleware' => 'advent.partner'], function(){
         Route::get('/{company}/businessUnit', ['as' => 'bu', 'uses' => 'MainController@pmo_getMenuBusinessUnitView']);
 
         //Route::get('/advanzer/projects', ['as' => 'projectsA', 'uses' => 'MainController@pmo_getMenuProjectsAdvanzerView']);
-
-        Route::get('/{company}/{businessunit}/{category}/projects', ['as' => 'projects', 'uses' => 'MainController@pmo_getMenuProjectsView']);
+        //Route::get('/{company}/{businessunit}/{category}/projects', ['as' => 'projects', 'uses' => 'MainController@pmo_getMenuProjectsView']);
+        Route::get('/{company}/{businessunit}/projects', ['as' => 'projects', 'uses' => 'MainController@pmo_getMenuProjectsView']);
 
         //Route::get('/advanzer/projects/project', ['as' => 'project', 'uses' => 'MainController@pmo_getMenuProjectAdvanzerView']);
-
-        Route::get('/{company}/{businessunit}/{category}/{project}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProject']);
-
         //Route::get('/entuizer/projects', ['as' => 'projectsE', 'uses' => 'MainController@pmo_getMenuProjectsEntuizerView']);
+        //Route::get('/{company}/{businessunit}/{category}/{project}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProject']);
+        Route::get('/{company}/{businessunit}/{project}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProject']);
 
-    });
-
-    // Access to pmo web, only for customers
-    Route::group(['prefix' => 'pmo-web', 'middleware' => 'advent.client'], function(){
-
-        Route::get('{company}/{slug}', ['as' => 'pmo', 'uses' => 'MainController@pmo_getPMOWeb']);
 
     });
 

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class BusinessUnitAttributeValue extends Model
 {
     use SoftDeletes;
 
@@ -15,7 +15,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'client', 'objective', 'scope', 'status', 'progress', 'business_unit'
+        'name', 'business_unit', 'business_unit_attribute', 'link'
     ];
 
     /**
@@ -23,7 +23,7 @@ class Project extends Model
      *
      * @var string
      */
-    protected $table = 'project';
+    protected $table = 'business_unit_attribute_value';
 
     /**
      * The attributes that should be mutated to dates.
@@ -41,18 +41,18 @@ class Project extends Model
     }
 
     /**
-     * Get pmo associated.
+     * Get business unit associated attribute associated.
      */
-    public function getPMO()
+    public function getBusinessUnitAttributeAssociated()
     {
-        return $this->hasMany('App\Models\PMOProject','project');
+        return $this->belongsTo('App\Models\BusinessUnitAttribute','business_unit_attribute');
     }
 
     /**
-     * Get attributes by Project.
+     * Get link of GD associated.
      */
-    public function getAttributesValues()
+    public function getGDLink()
     {
-        return $this->hasMany('App\Models\ProjectAttributeValue','project');
+        return $this->belongsTo('App\Models\GDLink','link');
     }
 }
