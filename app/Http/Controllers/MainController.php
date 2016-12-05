@@ -11,7 +11,19 @@ use View;
 use Route;
 use Google_Client;
 use Google_Service_Drive;
+use Google_Service_Plus;
 use AdvEnt;
+use Cache;
+use Session;
+use File;
+//use GuzzleHttp\Client;
+//use Aspose;
+//use Zend\Zend_Gdata_Spreadsheets;
+//use Zend\Http\Client;
+//use Zend\Gdata\Zend_Gdata_ClientLogin;
+//use ZendGData\Spreadsheets;
+//use ZendGData\ClientLogin;
+//use ZendGData\Exception;
 
 class MainController extends Controller
 {
@@ -22,22 +34,65 @@ class MainController extends Controller
      */
     public function index()
     {
+        /*$cl = new Client();
+// Continue....
+        $res = $cl->request('POST', 'https://accounts.google.com/signin/challenge/sl/password', [
+            'auth' => ['pmo.intranet@advanzer.com', 'advanzer']
+        ]);*/
+
+        //dd(Client::setAuth());
+            //ZendLoader::loadClass('Zend_Gdata_ClientLogin');
+            /*$user = "pmo.intranet@advanzer.com";
+            $password = "advanzer";
+            //$service = Zend_Gdata_Docs::AUTH_SERVICE_NAME;
+            //$service = Spreadsheets::AUTH_SERVICE_NAME;
+            $service = 'cl';
+            $client = ClientLogin::getHttpClient($user, $password, $service);*/
+
+            /*$client = ClientLogin::getHttpClient($user, $password, $service, null,
+                ClientLogin::DEFAULT_SOURCE, null, null,
+                ClientLogin::CLIENTLOGIN_URI, 'GOOGLE');*/
+
+           /* try {
+                $client = ClientLogin::getHttpClient($user, $password, 'cl');
+            } catch (Exception $cre) {
+                echo 'URL of CAPTCHA image: ' . $cre->getCaptchaUrl() . "\n";
+                echo 'Token ID: ' . $cre->getCaptchaToken() . "\n";
+            } catch (Exception $ae) {
+                echo 'Problem authenticating: ' . $ae->exception() . "\n";
+            }*/
+
+//dd($client->getClientLoginToken());
+
+//----------------------------------------------------------------------------------------------
+// create the Google client
+
+       /* $client = new Client();
+        $res = $client->request('GET', 'https://www.googleapis.com/auth/drive');
+        //dd($res->getBody());
+        $client = new Google_Client();
+
+        $client->setAuthConfig(public_path().'/pmo-intranet.json');
+        //$client->useApplicationDefaultCredentials();
+        //$client->addScope(Google_Service_Drive::DRIVE);
+        $client->addScope(Google_Service_Plus::PLUS_ME);
+
+// returns a Guzzle HTTP Client
+        $httpClient = $client->authorize();
+
+        dd($httpClient->get('https://www.googleapis.com/plus/v1/people/me'));*/
+
+//----------------------------------------------------------------------------------------------
+
         /*$client = new Google_Client();
-        //$client->setAuthConfig(Mage::getBaseDir('etc') . '/PMO-Intranet-942863ddf80d.json');
-        $client->setAuthConfig(public_path().'/PMO-Intranet-942863ddf80d.json');
-        $client->setScopes(Google_Service_Drive::DRIVE);
-        $client->setApplicationName('pmo-intranet');
+
+        $access_token = session('token');
+dd($access_token);
+        $client->setAccessToken($access_token);
+
         $service = $this->service = new Google_Service_Drive($client);
+dd($service->files->listFiles(array())->getItems());
         $files_list = $service->files->listFiles(array());
-
-        dump($service->files->listFiles(array()));
-        //dump($files_list);
-
-        /*foreach ($files as $file) {
-            //echo($file->getMimeType() . "\n");
-            var_dump($file);
-            echo "  ";
-        }***
 
         if (count($files_list->getFiles()) == 0) {
             print "No files found.\n";
@@ -47,12 +102,80 @@ class MainController extends Controller
                 $res['id'] = $file->getId();
                 $files[] = $res;
             }
-            print_r($files);
+            //print_r($files);
         }
 
+        dd($files);*/
+
+//----------------------------------------------------------------------------------------------
+
+        /*$client = new Google_Client();
+        //$client->setHttpClient($cl);
+//dd($client->createAuthUrl());
+
+        //$client->setAuthConfig(public_path().'/PMO-Intranet-942863ddf80d.json');
+        /*$client->setAuthConfig(public_path().'/pmo-intranet.json');
+        $client->setScopes(Google_Service_Drive::DRIVE);
+        $client->setApplicationName('pmo-intranet');
+        $service = $this->service = new Google_Service_Drive($client);//
+
+        $client->setAuthConfig(public_path().'/pmo-intranet.json');
+        $client->setApplicationName('PMO Intranet');
+        //$client->addScope("https://www.googleapis.com/auth/drive");
+        $client->setScopes(Google_Service_Drive::DRIVE);
+        $client->setRedirectUri("urn:ietf:wg:oauth:2.0:oob"); // this is so you can grab the code in the browser
+        //header('Location: '. $client->createAuthUrl());exit;
+//dd($client->getHttpClient());
+        //$api_key = "AIzaSyDh7SRaIJxVvyyNWjw1KE_jt4GmXRbZFV4";
+        //$client->setDeveloperKey($api_key);
+        //$client->setRedirectUri('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['PHP_SELF']);
+
+
+        /*if($client->isAccessTokenExpired()) {
+            
+            echo 'Access Token Expired';exit;
+        }*
+        $code = '4/Ep4cQZJJx4kAu1i_4QoM4II3rBZ2hn7VPbqYwuWyhjk';
+
+        $client->fetchAccessTokenWithAuthCode($code);
+        $client->setSubject('pmo.intranet@advanzer.com');
+//dd($client->getHttpClient());
+
+Session::push("token",$client->getAccessToken());
+
+dd(session()->all());
+        dd(session('token'));
+
+        $service = $this->service = new Google_Service_Drive($client);
+
+        /*foreach ($files as $file) {
+            //echo($file->getMimeType() . "\n");
+            var_dump($file);
+            echo "  ";
+        }***
+
+        $files_list = $service->files->listFiles(array());
+
+        if (count($files_list->getFiles()) == 0) {
+            print "No files found.\n";
+        } else {
+            foreach ($files_list->getFiles() as $file) {
+                $res['name'] = $file->getName();
+                $res['id'] = $file->getId();
+                $files[] = $res;
+            }
+            //print_r($files);
+        }
+
+        dd($files);
+
         exit;*/
+// ---------------------------------------------------------------------------------------------------------------------
+       // cloud-laravel
+        //Aspose::setOutputLocation(getcwd() . "/output/");
 
-
+//dd();
+// ---------------------------------------------------------------------------------------------------------------------
         if(AdvEnt::isAdmin()){
             return redirect('/pmo-admin');
         }elseif(AdvEnt::isEmployed()){
@@ -134,11 +257,72 @@ class MainController extends Controller
     }
 
     /**
+     * Display a window with business unit attributes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getBusinessUnitAttribute(Request $request, $company = null, $businessunit = null, $attribute = null)
+    {
+        $data = array();
+        //dd(public_path());
+
+        //$directory = public_path()."/PMO-Files";
+        //$directory = public_path()."/PMO-Files/TEMPLATE PMO GOBIERNO";
+        //$directory = "PMO-Files/TEMPLATE PMO GOBIERNO";
+        //$directory = public_path()."/PMO-Files/TEMPLATE PMO GOBIERNO/010_MODELO";
+        //$directory = public_path()."/PMO-Files/TEMPLATE PMO GOBIERNO/010_MODELO/ALCANCE_ORIGINAL_PROPUESTO.pptx";
+        //$directory = storage_path("PMO-Files/TEMPLATE PMO GOBIERNO/010_MODELO/ALCANCE_ORIGINAL_PROPUESTO.pptx");
+
+        //dd(resource_path("assets"));
+
+        //dd(resource_path("assets/PMO-Files"));
+
+        //dd(File::allFiles($directory));
+        //dd(File::directories($directory));
+        //dd(File::files($directory));
+        //dd(File::size($directory));
+        //dd(File::type($directory));
+        //dd(File::extension($directory));
+        //dd(File::name($directory));
+        //dd(resource_path($directory));
+
+        //dd($request->path());
+        //dd(asset('PMO-Files'));
+
+        //get current url
+        $path = $request->path();
+        // find element value
+        $dir = AdvEnt::getLink($path);
+        // get path string
+        $link = $dir->link_format;
+
+        //dd($dir->link_format);
+        //dd(asset($dir->link_format));
+
+        return View::make('main.window',compact('link'));
+    }
+
+
+    /**
+     *
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getFoldersAndFiles(Request $request){
+
+        $files = AdvEnt::getFoldersAndFiles($request->input('dir'));
+        //$files = array("aa" => $request->input('dir'));
+
+        return json_encode($files);
+        //return $request->input('dir');
+    }
+
+    /**
      * Display a menu with projects of Advaner/Entuizer.
      *
      * @return \Illuminate\Http\Response
      */
-    public function pmo_getMenuProjectsView(Request $request, $company = null, $businessunit = null, $category = null)
+    public function pmo_getMenuProjectsView(Request $request, $company = null, $businessunit = null)
     {
         $projects = AdvEnt::getMenuProjects($request->path());
         //dd($projects);

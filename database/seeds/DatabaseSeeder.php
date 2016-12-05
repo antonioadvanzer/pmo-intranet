@@ -32,7 +32,7 @@ class DatabaseSeeder extends Seeder
         // Seed links to google drive ----------
         GDLink::create([
             'id' => 1,
-            'link_format' => "23ijeidj920ek921kwqokeoqjd"
+            'link_format' => "PMO-Files/TEMPLATE PMO GOBIERNO"
         ]);
         // -------------------------
 
@@ -286,7 +286,7 @@ class DatabaseSeeder extends Seeder
             'id' => 5,
             'name' => "Implementación",
             'pmo_category' => 1,
-            'icon' => "fa-cloud-upload"
+            'icon' => "fa-cloud-laravel-upload"
         ]);
         PMOAttribute::create([
             'id' => 6,
@@ -471,8 +471,8 @@ class DatabaseSeeder extends Seeder
             'C' => null,
             'BU' => null,
             'P' => null,
-            'ABU' => null,
-            'AP' => null,
+            'ABU' => 1,
+            'AP' => 1,
             'create' => 1,
             'read' => 1,
             'update' => 1,

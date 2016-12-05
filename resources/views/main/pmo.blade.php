@@ -39,9 +39,9 @@
             </a>
             <a class="nav" href="pmo/implementacion.html" target="main">
                 <div class="icon">
-                    <--<i class="fa fa-cloud-upload"></i>--
+                    <--<i class="fa fa-cloud-laravel-upload"></i>--
                 </div>
-                <i class="fa fa-cloud-upload fa-6" aria-hidden="true"></i>
+                <i class="fa fa-cloud-laravel-upload fa-6" aria-hidden="true"></i>
                 <div class="icon">Implementación</div>
             </a>
             <a class="nav" href="pmo/golive.html" target="main">

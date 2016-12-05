@@ -158,6 +158,8 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
 
+        //Aspose\Cloud\CloudServiceProvider::class
+
     ],
 
     /*

@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pmo-intranet",
+  "private_key_id": "2c096338f18bc115a4c82de85bf2cabfa77f2b3e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDtXR+xQNuRXlzM\nC7EX6yrqAukTYlw6YJPWI2+Wm1jXFj0N+NowbZeVYoMpHUcVztfAcYFQeHOr2dL1\n08pSZVpxmN5SJ29Xpuxmc+5Z9R8uiUc/7L/60qyij89G/oP49gha4ViDogHGnLfv\nv+Ne46jl/YS0AznnG44XQfJiM7ojYAYNAJ+SOeUWJF0NLMTwwwUFkD7UsI0oxbRh\nDWJs5FUv3Mex49pmZeE06E3bivaefxcvanUb68IL7gEqeM5b9ybXh/Dlq/PpwwNJ\n5QM4+5bO5rb4n7wbAu+YjIBgYUNptUG0o8meKhTBC8kne7OyXdTzhI2g0QWjz4MB\nsqN9ByNlAgMBAAECggEAbfkjYeCG2kc5/1+7YTWX4GwQyOZdjL6KQECSxtiaxKyN\nBRgzHxTnklLeKgJimPwIgiUUoM/t58U4NKU3rA1BZjhJaQ7US2wPQzibShqDo+/+\njuOF3xQU4Ax5II9zXbnADTsy42oAIKEjp3TkR2Z7LnPTNAP6o9TkdGodftowd4p1\nND5vfypUdfiTn597VozpfPRj23J+FwIEKYca7Haz9KwMKWKJOl8cQEgzTydaW41Y\n30PKbxYp3NtONkMt3gKPDc3cG3nuuBt179pbn3Ankl866tF6S1NdjcGK8EG7PVrh\ns+TyOJ3P1b89mVLQFi+sG9mZnNZ5K24yPTWif4550QKBgQD/NJQv103dqWVotFNE\nNYn8LmoO5aGMfpVay/gMm7GbBzb02vGr5EjNuA9Bm3mi6t4eTziMIWSu3hhiLWkt\nV6hqMl96REv4op5YhiCFcQkPmtsEnJz/guOvN4WM/Vs6FQs/Y8cPdV7qAxT5Hm+l\ni2bc6TDGrNtbGE/zCXfGDpe3IwKBgQDuGlLXjaYWmR4+148Md5HuWepjMiZcR9ku\nFQFVP1x5YUVDqyY6z1bKLTAGn6/Z93v5I/Dxa0vQR1HvpLnMx97MJ7rx6iJqniq4\nXIBwv5XuEwoztT3P4K604vCv2xwQBAul/U4fp+ZPo9Xv5mAM3L1qibBfD+HrrxUm\nDA+QzNIn1wKBgQC2sakz5mnzuQTDw/On7LvvMDr0lybjMOsyqLnWLM8kMDIDb4l6\niF4mBxHE4cxd+M0x3XyZtH4jQRMrlV6p+wqxm4YGPUY1pBS/QqWdYaIe7bjEwGkT\n8VuVX6XXnLfmCJKYupESW++qjrJA9KzwUa89jiJA2BXgTLNPRQPdYSzzCQKBgBpy\n8iDfq0N3XtS8PTe1UJCZjF/Ygkpd8NIdozhFAZC6LWeG64g83/c1bdBOjMo5o5vZ\nUjp/ILzSL1ffhIQq76TeBPY6e/g7+aLhI6NipNT9aHS1/VfKLZ4KV5IxVLyytliJ\n+tOpYvwVxv4PKTxEiQX8pYrpyL7VhBPl4xTCq9WhAoGATx5w+00RO+A7BFMNRpxV\ntO0ZAMbAc5W4OcXYkqN/7ar1O0voJGtJ/eToGL+Vm26jszzMzQkNlp+yZmE4oQY9\n3119eCc3M0V2E7EVx9SLu7DZrAMzzdD+v9t/dSRZgaiOeNuFE3XjBG4xry9o62My\nNbYObi83utalOQ+RcE8XrRc=\n-----END PRIVATE KEY-----\n",
+  "client_email": "pmo-intranet@pmo-intranet.iam.gserviceaccount.com",
+  "client_id": "110104943508646055054",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://accounts.google.com/o/oauth2/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/pmo-intranet%40pmo-intranet.iam.gserviceaccount.com"
+}

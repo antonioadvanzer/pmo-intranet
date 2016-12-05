@@ -12,6 +12,7 @@ use Session;
 use Hash;
 use URL;
 use Html;
+use File;
 use Exception;
 use App\Models\Users;
 use App\Models\TypeUser;
@@ -302,6 +303,9 @@ class AdvEnt
 
             foreach($permissions as $p){
 
+                //Secret Link
+                array_push($routesAllowed,["route" => "foldersAndFiles"]);
+
                 $business = null;
 
                 if($p->C == null){
@@ -312,6 +316,29 @@ class AdvEnt
 
                 foreach($business as $b){
 
+                    // Creating route format for BU and his attributes ----------------------------------------------------------------------------------------------
+                    array_push($routesAllowed,
+                        [
+                            "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/projects",
+                            "businessunit" => $b->id
+                        ]
+                    );
+
+                    $attributes  = $b->getAttributesValues()->get();
+
+                    foreach($attributes as $attr){
+                        array_push($routesAllowed,
+                            [
+                                "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/attribute/".AdvEnt::createRouteFormat($attr->getBusinessUnitAttributeAssociated()->get()->first()->name),
+                                "permissions" => [$p->create, $p->read, $p->update, $p->delete],
+                                "attribute" => $attr->id,
+                                "link" => $attr->getGDLink()->get()->first()->id
+                            ]
+                        );
+                    }
+
+                    // ----------------------------------------------------------------------------------------------------------------------------------------------
+
                     $projects = null;
 
                     if($p->BU == null){
@@ -320,17 +347,32 @@ class AdvEnt
                         $projects = Project::where('business_unit', $p->BU)->get();
                     }
 
-                    array_push($routesAllowed,
-                       ["route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/projects", "businessunit" => $b->id]);
-
-
                     foreach($projects as $pr){
+
+                        // Creating route format for BU and his attributes ----------------------------------------------------------------------------------------------
                         $route = AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->name);
 
                         array_push($routesAllowed,
-                            ["route" => $route, "permissions" => [$p->create, $p->read, $p->update, $p->delete], "project" => $pr->id ]
-                            //[$route, [$p->create, $p->read, $p->update, $p->delete], $pr->id ]
+                            [
+                                "route" => $route,
+                                "permissions" => [$p->create, $p->read, $p->update, $p->delete],
+                                "project" => $pr->id
+                            ]
                         );
+
+                        $attributes  = $pr->getAttributesValues()->get();
+
+                        foreach($attributes as $attr){
+                            array_push($routesAllowed,
+                                [
+                                    "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/".AdvEnt::createRouteFormat($pr->name)."/attribute/".AdvEnt::createRouteFormat($attr->getProjectAttributeAssociated()->get()->first()->name),
+                                    "permissions" => [$p->create, $p->read, $p->update, $p->delete],
+                                    "attribute" => $attr->id,
+                                    "link" => $attr->getGDLink()->get()->first()->id
+                                ]
+                            );
+                        }
+                        // ----------------------------------------------------------------------------------------------------------------------------------------------
                     }
 
                 }
@@ -384,7 +426,7 @@ class AdvEnt
                     'route' => AdvEnt::createRouteFormat($r->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($r->name)."/".AdvEnt::createRouteFormat($bt->getBusinessUnitAttributeAssociated()->get()->first()->name)
                 ]);*/
 
-                $url = AdvEnt::createRouteFormat($r->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($r->name)."/".AdvEnt::createRouteFormat($bt->getBusinessUnitAttributeAssociated()->get()->first()->name);
+                $url = AdvEnt::createRouteFormat($r->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($r->name)."/attribute/".AdvEnt::createRouteFormat($bt->getBusinessUnitAttributeAssociated()->get()->first()->name);
 
                 $attributes[$bt->getBusinessUnitAttributeAssociated()->first()->name] = URL::to($url);
             }
@@ -395,6 +437,68 @@ class AdvEnt
         }
         //dd($businessUnits);
         return $businessUnits;
+    }
+
+    /**
+     * Get business units attributes
+     *
+     * @return Files
+     */
+    public static function getLink($path){
+
+        $user = session("user")[0];
+        $resources = $user['routesAllowed'];
+        //$elements = array();
+        $link = "";
+
+        foreach($resources as $re){
+            if($path == $re['route']){
+//dd($re['link']);
+
+                $link = GDLink::where('id', $re['link'])->get()->first();
+
+                break;
+            }
+        }
+
+        return $link;
+    }
+
+    /**
+     * Get business units attributes files
+     *
+     * @return Files
+     */
+    public static function getFoldersAndFiles($dir){
+
+        $elements = array();
+
+        $data1 = File::directories($dir);
+        $data2 = File::files($dir);
+
+        foreach($data1 as $d){
+            array_push($elements, array(
+                "name" => File::name($d),
+                "type" => File::type($d),
+                "extension" => File::extension($d),
+                "route" => $d
+            ));
+        }
+
+        foreach($data2 as $d){
+            array_push($elements, array(
+                "name" => File::name($d),
+                "type" => File::type($d),
+                "extension" => File::extension($d),
+                "route" => $d,
+                "asset" => asset($d)
+            ));
+        }
+
+        unset($data1);
+        unset($data2);
+
+        return $elements;
     }
 
     /**
@@ -428,7 +532,7 @@ class AdvEnt
 
                     foreach($poat as $pa){
 
-                        $url = AdvEnt::createRouteFormat($bu->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($bu->name)."/".AdvEnt::createRouteFormat($p->name)."/".AdvEnt::createRouteFormat($pa->getProjectAttributeAssociated()->get()->first()->name);
+                        $url = AdvEnt::createRouteFormat($bu->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($bu->name)."/".AdvEnt::createRouteFormat($p->name)."/attribute/".AdvEnt::createRouteFormat($pa->getProjectAttributeAssociated()->get()->first()->name);
 
                         $attributes[$pa->getProjectAttributeAssociated()->first()->name] = URL::to($url);
                     }

@@ -24,8 +24,11 @@ class CreatePermisoTable extends Migration
             $table->integer('C')->nullable();
             $table->integer('BU')->nullable();
             $table->integer('P')->nullable();
-            $table->integer('ABU')->nullable();
-            $table->integer('AP')->nullable();
+            /* ------------------------------- */
+
+            /* true or false ----------------- */
+            $table->boolean('ABU');
+            $table->boolean('AP');
             /* ------------------------------- */
 
             $table->boolean('create');

@@ -44,9 +44,9 @@ Route::group(['middleware' => 'advent.partner'], function(){
     // Access to folder and files depending of their permissions
     Route::group(['middleware' => 'advent.employed'], function(){
 
-        Route::get('/first', function () {
+        /*Route::get('/first', function () {
             return view('construction');
-        });
+        });*/
 
         Route::get('/companies', ['as' => 'company', 'uses' => 'MainController@pmo_getCompaniesView']);
 
@@ -56,15 +56,21 @@ Route::group(['middleware' => 'advent.partner'], function(){
         // ---- Level 1 : Get view with business unit resources Advanzer/Entuizer
         Route::get('/{company}/businessUnit', ['as' => 'bu', 'uses' => 'MainController@pmo_getMenuBusinessUnitView']);
 
+        Route::get('/{company}/{businessunit}/attribute/{attribute}', ['as' => 'projects', 'uses' => 'MainController@pmo_getBusinessUnitAttribute']);
+
         //Route::get('/advanzer/projects', ['as' => 'projectsA', 'uses' => 'MainController@pmo_getMenuProjectsAdvanzerView']);
         //Route::get('/{company}/{businessunit}/{category}/projects', ['as' => 'projects', 'uses' => 'MainController@pmo_getMenuProjectsView']);
         Route::get('/{company}/{businessunit}/projects', ['as' => 'projects', 'uses' => 'MainController@pmo_getMenuProjectsView']);
+
+        Route::get('/{company}/{businessunit}/{project}/attribute/{attribute}', ['as' => 'projects', 'uses' => 'MainController@pmo_getAttributeProject']);
 
         //Route::get('/advanzer/projects/project', ['as' => 'project', 'uses' => 'MainController@pmo_getMenuProjectAdvanzerView']);
         //Route::get('/entuizer/projects', ['as' => 'projectsE', 'uses' => 'MainController@pmo_getMenuProjectsEntuizerView']);
         //Route::get('/{company}/{businessunit}/{category}/{project}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProject']);
         Route::get('/{company}/{businessunit}/{project}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProject']);
 
+        // Secret route to get array list
+        Route::post('foldersAndFiles', ['as' => 'dir', 'uses' => 'MainController@pmo_getFoldersAndFiles']);
 
     });
 
