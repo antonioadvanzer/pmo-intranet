@@ -263,7 +263,7 @@ dd(session()->all());
      */
     public function pmo_getBusinessUnitAttribute(Request $request, $company = null, $businessunit = null, $attribute = null)
     {
-        $data = array();
+        //$data = array();
         //dd(public_path());
 
         //$directory = public_path()."/PMO-Files";
@@ -291,30 +291,19 @@ dd(session()->all());
 
         //get current url
         $path = $request->path();
+
         // find element value
-        $dir = AdvEnt::getLink($path);
+        $dir = AdvEnt::getBusinessUnitsAttributeValue($path);
+        $link  = AdvEnt::getLink($dir['link']);
+        $title = AdvEnt::getBusinessUnitAttribute($dir['attribute'])->name;
+
         // get path string
-        $link = $dir->link_format;
+        $link = $link->link_format;
 
         //dd($dir->link_format);
         //dd(asset($dir->link_format));
 
-        return View::make('main.window',compact('link'));
-    }
-
-
-    /**
-     *
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function pmo_getFoldersAndFiles(Request $request){
-
-        $files = AdvEnt::getFoldersAndFiles($request->input('dir'));
-        //$files = array("aa" => $request->input('dir'));
-
-        return json_encode($files);
-        //return $request->input('dir');
+        return View::make('main.window',compact('link','title'));
     }
 
     /**
@@ -324,9 +313,31 @@ dd(session()->all());
      */
     public function pmo_getMenuProjectsView(Request $request, $company = null, $businessunit = null)
     {
-        $projects = AdvEnt::getMenuProjects($request->path());
+        $projects = AdvEnt::getProjects($request->path());
         //dd($projects);
         return View::make('main.projects',['projects' => $projects]);
+    }
+
+    /**
+     * Display a window with business unit attributes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getProjectAttribute(Request $request, $company = null, $businessunit = null, $project = null, $attribute = null)
+    {
+
+        //get current url
+        $path = $request->path();
+
+        // find element value
+        $dir = AdvEnt::getProjectAttributeValue($path);
+        $link  = AdvEnt::getLink($dir['link']);
+        $title = AdvEnt::getProjectAttribute($dir['attribute'])->name;
+
+        // get path string
+        $link = $link->link_format;
+
+        return View::make('main.window',compact('link','title'));
     }
 
     /**
@@ -358,6 +369,20 @@ dd(session()->all());
         }else {
             return redirect('');
         }
+    }
+
+    /**
+     *
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getFoldersAndFiles(Request $request){
+
+        $files = AdvEnt::getFoldersAndFiles($request->input('dir'));
+        //$files = array("aa" => $request->input('dir'));
+
+        return json_encode($files);
+        //return $request->input('dir');
     }
 
     /**

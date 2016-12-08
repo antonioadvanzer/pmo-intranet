@@ -331,7 +331,8 @@ class AdvEnt
                             [
                                 "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/attribute/".AdvEnt::createRouteFormat($attr->getBusinessUnitAttributeAssociated()->get()->first()->name),
                                 "permissions" => [$p->create, $p->read, $p->update, $p->delete],
-                                "attribute" => $attr->id,
+                                "attributevalue" => $attr->id,
+                                "attribute" => $attr->getBusinessUnitAttributeAssociated()->get()->first()->id,
                                 "link" => $attr->getGDLink()->get()->first()->id
                             ]
                         );
@@ -367,7 +368,8 @@ class AdvEnt
                                 [
                                     "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/".AdvEnt::createRouteFormat($pr->name)."/attribute/".AdvEnt::createRouteFormat($attr->getProjectAttributeAssociated()->get()->first()->name),
                                     "permissions" => [$p->create, $p->read, $p->update, $p->delete],
-                                    "attribute" => $attr->id,
+                                    "attributevalue" => $attr->id,
+                                    "attribute" => $attr->getProjectAttributeAssociated()->get()->first()->id,
                                     "link" => $attr->getGDLink()->get()->first()->id
                                 ]
                             );
@@ -387,6 +389,17 @@ class AdvEnt
         }else{
             return null;
         }
+
+    }
+
+    /**
+     * Get GDLink
+     *
+     * @return GDLink
+     */
+    public static function getLink($link)
+    {
+        return GDLink::where('id', $link)->get()->first();
 
     }
 
@@ -440,65 +453,40 @@ class AdvEnt
     }
 
     /**
+     * Get BusinessUnitAttribute
+     *
+     * @return BusinessUnitAttribute
+     */
+    public static function getBusinessUnitAttribute($id)
+    {
+        return BusinessUnitAttribute::where('id', $id)->get()->first();
+
+    }
+
+    /**
      * Get business units attributes
      *
      * @return Files
      */
-    public static function getLink($path){
+    public static function getBusinessUnitsAttributeValue($path){
 
         $user = session("user")[0];
         $resources = $user['routesAllowed'];
         //$elements = array();
-        $link = "";
+        //$link = "";
+        $attribute = null;
 
         foreach($resources as $re){
             if($path == $re['route']){
 //dd($re['link']);
 
-                $link = GDLink::where('id', $re['link'])->get()->first();
-
+                //$link = GDLink::where('id', $re['link'])->get()->first();
+                $attribute = $re;
                 break;
             }
         }
 
-        return $link;
-    }
-
-    /**
-     * Get business units attributes files
-     *
-     * @return Files
-     */
-    public static function getFoldersAndFiles($dir){
-
-        $elements = array();
-
-        $data1 = File::directories($dir);
-        $data2 = File::files($dir);
-
-        foreach($data1 as $d){
-            array_push($elements, array(
-                "name" => File::name($d),
-                "type" => File::type($d),
-                "extension" => File::extension($d),
-                "route" => $d
-            ));
-        }
-
-        foreach($data2 as $d){
-            array_push($elements, array(
-                "name" => File::name($d),
-                "type" => File::type($d),
-                "extension" => File::extension($d),
-                "route" => $d,
-                "asset" => asset($d)
-            ));
-        }
-
-        unset($data1);
-        unset($data2);
-
-        return $elements;
+        return $attribute;
     }
 
     /**
@@ -506,7 +494,7 @@ class AdvEnt
      *
      * @return Elements
      */
-    public static function getMenuProjects($path)
+    public static function getProjects($path)
     {
         $user = session("user")[0];
         $resources = $user['routesAllowed'];
@@ -552,6 +540,43 @@ class AdvEnt
         }
 
         return $elements;
+    }
+
+    /**
+     * Get BusinessUnitAttribute
+     *
+     * @return BusinessUnitAttribute
+     */
+    public static function getProjectAttribute($id)
+    {
+        return ProjectAttribute::where('id', $id)->get()->first();
+
+    }
+
+    /**
+     * Get business units attributes
+     *
+     * @return Files
+     */
+    public static function getProjectAttributeValue($path){
+
+        $user = session("user")[0];
+        $resources = $user['routesAllowed'];
+        //$elements = array();
+        //$link = "";
+        $attribute = null;
+
+        foreach($resources as $re){
+            if($path == $re['route']){
+//dd($re['link']);
+
+                //$link = GDLink::where('id', $re['link'])->get()->first();
+                $attribute = $re;
+                break;
+            }
+        }
+
+        return $attribute;
     }
 
     /**
@@ -624,6 +649,43 @@ class AdvEnt
         }
 
         return $pmoA;
+    }
+
+    /**
+     * Get business units attributes files
+     *
+     * @return Files
+     */
+    public static function getFoldersAndFiles($dir){
+
+        $elements = array();
+
+        $data1 = File::directories($dir);
+        $data2 = File::files($dir);
+
+        foreach($data1 as $d){
+            array_push($elements, array(
+                "name" => File::name($d),
+                "type" => File::type($d),
+                "extension" => File::extension($d),
+                "route" => $d
+            ));
+        }
+
+        foreach($data2 as $d){
+            array_push($elements, array(
+                "name" => File::name($d),
+                "type" => File::type($d),
+                "extension" => File::extension($d),
+                "route" => $d,
+                "asset" => asset($d)
+            ));
+        }
+
+        unset($data1);
+        unset($data2);
+
+        return $elements;
     }
 
     /**

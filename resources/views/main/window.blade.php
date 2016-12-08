@@ -4,7 +4,7 @@
 <meta name="_token" content="{!! csrf_token() !!}"/>
     <!-- desktop-->
     <div class="container" align="center">
-        <h1 class="titleMenu">Archivos</h1>
+        <h1 class="titleMenu">{{$title}}</h1>
     </div>
     
     <div class="container">
@@ -31,7 +31,8 @@
                 <button id="close" type="button" class="boton" aria-label="Left Align">
                   <span class="glyphicon glyphicon glyphicon-remove" aria-hidden="true"></span>
                 </button>
-                Carpeta o archivo
+                
+                <label id="titwin">Carpeta o archivo</label>
             </div>
             <!--<div class="ico folder">
                 <br><br><br><br><br><a href="#">Arquitectura e instalaci&oacute;n</a>
@@ -98,16 +99,6 @@
             $('#close').hide();
             $('#ff').hide();
             
-            $('#before').click(function(){
-                 //getResource(before);
-                getBack();
-                updatePath();
-            });
-            $('#after').click(function(){
-                 //getResource(after);
-                getNext();
-                updatePath();
-            });
         });
         
         var pages = [];
@@ -116,6 +107,17 @@
         //var current = "";
         //var after = "";
         //var folder = "";
+        
+        $('#before').click(function(){
+                 //getResource(before);
+                getBack();
+                updatePath();
+        });
+        $('#after').click(function(){
+             //getResource(after);
+            getNext();
+            updatePath();
+        });
         
         function getViewer(file){
             return "<iframe src='http://docs.google.com/gview?url="+file+"&embedded=true' width ='100%' height='600'></iframe>";
@@ -128,6 +130,7 @@
             $('#before').show();
             $('#close').hide();
             $('#ff').hide();
+            changeTitle();
         }
         
         function updatePath(){
@@ -172,6 +175,7 @@
                 $('#before').hide();
             }
             $('#after').show();
+            changeTitle();
         }
         
         function getNext(){
@@ -181,6 +185,18 @@
                 $('#after').hide();
             }
             $('#before').show();
+            changeTitle();
+        }
+        
+        function changeTitle(title){
+            
+            if(title == null){
+                element = pages[pointer];
+                elements = element.split("/");
+                $('#titwin').html(elements[elements.length-1]);
+            }else{
+                $('#titwin').html(title);
+            }
         }
         
         function getResource(dir){
@@ -258,9 +274,10 @@
                     
                     $("#cw").append(value);
                     
-                    $("#element-dir"+i).click(function(e) {
+                    $("#element-dir"+i).dblclick(function(e) {
                         route = $(this).find(".dir").val();
                         
+                        changeTitle($(this).find("a").html());
                         getResource(route);
                         addDir(route);
                         updatePath();
@@ -269,9 +286,9 @@
                         //this.current = route;
                     });
                         
-                    $("#element-file"+i).click(function(e) {
+                    $("#element-file"+i).dblclick(function(e) {
                         route = $(this).find(".asset").val();
-                        
+                        changeTitle($(this).find("a").html());
                         viewer = getViewer(route);
                         
                         //window = $("#cw").html();

@@ -62,7 +62,7 @@ Route::group(['middleware' => 'advent.partner'], function(){
         //Route::get('/{company}/{businessunit}/{category}/projects', ['as' => 'projects', 'uses' => 'MainController@pmo_getMenuProjectsView']);
         Route::get('/{company}/{businessunit}/projects', ['as' => 'projects', 'uses' => 'MainController@pmo_getMenuProjectsView']);
 
-        Route::get('/{company}/{businessunit}/{project}/attribute/{attribute}', ['as' => 'projects', 'uses' => 'MainController@pmo_getAttributeProject']);
+        Route::get('/{company}/{businessunit}/{project}/attribute/{attribute}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProjectAttribute']);
 
         //Route::get('/advanzer/projects/project', ['as' => 'project', 'uses' => 'MainController@pmo_getMenuProjectAdvanzerView']);
         //Route::get('/entuizer/projects', ['as' => 'projectsE', 'uses' => 'MainController@pmo_getMenuProjectsEntuizerView']);
