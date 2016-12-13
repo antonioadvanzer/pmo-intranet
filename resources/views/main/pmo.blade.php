@@ -1,7 +1,6 @@
 @extends('layout.mainLayout')
 
 @section('content')
-<meta name="_token" content="{!! csrf_token() !!}"/>
     <!-- desktop-->
     <div class="container" align="center">
         <!--<h1 class="titleMenu">Unidades de Negocio</h1>-->
@@ -69,7 +68,7 @@
                 </div>
                 <input class="dirgd" type="hidden" value="{{ $p['link'] }}">
                 <i class="fa {{ $p['icon'] }} fa-6" aria-hidden="true"></i>
-                <div class="icon">{{ $p['elementName'] }}</div>
+                <div class="icon nm">{{ $p['elementName'] }}</div>
             </a>
             
             @endforeach
@@ -79,10 +78,10 @@
         <!-- Modal Window -->
         <div id="modal" class="hide" style="background-color:white;">
             <div id="barra">
-                <div class="col-xs-8" align="left">
+                <div class="" align="left">
                     <span class="glyphicon glyphicon-remove" id="back"></span>
                 </div>
-                <div class="col-xs-8" align="center">
+                <div class="" align="center">
                     <label id="title">Titulo</label>
                 </div>
             </div>
@@ -97,10 +96,10 @@
                 </nav>
             </div>
             <div class="barra">
-                <button id="before" type="button" class="boton" aria-label="Left Align">
+                <button id="bef" type="button" class="boton" aria-label="Left Align">
                   <span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
                 </button>
-                <button id="after" type="button" class="boton" aria-label="Left Align">
+                <button id="aft" type="button" class="boton" aria-label="Left Align">
                   <span class="glyphicon glyphicon-arrow-right" aria-hidden="true"></span>
                 </button>
                 <button id="close" type="button" class="boton" aria-label="Left Align">
@@ -124,18 +123,19 @@
         
         $(document).ready(function(){
             
-            $('#before').hide();
-            $('#after').hide();
+            $('#bef').hide();
+            $('#aft').hide();
             $('#close').hide();
             $('#ff').hide();
+            
         });
         
-        $('#before').click(function(){
+        $('#bef').click(function(){
                  //getResource(before);
                 getBack();
                 updatePath();
         });
-        $('#after').click(function(){
+        $('#aft').click(function(){
              //getResource(after);
             getNext();
             updatePath();
@@ -162,11 +162,26 @@
             getResource($(this).find(".dirgd").val());
             addDir($(this).find(".dirgd").val());
             updatePath();
+            
+            //$(this).find(".nm").text()
+            changeTitle();
         });
 
         // Close Modal Window
         $("#back").click(function() {
-
+            
+            //alert(pages+" "+pointer);
+            $('#bef').hide();
+            $('#aft').hide();
+            $('#close').hide();
+            $('#ff').hide();
+            //alert("");
+            changeTitle("");
+            //closeViewer();
+            
+            pages = [];
+            pointer = -1;
+            
             $("#modal").hide('fast');
 
             $("#modal").removeClass("window");
@@ -176,11 +191,17 @@
 
             //$("#mm").animate({left: '50%',opacity: '0.1',});
             
-            pages = [];
-            pointer = -1;
-            $('#before').hide();
-            $('#after').hide();
+            
         });
+        
+        function shortText(text, length){
+            
+            if(text.length > length){
+                text = text.substring(0,length)+"...";
+            }
+            
+            return text
+        }
         
         function getViewer(file){
             return "<iframe src='http://docs.google.com/gview?url="+file+"&embedded=true' width ='100%' height='600'></iframe>";
@@ -190,7 +211,7 @@
             //console.log(folder);
             //$("#cw").html(folder);
             $('#cw').show();
-            $('#before').show();
+            $('#bef').show();
             $('#close').hide();
             $('#ff').hide();
             changeTitle();
@@ -226,18 +247,18 @@
             console.log(pages);
             
             if(pages[pointer-1] != null){
-                $('#before').show();
+                $('#bef').show();
             }
-            $('#after').hide();
+            $('#aft').hide();
         }
         
         function getBack(){
             pointer--;
             getResource(pages[pointer]);
             if(pages[pointer-1] == null){
-                $('#before').hide();
+                $('#bef').hide();
             }
-            $('#after').show();
+            $('#aft').show();
             changeTitle();
         }
         
@@ -245,16 +266,16 @@
             pointer++;
             getResource(pages[pointer]);
             if(pages[pointer+1] == null){
-                $('#after').hide();
+                $('#aft').hide();
             }
-            $('#before').show();
+            $('#bef').show();
             changeTitle();
         }
         
         function changeTitle(title){
-            
             if(title == null){
                 element = pages[pointer];
+                console.log(element);
                 elements = element.split("/");
                 $('#titwin').html(elements[elements.length-1]);
             }else{
@@ -325,50 +346,74 @@
                             break;
                         }
                     }
-                            
-                     value = '<div id="'+element+i+'" class="'+icon+'">'+data[i]["extension"]
-                                +'<br><br><br><br><br>'
-                                +'<input class="dir" type="hidden" value="'+data[i]["route"]+'">'
-                                +'<input class="type" type="hidden" value="'+data[i]["type"]+'">'
-                                +'<input class="asset" type="hidden" value="'+data[i]["asset"]+'">'
-                                +'<a href="#">'+data[i]["name"]+'</a>'
-                                +'</div>';
                     
+                    name = shortText(data[i]["name"],14);
+                        
+                    value = '<div id="'+element+i+'" class="'+icon+'">'+data[i]["extension"]
+                            +'<br><br><br><br><br>'
+                            +'<input class="dir" type="hidden" value="'+data[i]["route"]+'">'
+                            +'<input class="type" type="hidden" value="'+data[i]["type"]+'">'
+                            +'<input class="asset" type="hidden" value="'+data[i]["asset"]+'">'
+                            +'<input class="name" type="hidden" value="'+data[i]["name"]+'">'
+                            +'<a href="#">'+name+'</a>'
+                            +'</div>';
+                    
+                    /*var contentDiv = $(".container");
+                    contentDiv.html(longString.substr(0,12) + "...");
+
+                    contentDiv.mouseover(function(){ 
+                         this.html(longString);
+                    });
+
+                    contentDiv.mouseout(function(){
+                         this.html(longString.substr(0,12) + "...");
+                    });*/
+                        
                     
                     $("#cw").append(value);
                     
                     $("#element-dir"+i).dblclick(function(e) {
                         route = $(this).find(".dir").val();
                         
-                        changeTitle($(this).find("a").html());
+                        changeTitle($(this).find(".name").val());
                         getResource(route);
                         addDir(route);
                         updatePath();
                         
                         //this.before = this.current;
                         //this.current = route;
+                    }).mouseover(function(){ 
+                        cn = $(this).find(".name").val();
+                        $(this).find("a").html(cn);
+                    }).mouseout(function(){
+                         $(this).find("a").html(shortText($(this).find("a").html(), 14));
                     });
                         
                     $("#element-file"+i).dblclick(function(e) {
                         route = $(this).find(".asset").val();
-                        changeTitle($(this).find("a").html());
+                        changeTitle($(this).find(".name").val());
                         viewer = getViewer(route);
                         
                         //window = $("#cw").html();
                         //folder = $("#cw").html();
                         $("#cw").hide();
-                        $('#before').hide();
-                        $('#after').hide();
+                        $('#bef').hide();
+                        $('#aft').hide();
                         
                         $("#ff").html(viewer);
                         $("#ff").show();
                         
+                        $('#close').show();
+                        
                         $('#close').click(function(){
                             closeViewer();
                         });
-                        
-                        $('#close').show();
                        
+                    }).mouseover(function(){ 
+                        cn = $(this).find(".name").val();
+                        $(this).find("a").html(cn);
+                    }).mouseout(function(){
+                         $(this).find("a").html(shortText($(this).find("a").html(), 14));
                     });
                 }
 

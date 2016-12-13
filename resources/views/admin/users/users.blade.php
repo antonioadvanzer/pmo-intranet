@@ -47,7 +47,7 @@
                             <th>Apellidos</th>
                             <th>Nickname</th>
                             <th>Direcci&oacute;n de Correo Electr&oacute;nico</th>
-                            <th>Contraseña</th>
+                            <!--<th>Contraseña</th>-->
                             <th>Tipo de Usuario</th>
                         </tr>
                       </thead>
@@ -58,8 +58,8 @@
                             <td>{{ $u->last_name}}</td>
                             <td>{{ $u->nickname}}</td>
                             <td>{{ $u->email}}</td>
-                            <td>{{ $u->password}}</td>
-                            <td>{{ $u->type}}</td>
+                            <!--<td>{{ $u->password}}</td>-->
+                            <td>{{ $u->getTypeUser()->first()->name}}</td>
                         </tr>
                         @endforeach
                       </tbody>

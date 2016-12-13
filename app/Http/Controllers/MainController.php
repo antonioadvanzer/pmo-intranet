@@ -364,6 +364,7 @@ dd(session()->all());
      */
     public function pmo_getPMOWeb($company=null, $slug = null)
     {
+        //dd(AdvEnt::getPMO());
         if(($company."/".$slug) == AdvEnt::getPMORoute()){
             return View::make('main.pmo', ['pmo' => AdvEnt::getPMO()]);
         }else {

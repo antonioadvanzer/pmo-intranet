@@ -62,7 +62,7 @@
                       <li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
                             <li><a href="{{URL::to('pmo-admin/users')}}">Todos</a></li>
-                            <li><a href="#">Nuevo</a></li>
+                            <li><a href="{{URL::to('pmo-admin/newUser')}}">Nuevo</a></li>
                         </ul>
                       </li>
                       <li><a><i class="fa fa-low-vision"></i> Roles <span class="fa fa-chevron-down"></span></a>

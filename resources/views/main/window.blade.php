@@ -1,7 +1,6 @@
 @extends('layout.mainLayout')
 
 @section('content')
-<meta name="_token" content="{!! csrf_token() !!}"/>
     <!-- desktop-->
     <div class="container" align="center">
         <h1 class="titleMenu">{{$title}}</h1>
@@ -89,6 +88,7 @@
             getResource($("#folder").val());
             addDir($("#folder").val());
             updatePath();
+            changeTitle();
             //getResource("ss");
             
             //this.current = $("#folder").val();
@@ -118,6 +118,15 @@
             getNext();
             updatePath();
         });
+        
+        function shortText(text, length){
+            
+            if(text.length > length){
+                text = text.substring(0,length)+"...";
+            }
+            
+            return text
+        }
         
         function getViewer(file){
             return "<iframe src='http://docs.google.com/gview?url="+file+"&embedded=true' width ='100%' height='600'></iframe>";
@@ -262,13 +271,16 @@
                             break;
                         }
                     }
-                            
-                     value = '<div id="'+element+i+'" class="'+icon+'">'+data[i]["extension"]
+                    
+                    name = shortText(data[i]["name"],14);
+                    
+                    value = '<div id="'+element+i+'" class="'+icon+'">'+data[i]["extension"]
                                 +'<br><br><br><br><br>'
                                 +'<input class="dir" type="hidden" value="'+data[i]["route"]+'">'
                                 +'<input class="type" type="hidden" value="'+data[i]["type"]+'">'
                                 +'<input class="asset" type="hidden" value="'+data[i]["asset"]+'">'
-                                +'<a href="#">'+data[i]["name"]+'</a>'
+                                +'<input class="name" type="hidden" value="'+data[i]["name"]+'">'
+                                +'<a href="#">'+name+'</a>'
                                 +'</div>';
                     
                     
@@ -284,6 +296,11 @@
                         
                         //this.before = this.current;
                         //this.current = route;
+                    }).mouseover(function(){ 
+                        cn = $(this).find(".name").val();
+                        $(this).find("a").html(cn);
+                    }).mouseout(function(){
+                         $(this).find("a").html(shortText($(this).find("a").html(), 14));
                     });
                         
                     $("#element-file"+i).dblclick(function(e) {
@@ -306,6 +323,11 @@
                         
                         $('#close').show();
                        
+                    }).mouseover(function(){ 
+                        cn = $(this).find(".name").val();
+                        $(this).find("a").html(cn);
+                    }).mouseout(function(){
+                         $(this).find("a").html(shortText($(this).find("a").html(), 14));
                     });
                 }
 

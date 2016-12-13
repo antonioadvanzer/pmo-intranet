@@ -69,17 +69,19 @@ Route::group(['middleware' => 'advent.partner'], function(){
         //Route::get('/{company}/{businessunit}/{category}/{project}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProject']);
         Route::get('/{company}/{businessunit}/{project}', ['as' => 'projects', 'uses' => 'MainController@pmo_getProject']);
 
-        // Secret route to get array list
-        Route::post('foldersAndFiles', ['as' => 'dir', 'uses' => 'MainController@pmo_getFoldersAndFiles']);
 
     });
+
+    // Secret route to get array list
+    Route::post('foldersAndFiles', ['as' => 'dir', 'uses' => 'MainController@pmo_getFoldersAndFiles']);
 
     //Access to dashboard admin
     Route::group(['prefix' => 'pmo-admin', 'middleware' => 'advent.admin'], function(){
 
         Route::get('/', ['as' => 'index', 'uses' => 'AdminController@index']);
         Route::get('/users', ['as' => 'users', 'uses' => 'AdminController@admin_getUsers']);
-
+        Route::get('/newUser', ['as' => 'users', 'uses' => 'AdminController@admin_getFormNewUser']);
+        Route::post('/saveNewUser', ['as' => 'users', 'uses' => 'AdminController@admin_storeNewUser']);
     });
 
 });

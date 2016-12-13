@@ -226,7 +226,7 @@ background-size:cover;
     /*width: 120px;*/
     /*line-height: 120px;*/
     font-size: 24px;
-    font-weight: bold;
+    /*font-weight: bold;*/
     transition: margin 0.8s;
     -webkit-transition: margin 0.8s;
   }
@@ -350,7 +350,7 @@ background-size:cover;
 }
 
 .window #barra{
-  padding: 30px 20px;
+  padding: 7px 20px;
   font-size: 20px;
   line-height: 0px;
   color: #F3F5F4;
@@ -1239,7 +1239,7 @@ a.animated-button.victoria-four:hover:after {
   /*background:#000;*/
   border-radius:6px;
   color:#fff;
-  font-family: 'Open Sans', sans-serif;
+  /*font-family: 'Open Sans', sans-serif;*/
   line-height:21px;
   font-size:20px;
   padding-left:20px;
@@ -1367,7 +1367,7 @@ a.animated-button.victoria-four:hover:after {
     border: 1px solid transparent;
     margin-bottom: 2px;
     padding: 10px;
-    border-radius: 7px;
+    /*border-radius: 7px;*/
     color: black;
     background-color: ghostwhite;
     border-color: gray;
@@ -1376,10 +1376,10 @@ a.animated-button.victoria-four:hover:after {
 /* Route path bar */
 
 nav#menu {
-  margin-top: 20px;
+  margin-top: 2px;
   /*background: #3498db;*/
   text-align: center;
-  height: 50px;
+  height: 22px;
   width: 100%;
 }
 
@@ -1393,12 +1393,12 @@ nav#menu ul {
 
 nav#menu ul li {
   float: left;
-  padding: 0 5px;
+  padding: 0 2px;
   background: #5D91C8;
   list-style: none;
   margin-right: 2px;
-  line-height: 25px;
-  height: 30px;
+  line-height: 20px;
+  height: 20px;
   
   /*
    * This element will get an alternative style
@@ -1420,7 +1420,7 @@ nav#menu ul li.active {
 nav#menu ul li a {
   color: white;
   text-decoration: none;
-  font-size: 1.3em;
+  font-size: 1.0em;
 }
 
 nav#menu h1#sitename {

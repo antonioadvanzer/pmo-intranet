@@ -6,9 +6,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Users;
+use App\Models\TypeUser;
+use App\Models\Rol;
+use App\Models\Project;
+use App\Models\Company;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use View;
+use AdvEnt;
 
 class AdminController extends Controller
 {
@@ -29,7 +34,7 @@ class AdminController extends Controller
      */
     public function admin_getUsers()
     {
-        return View::make('admin.users',["users" => Users::all()]);
+        return View::make('admin.users.users',["users" => Users::all()]);
     }
 
     /**
@@ -43,6 +48,16 @@ class AdminController extends Controller
     }
 
     /**
+     * Display the form for creating a new user.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getFormNewUser()
+    {
+        return View::make('admin.users.new_user',["type_user" => TypeUser::all(), "companies" => Company::all(), "rol" => Rol::all(), "project" => Project::all()]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -51,6 +66,24 @@ class AdminController extends Controller
     public function store(Request $request)
     {
         //
+    }
+
+    /**
+     * Store a user created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_storeNewUser(Request $request)
+    {
+        $var = $request->input('first-name')." ".$request->input('last-name')." ".$request->input('nick-name')." ".$request->input('email')." ".$request->input('password')." ".$request->input('type')." ".$request->input('company')." ".$request->input('rol')." ".$request->input('pmo');
+        dd($var);
+//continue
+        User::create(
+            [
+                "name" => $request->input('first-name')
+            ]
+        );
     }
 
     /**
