@@ -37,6 +37,13 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                    
+                    @if(!empty($success))
+                    <div class="alert alert-success">
+                        {{ $success }}
+                    </div>
+                    @endif
+                      
                     <p class="text-muted font-13 m-b-30">
                       
                     </p>

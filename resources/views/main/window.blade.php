@@ -85,6 +85,10 @@
     <script type="text/javascript">
         $(document).ready(function(){
             
+            $.ajaxSetup({
+                headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+            });
+            
             getResource($("#folder").val());
             addDir($("#folder").val());
             updatePath();
@@ -212,10 +216,6 @@
             
             //this.updatePosition();
             $("#cw").hide();
-            
-            $.ajaxSetup({
-                headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
-            });
                     
             $.ajax({
 

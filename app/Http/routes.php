@@ -82,6 +82,9 @@ Route::group(['middleware' => 'advent.partner'], function(){
         Route::get('/users', ['as' => 'users', 'uses' => 'AdminController@admin_getUsers']);
         Route::get('/newUser', ['as' => 'users', 'uses' => 'AdminController@admin_getFormNewUser']);
         Route::post('/saveNewUser', ['as' => 'users', 'uses' => 'AdminController@admin_storeNewUser']);
+
+        Route::post('/get_business_units', ['as' => 'bu', 'uses' => 'AdminController@admin_getArrayBusinessUnits']);
+        Route::post('/get_projects', ['as' => 'pro', 'uses' => 'AdminController@admin_getArrayProjects']);
     });
 
 });

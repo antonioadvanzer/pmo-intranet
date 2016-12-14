@@ -43,33 +43,45 @@
                           action="{{ URL::to('pmo-admin/saveNewUser') }}">
                         
                         <input name="_token" type="hidden" value="{!! csrf_token() !!}"/>
+                        <input id="busuni" type="hidden" value="{!! URL::to('pmo-admin/get_business_units') !!}"/>
+                        <input id="propmo" type="hidden" value="{!! URL::to('pmo-admin/get_projects') !!}"/>
+                        
+                        <div class="form-group">
+                            @if ($errors->has())
+                            <div class="alert alert-danger">
+                                @foreach ($errors->all() as $error)
+                                    {{ $error }}<br>        
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
                         
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="first-name" name="first-name" type="text" required="required" class="form-control col-md-7 col-xs-12">
+                              <input id="first-name" name="first-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('first-name') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="last-name" name="last-name" type="text" required="required" class="form-control col-md-7 col-xs-12">
+                              <input id="last-name" name="last-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('last-name') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="nick-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre de Usuario <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="nick-name" name="nick-name" type="text" required="required" class="form-control col-md-7 col-xs-12">
+                              <input id="nick-name" name="nick-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('nick-name') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Direcci&oacute;n de Correo Electr&oacute;nico <span class="required">*</span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="email" name="email" type="email" required="required" class="form-control col-md-7 col-xs-12">
+                              <input id="email" name="email" type="email" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('email') }}">
                             </div>
                         </div>
                         <div class="form-group">
@@ -79,7 +91,14 @@
                               <input id="password" name="password" type="password" required="required" class="form-control col-md-7 col-xs-12">
                             </div>
                         </div>
-                        <div class="form-group">
+                        <!--<div class="form-group">
+                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar Contraseña <span class="required">*</span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input id="confirm-password" name="confirm-password" type="password" required="required" class="form-control col-md-7 col-xs-12">
+                            </div>
+                        </div>-->
+                        <div id="attr-typeuser" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Tipo de Usuario</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <select id="type" name="type" class="form-control" required="required">
@@ -90,7 +109,7 @@
                               </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div id="attr-company" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Empresa</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <select id="company" name="company" class="form-control" required="required">
@@ -101,7 +120,7 @@
                               </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div id="attr-rol" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Rol</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <select id="rol" name="rol" class="form-control" required="required">
@@ -112,15 +131,21 @@
                               </select>
                             </div>
                         </div>
-                        <div class="form-group">
+                        <div id="attr-pmoproject" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">PMO</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select id="pmo" name="pmo" class="form-control" required="required">
-                                <option disabled selected value>-- Elegir --</option>
-                                @foreach($project as $p)
-                                <option value="{{ $p->id }}">{{ $p->name }}</option>
-                                @endforeach
-                              </select>
+                                <!--Empresa
+                                <select id="pmo-company" name="pmo" class="form-control" required="required">
+                                    <option disabled selected value>-- Elegir --</option>
+
+                                </select>-->
+                                Unidad de Negocio
+                                <select id="pmo-businessunit" name="pmo" class="form-control" required="required">
+                                    <option disabled selected value>-- Elegir --</option>
+                                </select>Proyecto
+                                <select id="pmo-project" name="pmo" class="form-control" required="required">
+                                    <option disabled selected value>-- Elegir --</option>
+                                </select>
                             </div>
                         </div>
 
@@ -172,6 +197,11 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
+            
+            $.ajaxSetup({
+                headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+            });
+            
             $.listen('parsley:field:validate', function() {
               validateFront();
             });
@@ -190,6 +220,142 @@
             };
             
             
+            //$('#attr-typeuser').hide();
+            $('#attr-company').hide()
+            $('#attr-rol').hide();
+            $('#attr-pmoproject').hide();
+            
         });
+        
+        $('#type').change(function (){
+            val = $(this).val();
+            
+            switch(val){
+                case "1":
+                    $('#attr-rol').show("fast");
+                    $('#attr-company').hide("fast");
+                    $('#attr-pmoproject').hide("fast");
+                    
+                    $('#rol').prop('required',true);
+                    $('#company').prop('required',false);
+                    $('#pmo-businessunit').prop('required',false);
+                    $('#pmo-project').prop('required',false);
+                break;
+                case "2":
+                    $('#attr-rol').show("fast");
+                    $('#attr-company').show("fast");
+                    $('#attr-pmoproject').hide("fast");
+                    
+                    $('#rol').prop('required',true);
+                    $('#company').prop('required',true);
+                    $('#pmo-businessunit').prop('required',false);
+                    $('#pmo-project').prop('required',false);
+                break;
+                case "3":
+                    $('#attr-rol').hide("fast");
+                    $('#attr-company').show("fast");
+                    $('#attr-pmoproject').show("fast");
+                    
+                    $('#rol').prop('required',false);
+                    $('#company').prop('required',true);
+                    $('#pmo-businessunit').prop('required',true);
+                    $('#pmo-project').prop('required',true);
+                break;
+            }
+        });
+        
+        $('#company').change(function (){
+            
+            if($("#type").val() == "3"){
+                
+                getResources($("#busuni").val(),{id:$(this).val()},1);
+                options = "<option disabled selected value>-- Elegir --</option>";
+                $("#pmo-project").html(options);
+                
+            }
+            
+        });
+        
+        $('#pmo-businessunit').change(function (){
+                
+            getResources($("#propmo").val(),{id:$(this).val()},2);
+            
+        });
+        
+        function insertBusinessUnit(datos){
+            
+            if(datos.length > 0){
+                options = "<option disabled selected value>-- Elegir --</option>";
+
+                for(i = 0; i < datos.length; i++){
+                    options += "<option value="+datos[i]["id"]+">"+datos[i]["name"]+"</option>";
+                }
+            }else{
+                options = "<option disabled selected value>-- No hay datos disponibles --</option>";
+            }
+            
+            $("#pmo-businessunit").html(options);
+        }
+        
+        function insertProjects(datos){
+            
+            if(datos.length > 0){
+                options = "<option disabled selected value>-- Elegir --</option>";
+
+                for(i = 0; i < datos.length; i++){
+                    options += "<option value="+datos[i]["id"]+">"+datos[i]["name"]+"</option>";
+                }
+            }else{
+                options = "<option disabled selected value>-- No hay datos disponibles --</option>";
+            }
+            
+            $("#pmo-project").html(options);
+        }
+        
+        function getResources(url, data, attr){
+            //alert(data);
+            response = true;
+            token = {_token: $('meta[name=_token]').attr('content')};
+            
+            //data.concat(token);
+            data = collect(token, data);
+            //alert(data);
+            
+            $.ajax({
+                url: url,
+                type: "POST",
+                data: data,
+                dataType: "json"
+            }).done(function(data){
+                console.log(data);
+                response = true;
+                switch(attr){
+                    case 1:
+                        insertBusinessUnit(data);
+                    break;
+                    case 2:
+                        insertProjects(data);
+                    break;
+                }
+            }).fail(function(data){
+                console.log(data);
+                response = false;    
+            });
+            
+           return response; 
+        }
+        
+        function collect() {
+            var ret = {};
+            var len = arguments.length;
+            for (var i=0; i<len; i++) {
+                for (p in arguments[i]) {
+                    if (arguments[i].hasOwnProperty(p)) {
+                        ret[p] = arguments[i][p];
+                    }
+                }
+            }
+            return ret;
+        }
     </script>
 @endsection

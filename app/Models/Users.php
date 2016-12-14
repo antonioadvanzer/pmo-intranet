@@ -33,6 +33,21 @@ class Users extends Model
      */
     protected $dates = ['deleted_at'];
 
+    /** 
+     * Create the validation rules 
+     */
+    public static $rules = array(
+        'email'            => 'unique:user',     // required and must be unique in the ducks table
+        'nickname'         => 'unique:user'
+    );
+
+    /** 
+     * Create custom validation messages 
+     */
+    public static $messages = array(
+        'unique' => 'El :attribute ya ha sido ingresado'
+    );
+
     /**
      * Get type user.
      */
