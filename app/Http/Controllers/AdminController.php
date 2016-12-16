@@ -26,6 +26,7 @@ use App\Http\Requests;
 use View;
 use Validator;
 use Redirect;
+use Hash;
 use AdvEnt;
 
 class AdminController extends Controller
