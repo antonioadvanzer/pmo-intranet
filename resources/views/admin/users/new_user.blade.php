@@ -38,6 +38,16 @@
                   </div>
                   <div class="x_content">
                       
+                    <div class="form-group">
+                        @if ($errors->has())
+                        <div class="alert alert-danger">
+                            @foreach ($errors->all() as $error)
+                                {{ $error }}<br>        
+                            @endforeach
+                        </div>
+                        @endif
+                    </div>
+                      
                       <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post"
                           action="{{ URL::to('pmo-admin/saveNewUser') }}">
@@ -45,16 +55,6 @@
                         <input name="_token" type="hidden" value="{!! csrf_token() !!}"/>
                         <input id="busuni" type="hidden" value="{!! URL::to('pmo-admin/get_business_units') !!}"/>
                         <input id="propmo" type="hidden" value="{!! URL::to('pmo-admin/get_projects') !!}"/>
-                        
-                        <div class="form-group">
-                            @if ($errors->has())
-                            <div class="alert alert-danger">
-                                @foreach ($errors->all() as $error)
-                                    {{ $error }}<br>        
-                                @endforeach
-                            </div>
-                            @endif
-                        </div>
                         
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>

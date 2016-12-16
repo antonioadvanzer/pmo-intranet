@@ -79,10 +79,18 @@ Route::group(['middleware' => 'advent.partner'], function(){
     Route::group(['prefix' => 'pmo-admin', 'middleware' => 'advent.admin'], function(){
 
         Route::get('/', ['as' => 'index', 'uses' => 'AdminController@index']);
+        
+        // Users managment
         Route::get('/users', ['as' => 'users', 'uses' => 'AdminController@admin_getUsers']);
         Route::get('/newUser', ['as' => 'users', 'uses' => 'AdminController@admin_getFormNewUser']);
         Route::post('/saveNewUser', ['as' => 'users', 'uses' => 'AdminController@admin_storeNewUser']);
 
+        // Roles and permissions managment
+        Route::get('/roles', ['as' => 'roles', 'uses' => 'AdminController@admin_getRoles']);
+        Route::get('/newRol', ['as' => 'roles', 'uses' => 'AdminController@admin_getFormNewRol']);
+        Route::post('/saveNewRol', ['as' => 'roles', 'uses' => 'AdminController@admin_storeNewRol']);
+
+        Route::post('/get_companies', ['as' => 'com', 'uses' => 'AdminController@admin_getCompanies']);
         Route::post('/get_business_units', ['as' => 'bu', 'uses' => 'AdminController@admin_getArrayBusinessUnits']);
         Route::post('/get_projects', ['as' => 'pro', 'uses' => 'AdminController@admin_getArrayProjects']);
     });

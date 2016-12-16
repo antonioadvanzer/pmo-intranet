@@ -9,8 +9,18 @@ use App\Models\Users;
 use App\Models\TypeUser;
 use App\Models\Rol;
 use App\Models\Project;
+use App\Models\ProjectAttribute;
+use App\Models\ProjectAttributeValue;
+use App\Models\Permission;
 use App\Models\Company;
 use App\Models\BusinessUnit;
+use App\Models\BusinessUnitAttribute;
+use App\Models\BusinessUnitAttributeValue;
+use App\Models\PMOAttribute;
+use App\Models\PMOCategory;
+use App\Models\PMOProject;
+use App\Models\PMOProjectAttribute;
+use App\Models\GDLink;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use View;
@@ -41,6 +51,16 @@ class AdminController extends Controller
     }
 
     /**
+     * Display a listing of the roles.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getRoles()
+    {
+        return View::make('admin.roles.roles',["roles" => Rol::all()]);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
@@ -58,6 +78,16 @@ class AdminController extends Controller
     public function admin_getFormNewUser()
     {
         return View::make('admin.users.new_user',["type_user" => TypeUser::all(), "companies" => Company::all(), "rol" => Rol::all()]);
+    }
+
+    /**
+     * Display the form for creating a new rol.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getFormNewRol()
+    {
+        return View::make('admin.roles.new_rol');
     }
 
     /**
@@ -85,7 +115,7 @@ class AdminController extends Controller
             'last_name' => $request->input('last-name'),
             'nickname' => $request->input('nick-name'),
             'email' => $request->input('email'),
-            'password' => $request->input('password'),
+            'password' => Hash::make($request->input('password')),
             'type' => $type = $request->input('type')
         ];
 
@@ -127,8 +157,32 @@ class AdminController extends Controller
 
             Users::create($data);
         }
+
         //$request->session()->flash('alert-success', 'Usuario fue agregado con exito');
-        return Redirect::to('pmo-admin/users')->withSuccess('Usuario fue agregado con exito');
+        //return Redirect::to('pmo-admin/users')->withSuccess('Usuario fue agregado con exito');
+        
+        $request->session()->flash('message','El usuario fue agregado con exito');
+        return redirect('pmo-admin/users');
+    }
+
+     /**
+     * Store a user created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_storeNewRol(Request $request)
+    {
+        dd($request);
+        $data = [
+            'name' => $request->input('rol-name'),
+            'description' => $request->input('rol-description')
+        ];
+        
+        Rol::create($data);
+
+        $request->session()->flash('message','El rol fue agregado con exito');
+        return redirect('pmo-admin/roles');
     }
 
     /**
@@ -174,6 +228,19 @@ class AdminController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * Get specified resource from storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getCompanies(Request $request)
+    {
+        $resources = Company::all();
+
+        return json_encode($resources);
     }
 
     /**
