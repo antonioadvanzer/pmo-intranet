@@ -39,4 +39,5 @@ class Permission extends Model
     {
         return $this->belongsTo('App\Models\Rol','rol');
     }
+
 }

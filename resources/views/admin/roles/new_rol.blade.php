@@ -280,7 +280,7 @@
 
                                         +'<div class="checkbox">'
                                             +'<label>'
-                                                +'<input type="checkbox" class="flat" checked="checked"> Atributos'
+                                                +'<input id="abu'+contAccordion+'" type="checkbox" class="flat" checked="checked"> Atributos'
                                             +'</label>'
                                         +'</div>'
 
@@ -297,23 +297,23 @@
 
                                         +'<div class="checkbox">'
                                             +'<label>'
-                                                +'<input type="checkbox" class="flat" checked="checked"> Atributos'
+                                                +'<input id="ap'+contAccordion+'" type="checkbox" class="flat" checked="checked"> Atributos'
                                             +'</label>'
                                         +'</div>'
                 
                                         +'<br>'
                                         +'<div class="checkbox btn btn-default">'
                                             +'<label>'
-                                                +'<input type="checkbox" class="flat" checked="checked"> Crear &nbsp;'
+                                                +'<input id="p_create'+contAccordion+'" type="checkbox" class="flat" checked="checked"> Crear &nbsp;'
                                             +'</label>'
                                             +'<label>'
-                                                +'<input type="checkbox" class="flat" checked="checked"> Leer &nbsp;'
+                                                +'<input id="p_read'+contAccordion+'" type="checkbox" class="flat" checked="checked"> Leer &nbsp;'
                                             +'</label>'
                                             +'<label>'
-                                                +'<input type="checkbox" class="flat" checked="checked"> Actualizar &nbsp;'
+                                                +'<input id="p_update'+contAccordion+'" type="checkbox" class="flat" checked="checked"> Actualizar &nbsp;'
                                             +'</label>'
                                             +'<label>'
-                                                +'<input type="checkbox" class="flat" checked="checked"> Eliminar &nbsp;'
+                                                +'<input id="p_delete'+contAccordion+'" type="checkbox" class="flat" checked="checked"> Eliminar &nbsp;'
                                             +'</label>'
                                         +'</div>'
 
@@ -445,9 +445,34 @@
             
             token = {_token: $('meta[name=_token]').attr('content')};
                           
-            data={cantElements: cA, rolName : $("#rol-name").val(), rolDescription : $("#rol-description").val()};
+            data={cantElements: cA, cE: contAccordion, rolName : $("#rol-name").val(), rolDescription : $("#rol-description").val()};
             
             data = collect(token, data);
+            
+            for(i = 0; i <= contAccordion; i++){
+                
+                if($("#sc"+i).length){
+                    data["sc"+i] = $("#sc"+i).val();
+                    
+                    data["p_create"+i] = $("#p_create"+i).prop('checked');
+                    data["p_read"+i] = $("#p_read"+i).prop('checked');
+                    data["p_update"+i] = $("#p_update"+i).prop('checked');
+                    data["p_delete"+i] = $("#p_delete"+i).prop('checked');
+                }
+                
+                if($("#sbu"+i).length){
+                    data["sbu"+i] = $("#sbu"+i).val();
+                    data["abu"+i] = $("#abu"+i).prop('checked');
+                }
+                
+                if($("#sp"+i).length){
+                    data["sp"+i] = $("#sp"+i).val();
+                    data["ap"+i] = $("#ap"+i).prop('checked');
+                }
+                
+            }
+            
+            console.log(data);
             
             post("{{URL::to('pmo-admin/saveNewRol')}}",data);
         }

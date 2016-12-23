@@ -24,10 +24,11 @@ class AdvEmployedEnt
 
         //exit;
 
-        if ((AdvEnt::isEmployed() & AdvEnt::hasPermissionTo($request->path())) | AdvEnt::isAdmin()){
+        if ((AdvEnt::isEmployed() | AdvEnt::isAdmin()) & AdvEnt::hasPermissionTo($request->path())){
             return $next($request);
         }else{
-            return redirect()->guest('');
+            //return redirect()->guest('');
+            return redirect('/cannotAccess');
         }
 
     }

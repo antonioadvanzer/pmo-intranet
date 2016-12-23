@@ -174,13 +174,57 @@ class AdminController extends Controller
      */
     public function admin_storeNewRol(Request $request)
     {
-        dd($request);
-        $data = [
-            'name' => $request->input('rol-name'),
-            'description' => $request->input('rol-description')
-        ];
         
-        Rol::create($data);
+        /*$data = [
+            'name' => $request->input('rolName'),
+            'description' => $request->input('rolDescription')
+        ];*/
+
+        $permission = array();
+        for($i = 1; $i <= $request->input('cE'); $i++){
+            
+            if(!empty($request->input('sc'.$i))){
+                $permission['permision'.$i] = [
+                            'company' => $request->input('sc'.$i),
+                            'business_unit' => $request->input('sbu'.$i),
+                            'project' => $request->input('sp'.$i),
+                            'business_unit_attribute' => $request->input('abu'.$i),
+                            'project_attribute' => $request->input('ap'.$i),
+                            'permission' => ['c' => $request->input('p_create'.$i),
+                                            'r' => $request->input('p_read'.$i),
+                                            'u' => $request->input('p_update'.$i),
+                                            'd' => $request->input('p_delete'.$i),]
+                        ];
+            }
+        }
+        
+        //$data['permission'] = $permission;
+
+        //dd($permission);
+
+        $data = [
+            'name' => $request->input('rolName'),
+            'description' => $request->input('rolDescription')
+        ];
+
+        $rol = Rol::create($data);
+        $idRol = $rol->id;
+
+        foreach($permission as $p){
+            Permission::create([
+                'rol' => $idRol,
+                'C' => (($c = $p['company']) == "null" ? null : $c),
+                'BU' => (($c = $p['business_unit']) == "null" ? null : $c),
+                'P' => (($c = $p['project']) == "null" ? null : $c),
+                'ABU' => (($c = $p['business_unit_attribute']) == "true" ? true : false),
+                'AP' => (($c = $p['project_attribute']) == "true" ? true : false),
+                'create' => (($p['permission']['c']) == "true" ? true : false),
+                'read' => (($p['permission']['r']) == "true" ? true : false),    
+                'update' => (($p['permission']['u']) == "true" ? true : false),
+                'delete' => (($p['permission']['d']) == "true" ? true : false),
+                
+            ]);
+        }
 
         $request->session()->flash('message','El rol fue agregado con exito');
         return redirect('pmo-admin/roles');
@@ -269,4 +313,5 @@ class AdminController extends Controller
 
         return json_encode($resources);
     }
+
 }

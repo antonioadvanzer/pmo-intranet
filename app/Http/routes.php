@@ -48,13 +48,15 @@ Route::group(['middleware' => 'advent.partner'], function(){
             return view('construction');
         });*/
 
+        Route::get('/cannotAccess', ['as' => 'access', 'uses' => 'MainController@pmo_getCannotAccess']);
+
         Route::get('/companies', ['as' => 'company', 'uses' => 'MainController@pmo_getCompaniesView']);
 
         //Route::get('/advanzer', ['as' => 'ad', 'uses' => 'MainController@pmo_getMenuAdvanzerView']);
         //Route::get('/entuizer', ['as' => 'en', 'uses' => 'MainController@pmo_getMenuEntuizerView']);
 
         // ---- Level 1 : Get view with business unit resources Advanzer/Entuizer
-        Route::get('/{company}/businessUnit', ['as' => 'bu', 'uses' => 'MainController@pmo_getMenuBusinessUnitView']);
+        Route::get('/{company}/businessunit', ['as' => 'bu', 'uses' => 'MainController@pmo_getMenuBusinessUnitView']);
 
         Route::get('/{company}/{businessunit}/attribute/{attribute}', ['as' => 'projects', 'uses' => 'MainController@pmo_getBusinessUnitAttribute']);
 

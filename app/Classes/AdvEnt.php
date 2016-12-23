@@ -68,7 +68,7 @@ class AdvEnt
                 return false;
             }
 
-        }catch(Exception $ex){//dd($ex);
+        }catch(Exception $ex){dd($ex);
             return false;
         }
     }
@@ -249,19 +249,24 @@ class AdvEnt
 
             $routesAllowed = array();
 
-            // Level 1:  -------------------------------------------------------------------------------------------------
+            // Level 1:  Helpers -------------------------------------------------------------------------------------------------
             array_push($routesAllowed,["route" => 'companies']);
+            // Secret Link
+            array_push($routesAllowed,["route" => "foldersAndFiles"]);
+            // No has permission
+            array_push($routesAllowed,["route" => "cannotAccess"]);
             //---------------------------------------------------------------------------------------------------------------------
 
             // Level 2: companies -------------------------------------------------------------------------------------------------
 
-            $permissions = $rol->getAllPermissions()->where('C', null)->get();
+            //$permissions = $rol->getAllPermissions()->where('C', 1)->get();
+            //dd($permissions);
+            //$permissions = $permissions->first();
+            //$companies = Company::all();
 
-            $permissions = $permissions->first();
+            //dd($permissions);
 
-            //dd($permissions);exit;
-
-            if($permissions != null){
+            /*if($permissions != null){
 
                 array_push($routesAllowed,
                     ["route" => 'advanzer/businessUnit'],
@@ -270,111 +275,123 @@ class AdvEnt
                 //exit;
             }else{
 
-                $permissions = $rol->getAllPermissions()->where('C', AdvEnt::createRouteFormat("Advanzer"))->get();
-                if($permissions != null){
+                //$permissions = $rol->getAllPermissions()->where('C', AdvEnt::createRouteFormat("Advanzer"))->get();
+                $permissions = $rol->getAllPermissions()->where('C', 1)->get();
+                if($permissions){
                     array_push($routesAllowed,
                         ["route" => 'advanzer/businessUnit']
                     );
                 }
 
-                $permissions = $rol->getAllPermissions()->where('C', AdvEnt::createRouteFormat("Entuizer"))->get();
-                if($permissions != null){
+                //$permissions = $rol->getAllPermissions()->where('C', AdvEnt::createRouteFormat("Entuizer"))->get();
+                $permissions = $rol->getAllPermissions()->where('C', 2)->get();
+                if($permissions){
                     array_push($routesAllowed,
                         ["route" => 'entuizer/businessUnit']
                     );
                 }
 
-            }
-
-            // Destroy variable
-            unset($permissions);
+            }*/
 
 //dd($routesAllowed);
             //---------------------------------------------------------------------------------------------------------------------
-
-            // Level 3: business units and categories -------------------------------------------------------------------------------------------------
+            
+            // Level 3: companies, business units and projects -------------------------------------------------------------------------------------------------
 
             //$permissions = $rol->getAllPermissions()->where('E', null)->get();
 
+            // Permission --------------------------------------------------------------------------------------------------------------------------------
             $permissions = $rol->getAllPermissions()->get();
-
-            //dd($permissions);
-
 
             foreach($permissions as $p){
 
-                //Secret Link
-                array_push($routesAllowed,["route" => "foldersAndFiles"]);
-
-                $business = null;
+                // Companies --------------------------------------------------------------------------------------------------------------------------------
+                $companies = null;
 
                 if($p->C == null){
-                    $business = BusinessUnit::all();
+                    $companies = Company::all();
                 }else{
-                    $business = BusinessUnit::where('company', $p->C)->get();
+                    $companies = Company::where('id', $p->C)->get();
                 }
 
-                foreach($business as $b){
-
-                    // Creating route format for BU and his attributes ----------------------------------------------------------------------------------------------
+                foreach($companies as $com){
+                    
                     array_push($routesAllowed,
-                        [
-                            "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/projects",
-                            "businessunit" => $b->id
-                        ]
+                        ["route" => AdvEnt::createRouteFormat($com->name."/businessUnit")]
                     );
-
-                    $attributes  = $b->getAttributesValues()->get();
-
-                    foreach($attributes as $attr){
-                        array_push($routesAllowed,
-                            [
-                                "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/attribute/".AdvEnt::createRouteFormat($attr->getBusinessUnitAttributeAssociated()->get()->first()->name),
-                                "permissions" => [$p->create, $p->read, $p->update, $p->delete],
-                                "attributevalue" => $attr->id,
-                                "attribute" => $attr->getBusinessUnitAttributeAssociated()->get()->first()->id,
-                                "link" => $attr->getGDLink()->get()->first()->id
-                            ]
-                        );
-                    }
-
-                    // ----------------------------------------------------------------------------------------------------------------------------------------------
-
-                    $projects = null;
+                    
+                    // Busines Unit --------------------------------------------------------------------------------------------------------------------------------
+                    $business = null;
 
                     if($p->BU == null){
-                        $projects = Project::all();
+                        $business = BusinessUnit::where('company',$com->id)->get();
                     }else{
-                        $projects = Project::where('business_unit', $p->BU)->get();
+                        $business = BusinessUnit::where('company',$com->id)->where('id', $p->BU)->get();
                     }
 
-                    foreach($projects as $pr){
+                    foreach($business as $b){
 
                         // Creating route format for BU and his attributes ----------------------------------------------------------------------------------------------
-                        $route = AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->name);
-
                         array_push($routesAllowed,
                             [
-                                "route" => $route,
-                                "permissions" => [$p->create, $p->read, $p->update, $p->delete],
-                                "project" => $pr->id
+                                "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/projects",
+                                "businessunit" => $b->id
                             ]
                         );
+                        
+                        if($p->ABU){
+                            $attributes  = $b->getAttributesValues()->get();
+                            foreach($attributes as $attr){
+                                array_push($routesAllowed,
+                                    [
+                                        "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/attribute/".AdvEnt::createRouteFormat($attr->getBusinessUnitAttributeAssociated()->get()->first()->name),
+                                        "permissions" => [$p->create, $p->read, $p->update, $p->delete],
+                                        "attributevalue" => $attr->id,
+                                        "attribute" => $attr->getBusinessUnitAttributeAssociated()->get()->first()->id,
+                                        "link" => $attr->getGDLink()->get()->first()->id
+                                    ]
+                                );
+                            }
+                        }
 
-                        $attributes  = $pr->getAttributesValues()->get();
+                        // Projects ------------------------------------------------------------------------------------------------------------------------------------
+                        $projects = null;
 
-                        foreach($attributes as $attr){
+                        if($p->P == null){
+                            $projects = Project::where('business_unit', $b->id)->get();
+                        }else{
+                            $projects = Project::where('business_unit', $b->id)->where('id', $p->P)->get();
+                        }
+
+                        foreach($projects as $pr){
+
+                           // Creating route format for P and his attributes ----------------------------------------------------------------------------------------------
+                            $route = AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->getBusinessUnitAssociated()->first()->name)."/".AdvEnt::createRouteFormat($pr->name);
+
                             array_push($routesAllowed,
                                 [
-                                    "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/".AdvEnt::createRouteFormat($pr->name)."/attribute/".AdvEnt::createRouteFormat($attr->getProjectAttributeAssociated()->get()->first()->name),
+                                    "route" => $route,
                                     "permissions" => [$p->create, $p->read, $p->update, $p->delete],
-                                    "attributevalue" => $attr->id,
-                                    "attribute" => $attr->getProjectAttributeAssociated()->get()->first()->id,
-                                    "link" => $attr->getGDLink()->get()->first()->id
+                                    "project" => $pr->id
                                 ]
-                            );
+                            );                             
+                            
+                            if($p->AP){
+                                $attributes  = $pr->getAttributesValues()->get();
+                                foreach($attributes as $attr){
+                                    array_push($routesAllowed,
+                                        [
+                                            "route" => AdvEnt::createRouteFormat($b->getCompanyAssociated()->first()->name)."/".AdvEnt::createRouteFormat($b->name)."/".AdvEnt::createRouteFormat($pr->name)."/attribute/".AdvEnt::createRouteFormat($attr->getProjectAttributeAssociated()->get()->first()->name),
+                                            "permissions" => [$p->create, $p->read, $p->update, $p->delete],
+                                            "attributevalue" => $attr->id,
+                                            "attribute" => $attr->getProjectAttributeAssociated()->get()->first()->id,
+                                            "link" => $attr->getGDLink()->get()->first()->id
+                                        ]
+                                    );
+                                }   
+                            }
                         }
-                        // ----------------------------------------------------------------------------------------------------------------------------------------------
+
                     }
 
                 }
@@ -382,8 +399,10 @@ class AdvEnt
             }
 
 //dd($routesAllowed);
-//exit;
 
+            // Destroy variable
+            unset($permissions);
+            
             return $routesAllowed;
 
         }else{
@@ -400,7 +419,6 @@ class AdvEnt
     public static function getLink($link)
     {
         return GDLink::where('id', $link)->get()->first();
-
     }
 
     /**

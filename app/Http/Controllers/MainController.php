@@ -451,4 +451,14 @@ dd(session()->all());
     {
         //
     }
+
+    /**
+     * Display the form for creating a new rol.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function pmo_getCannotAccess()
+    {
+        return View::make('general.cannot_access');
+    }
 }
