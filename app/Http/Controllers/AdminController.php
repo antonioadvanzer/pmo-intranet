@@ -27,6 +27,8 @@ use View;
 use Validator;
 use Redirect;
 use Hash;
+use File;
+use DB;
 use AdvEnt;
 
 class AdminController extends Controller
@@ -60,6 +62,56 @@ class AdminController extends Controller
     {
         return View::make('admin.roles.roles',["roles" => Rol::all()]);
     }
+    
+    /**
+     * Display a listing of the business units.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getBusinesUnit()
+    {
+        return View::make('admin.business_units.business_units',["business_unit" => BusinessUnit::all()]);
+    }
+
+    /**
+     * Display a listing of the business units attributes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getBusinesUnitAttributes()
+    {
+        return View::make('admin.business_units.business_units_attributes',["business_unit_attributes" => BusinessUnitAttribute::all()]);
+    }
+
+    /**
+     * Display a listing of the projects.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getProjects()
+    {
+        return View::make('admin.projects.projects',["projects" => Project::all()]);
+    }
+
+    /**
+     * Display a listing of the projects attributes.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getProjectsAttributes()
+    {
+        return View::make('admin.projects.projects_attributes',["projects_attributes" => ProjectAttribute::all()]);
+    }
+
+    /**
+     * Display a listing of the PMO Templeates.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getPMOTemplate()
+    {
+        return View::make('admin.pmo.pmo_templates',["pmo_templates" => PMOCategory::all()]);
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -89,6 +141,56 @@ class AdminController extends Controller
     public function admin_getFormNewRol()
     {
         return View::make('admin.roles.new_rol');
+    }
+
+    /**
+     * Display the form for creating a new business unit.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getFormNewBusinessUnit()
+    {
+        return View::make('admin.business_units.new_business_unit',["companies" => Company::all(), "attributes" => BusinessUnitAttribute::all()]);
+    }
+
+    /**
+     * Display the form for creating a new business unit attribute.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getFormNewBusinessUnitAttribute()
+    {
+        return View::make('admin.business_units.new_business_unit_attribute');
+    }
+
+    /**
+     * Display the form for creating a new project.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getFormNewProject()
+    {
+        return View::make('admin.projects.new_project',["companies" => Company::all(), "pmo" => PMOCategory::all(), "attributes" => ProjectAttribute::all()]);
+    }
+
+    /**
+     * Display the form for creating a new business unit attribute.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getFormNewProjectAttribute()
+    {
+        return View::make('admin.projects.new_project_attribute');
+    }
+
+    /**
+     * Display the form for creating a new business unit attribute.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_getFormNewPMO()
+    {
+        return View::make('admin.pmo.new_pmo_template');
     }
 
     /**
@@ -162,7 +264,7 @@ class AdminController extends Controller
         //$request->session()->flash('alert-success', 'Usuario fue agregado con exito');
         //return Redirect::to('pmo-admin/users')->withSuccess('Usuario fue agregado con exito');
         
-        $request->session()->flash('message','El usuario fue agregado con exito');
+        $request->session()->flash('message','El Usuario fue agregado con exito');
         return redirect('pmo-admin/users');
     }
 
@@ -173,13 +275,9 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function admin_storeNewRol(Request $request)
-    {
+    {   
+        DB::beginTransaction();
         
-        /*$data = [
-            'name' => $request->input('rolName'),
-            'description' => $request->input('rolDescription')
-        ];*/
-
         $permission = array();
         for($i = 1; $i <= $request->input('cE'); $i++){
             
@@ -226,8 +324,198 @@ class AdminController extends Controller
             ]);
         }
 
-        $request->session()->flash('message','El rol fue agregado con exito');
+        DB::commit();
+
+        $request->session()->flash('message','El Rol fue agregado con exito');
         return redirect('pmo-admin/roles');
+    }
+
+    /**
+     * Store a user created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_storeNewBusinessUnit(Request $request)
+    {   
+        DB::beginTransaction();
+
+        $type = null;
+        $data = [
+            'name' => $request->input('bu-name'),
+            'description' => $request->input('bu-description'),
+            'company' => $request->input('bu-company'),
+            'icon' => $request->input('bu-icon')
+        ];
+
+        //dd($request);
+        //dd($data);
+        //dd(BusinessUnitAttribute::count());
+        //dd($request->input('2'));
+        //$bua = BusinessUnitAttribute::count();
+        
+        $nbu = BusinessUnit::create($data);
+
+        $dir_bu = 'PMO-Files/BUSINESS_UNITS/'.$data['name'];
+        
+        $directory = File::makeDirectory($dir_bu, 0777);
+        
+        $bua = BusinessUnitAttribute::all();
+
+        foreach($bua as $b){
+            if($request->input(''.$b->id) == "on"){
+                $dir_bu_attr = $dir_bu.'/'.$b->name;
+                File::makeDirectory($dir_bu_attr, 0777);
+                $dir = GDLink::create(['link_format' => $dir_bu_attr]);
+                BusinessUnitAttributeValue::create(['business_unit' => $nbu->id, 'business_unit_attribute' => $b->id, 'link' => $dir->id]);
+            }
+        }
+        
+        DB::commit();
+
+        $request->session()->flash('message','La Unidad de Negocio fue agregado con exito');
+        return redirect('pmo-admin/business_units');
+    }
+
+    /**
+     * Store a user created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_storeNewBusinessUnitAttribute(Request $request)
+    {
+        $type = null;
+        $data = [
+            'name' => $request->input('bua-name'),
+            'description' => $request->input('bua-description')
+        ];
+
+        $nbu = BusinessUnitAttribute::create($data);
+        
+        $request->session()->flash('message','El Atributo fue agregado con exito');
+        return redirect('pmo-admin/business_units_attributes');
+    }
+
+    /**
+     * Store a user created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_storeNewProject(Request $request)
+    {   
+        DB::beginTransaction();
+
+        $type = null;
+        $data = [
+            'name' => $request->input('pro-name'),
+            'description' => $request->input('pro-description'),
+            'client' => $request->input('pro-client'),
+            'objective' => $request->input('pro-objective'),
+            'scope' => $request->input('pro-scope'),
+            'status' => ($request->input('pro-status') == "1" ? true : false),
+            'progress' => $request->input('pro-progress'),
+            'business_unit' => $request->input('pro-businessunit')
+        ];
+
+        $npro = Project::create($data);
+
+        $dir_pro = 'PMO-Files/PROJECTS/'.$data['name'];
+
+        $directory = File::makeDirectory($dir_pro, 0777);
+        
+        $dir_attr = File::makeDirectory($dir_pro."/ATTRIBUTES", 0777);
+        
+        $proa = ProjectAttribute::all();
+
+        foreach($proa as $p){
+            if($request->input(''.$p->id) == "on"){
+                $dir_pro_attr = $dir_pro.'/ATTRIBUTES/'.$p->name;
+                File::makeDirectory($dir_pro_attr, 0777);
+                $dir = GDLink::create(['link_format' => $dir_pro_attr]);
+                ProjectAttributeValue::create(['project' => $npro->id, 'project_attribute' => $p->id, 'link' => $dir->id]);
+            }
+        }
+        
+        $pmo_template = PMOCategory::where(["id" => $request->input('pro-pmo')])->first();
+
+        $pmo_template_attributes = $pmo_template->getPmoAttributes()->get();
+        
+        $pmo_project = PMOProject::create(["project" => $npro->id, "pmo_category" => $pmo_template->id]);
+
+        $dir_attr = File::makeDirectory($dir_pro."/PMO", 0777);
+
+        foreach($pmo_template_attributes as $pmo){
+            $dir_pro_pmo_attr = $dir_pro.'/PMO/'.$pmo->name;
+            File::makeDirectory($dir_pro_pmo_attr, 0777);
+            $dir = GDLink::create(['link_format' => $dir_pro_pmo_attr]);
+            PMOProjectAttribute::create(["pmo_project" => $pmo_project->id, "pmo_attribute" => $pmo->id, 'link' => $dir->id]);
+        }
+
+        DB::commit();
+
+        $request->session()->flash('message','El Proyecto fue agregado con exito');
+        return redirect('pmo-admin/projects');
+    }
+
+    /**
+     * Store a user created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_storeNewProjectAttribute(Request $request)
+    {
+        $type = null;
+        $data = [
+            'name' => $request->input('proa-name'),
+            'description' => $request->input('proa-description')
+        ];
+
+        $nbu = ProjectAttribute::create($data);
+        
+        $request->session()->flash('message','El atributo fue agregado con exito');
+        return redirect('pmo-admin/projects_attributes');
+    }
+
+    /**
+     * Store a user created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_storeNewPMOTemplate(Request $request)
+    {//dd($request);
+
+        DB::beginTransaction();
+
+        $attr = array();
+        for($i = 1; $i <= $request->input('cE'); $i++){
+            
+            if(!empty($request->input('attrN'.$i))){
+                $attr['attr'.$i] = [
+                            'name' => $request->input('attrN'.$i),
+                            'icon' => $request->input('attrI'.$i)
+                        ];
+            }
+        }
+        
+        $data = [
+            'name' => $request->input('templateName')
+        ];
+
+        $pmo = PMOCategory::create($data);
+        $idPMO = $pmo->id;
+
+        foreach($attr as $a){
+            PMOAttribute::create(['name' => $a['name'], 'icon' => $a['name'],'pmo_category' => $idPMO]);
+        }
+        
+        DB::commit();
+
+        $request->session()->flash('message','La Plantilla PMO fue agregada con exito');
+        return redirect('pmo-admin/pmo_templates');
     }
 
     /**

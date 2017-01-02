@@ -92,9 +92,31 @@ Route::group(['middleware' => 'advent.partner'], function(){
         Route::get('/newRol', ['as' => 'roles', 'uses' => 'AdminController@admin_getFormNewRol']);
         Route::post('/saveNewRol', ['as' => 'roles', 'uses' => 'AdminController@admin_storeNewRol']);
 
+        // Business Units managment
+        Route::get('/business_units', ['as' => 'businesunit', 'uses' => 'AdminController@admin_getBusinesUnit']);
+        Route::get('/newBusinessUnit', ['as' => 'businesunit', 'uses' => 'AdminController@admin_getFormNewBusinessUnit']);
+        Route::post('/saveNewBusinessUnit', ['as' => 'businesunit', 'uses' => 'AdminController@admin_storeNewBusinessUnit']);
+        Route::get('/business_units_attributes', ['as' => 'businesunitAttr', 'uses' => 'AdminController@admin_getBusinesUnitAttributes']);
+        Route::get('/newBusinessUnitAttribute', ['as' => 'businesunitAttr', 'uses' => 'AdminController@admin_getFormNewBusinessUnitAttribute']);
+        Route::post('/saveNewBusinessUnitAttribute', ['as' => 'businesunitAttr', 'uses' => 'AdminController@admin_storeNewBusinessUnitAttribute']);
+
+        // Projects managment
+        Route::get('/projects', ['as' => 'project', 'uses' => 'AdminController@admin_getProjects']);
+        Route::get('/newProject', ['as' => 'project', 'uses' => 'AdminController@admin_getFormNewProject']);
+        Route::post('/saveNewProject', ['as' => 'project', 'uses' => 'AdminController@admin_storeNewProject']);
+        Route::get('/projects_attributes', ['as' => 'projectsAttr', 'uses' => 'AdminController@admin_getprojectsAttributes']);
+        Route::get('/newProjectAttribute', ['as' => 'projectAttr', 'uses' => 'AdminController@admin_getFormNewProjectAttribute']);
+        Route::post('/saveNewProjectAttribute', ['as' => 'projectAttr', 'uses' => 'AdminController@admin_storeNewProjectAttribute']);
+        
+        // PMO's Templeates
+        Route::get('/pmo_templates', ['as' => 'pmoTempleate', 'uses' => 'AdminController@admin_getPMOTemplate']);
+        Route::get('/newPMOTemplate', ['as' => 'projectAttr', 'uses' => 'AdminController@admin_getFormNewPMO']);
+        Route::post('/saveNewPMOTemplate', ['as' => 'projectAttr', 'uses' => 'AdminController@admin_storeNewPMOTemplate']);
+
         Route::post('/get_companies', ['as' => 'com', 'uses' => 'AdminController@admin_getCompanies']);
         Route::post('/get_business_units', ['as' => 'bu', 'uses' => 'AdminController@admin_getArrayBusinessUnits']);
         Route::post('/get_projects', ['as' => 'pro', 'uses' => 'AdminController@admin_getArrayProjects']);
+        
     });
 
 });

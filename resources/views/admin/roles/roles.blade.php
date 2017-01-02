@@ -52,12 +52,15 @@
                         <tr>
                             <th>Nombre</th>
                             <th>Descripci&oacute;n</th>
+                            <th></th>
+                        </tr>
                       </thead>
                       <tbody>
                         @foreach($roles as $r)
                         <tr>
                             <td>{{ $r->name }}</td>
                             <td>{{ $r->description}}</td>
+                            <td><i class="fa fa-cog" aria-hidden="true"></i></td>
                         </tr>
                         @endforeach
                       </tbody>

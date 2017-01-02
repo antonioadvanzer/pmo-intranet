@@ -62,20 +62,44 @@
                       </li>
                       <li><a><i class="fa fa-users"></i> Usuarios <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ URL::to('pmo-admin/users') }}">Todos</a></li>
-                            <li><a href="{{ URL::to('pmo-admin/newUser') }}">Nuevo</a></li>
+                            <li><a href="{{ URL::to('pmo-admin/users') }}">Todos los Usuarios</a></li>
+                            <li><a href="{{ URL::to('pmo-admin/newUser') }}">Nuevo Usuario</a></li>
                         </ul>
                       </li>
                       <li><a><i class="fa fa-low-vision"></i> Roles <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                            <li><a href="{{ URL::to('pmo-admin/roles') }}">Todos</a></li>
-                            <li><a href="{{ URL::to('pmo-admin/newRol') }}">Nuevo</a></li>
+                            <li><a href="{{ URL::to('pmo-admin/roles') }}">Todos los Roles</a></li>
+                            <li><a href="{{ URL::to('pmo-admin/newRol') }}">Nuevo Rol</a></li>
+                        </ul>
+                      </li>
+                      <li><a><i class="fa fa-briefcase"></i> Unidades de Negocio <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                          <li><a href="{{ URL::to('pmo-admin/business_units') }}">Todas las Unidad de Negocio</a></li>
+                          <li><a href="{{ URL::to('pmo-admin/newBusinessUnit') }}">Nueva Unidad de Negocio</a></li>
+                          <li><a href="#">Atributos</a>
+                            <ul class="nav child_menu">
+                                 <li><a href="{{ URL::to('pmo-admin/business_units_attributes') }}">Todos los Atributos</a></li>
+                                <li><a href="{{ URL::to('pmo-admin/newBusinessUnitAttribute') }}">Nuevo Atributo</a></li>
+                            </ul>
+                          </li>
                         </ul>
                       </li>
                       <li><a><i class="fa fa-folder-open"></i> Proyetos <span class="fa fa-chevron-down"></span></a>
                         <ul class="nav child_menu">
-                          <li><a href="#">Todos</a></li>
-                          <li><a href="#">Nuevo</a></li>
+                          <li><a href="{{ URL::to('pmo-admin/projects') }}">Todos los Proyectos</a></li>
+                          <li><a href="{{ URL::to('pmo-admin/newProject') }}">Nuevo Proyecto</a></li>
+                          <li><a href="#">Atributos</a>
+                            <ul class="nav child_menu">
+                                <li><a href="{{ URL::to('pmo-admin/projects_attributes') }}">Todos los Atributos</a></li>
+                                <li><a href="{{ URL::to('pmo-admin/newProjectAttribute') }}">Nuevo Atributo</a></li>
+                            </ul>
+                          </li>
+                        </ul>
+                      </li>
+                        <li><a><i class="fa fa-th-large"></i> PMO <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{ URL::to('pmo-admin/pmo_templates') }}">Todas las plantillas</a></li>
+                            <li><a href="{{ URL::to('pmo-admin/newPMOTemplate') }}">Nueva Plantilla</a></li>
                         </ul>
                       </li>
                     </ul>

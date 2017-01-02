@@ -68,7 +68,7 @@ class AdvEnt
                 return false;
             }
 
-        }catch(Exception $ex){dd($ex);
+        }catch(Exception $ex){//dd($ex);
             return false;
         }
     }

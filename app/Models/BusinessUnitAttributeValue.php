@@ -15,7 +15,7 @@ class BusinessUnitAttributeValue extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'business_unit', 'business_unit_attribute', 'link'
+         'business_unit', 'business_unit_attribute', 'link'
     ];
 
     /**

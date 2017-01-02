@@ -8,7 +8,7 @@
     <div class="page-title">
         <div class="title_left">
         <!--<h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>-->
-          <h3>Usuario <small>(Administradores, Empleados, Clientes)</small></h3>
+          <h3>Unidades de Negocio <small></small></h3>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Relaci&oacute;n de Usuarios <small></small></h2>
+                    <h2>Relaci&oacute;n de Unidades de Negocio <small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -51,23 +51,15 @@
                       <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Nickname</th>
-                            <th>Direcci&oacute;n de Correo Electr&oacute;nico</th>
-                            <!--<th>Contraseña</th>-->
-                            <th>Tipo de Usuario</th>
+                            <th>Empresa</th>
                             <th></th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($users as $u)
+                        @foreach($business_unit as $bu)
                         <tr>
-                            <td>{{ $u->name }}</td>
-                            <td>{{ $u->last_name}}</td>
-                            <td>{{ $u->nickname}}</td>
-                            <td>{{ $u->email}}</td>
-                            <!--<td>{{ $u->password}}</td>-->
-                            <td>{{ $u->getTypeUser()->first()->name}}</td>
+                            <td>{{ $bu->name }}</td>
+                            <td>{{ $bu->getCompanyAssociated()->first()->name}}</td>
                             <td><i class="fa fa-cog" aria-hidden="true"></i></td>
                         </tr>
                         @endforeach

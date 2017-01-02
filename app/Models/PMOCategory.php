@@ -35,7 +35,7 @@ class PMOCategory extends Model
     /**
      * get PMO Attributes
      */
-    public function getPmoAttribute()
+    public function getPmoAttributes()
     {
         return $this->hasMany('App\Models\PMOAttribute','pmo_category');
     }
@@ -43,7 +43,7 @@ class PMOCategory extends Model
     /**
      * get PMO Projects
      */
-    public function getPmoProject()
+    public function getPmoProjects()
     {
         return $this->hasMany('App\Models\PMOProject','pmo_category');
     }

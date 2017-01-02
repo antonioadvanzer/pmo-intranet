@@ -8,7 +8,7 @@
     <div class="page-title">
         <div class="title_left">
         <!--<h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>-->
-          <h3>Usuario <small>(Administradores, Empleados, Clientes)</small></h3>
+          <h3>PMO <small></small></h3>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Relaci&oacute;n de Usuarios <small></small></h2>
+                    <h2>Relaci&oacute;n de Plantillas de PMO <small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -51,23 +51,22 @@
                       <thead>
                         <tr>
                             <th>Nombre</th>
-                            <th>Apellidos</th>
-                            <th>Nickname</th>
-                            <th>Direcci&oacute;n de Correo Electr&oacute;nico</th>
-                            <!--<th>Contraseña</th>-->
-                            <th>Tipo de Usuario</th>
+                            <th>Atributos</th>
                             <th></th>
                         </tr>
                       </thead>
                       <tbody>
-                        @foreach($users as $u)
+                        @foreach($pmo_templates as $pt)
                         <tr>
-                            <td>{{ $u->name }}</td>
-                            <td>{{ $u->last_name}}</td>
-                            <td>{{ $u->nickname}}</td>
-                            <td>{{ $u->email}}</td>
-                            <!--<td>{{ $u->password}}</td>-->
-                            <td>{{ $u->getTypeUser()->first()->name}}</td>
+                            <td>{{ $pt->name }}</td>
+                            <td>
+                            <?php $attr = $pt->getPmoAttribute()->get()?>
+                                <ul type="1">
+                                @foreach($attr as $a)
+                                <li>{{ $a->name }}</li>
+                                @endforeach
+                                </ul>
+                            </td>
                             <td><i class="fa fa-cog" aria-hidden="true"></i></td>
                         </tr>
                         @endforeach

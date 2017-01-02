@@ -236,6 +236,7 @@
             });
             
             //getResources($("#comp").val(),{d:1},1,"sc");
+            setStorageEvent();
         });
         
         $("form .rol-attr").change(function() {
@@ -250,7 +251,7 @@
         
         $("#addPermission").click(function(){
             //alert($(this).attr("id"));
-            setStorageEvent();
+            //setStorageEvent();
             cA++;
             
             accordion = '<div id="accordionS'+(++contAccordion)+'" class="panel">'
@@ -434,10 +435,12 @@
         }
         
         function setStorageEvent(){
-            $('.buttonFinish').removeClass('buttonDisabled');
+            //$('.buttonFinish').removeClass('buttonDisabled');
             $('.buttonFinish').click(function(){
-                //alert("aaa");
-                doPost();
+                if(cA != 0){
+                    //alert("asdasd "+cA);
+                    doPost();
+                }
             });
         }
         
