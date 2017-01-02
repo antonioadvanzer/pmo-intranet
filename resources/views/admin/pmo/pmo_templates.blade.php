@@ -60,7 +60,7 @@
                         <tr>
                             <td>{{ $pt->name }}</td>
                             <td>
-                            <?php $attr = $pt->getPmoAttribute()->get()?>
+                            <?php $attr = $pt->getPmoAttributes()->get()?>
                                 <ul type="1">
                                 @foreach($attr as $a)
                                 <li>{{ $a->name }}</li>
