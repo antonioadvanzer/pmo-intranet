@@ -68,7 +68,7 @@
                             <td>{{ $u->email}}</td>
                             <!--<td>{{ $u->password}}</td>-->
                             <td>{{ $u->getTypeUser()->first()->name}}</td>
-                            <td><i class="fa fa-cog" aria-hidden="true"></i></td>
+                            <td><a class="fa fa-cog" href="{{ URL::to('pmo-admin/showUser').'/'.$u->id }}" ></a></td>
                         </tr>
                         @endforeach
                       </tbody>

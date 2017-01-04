@@ -20,6 +20,13 @@ class Users extends Model
     ];
 
     /**
+     * Primary Key.
+     *
+     * @var string
+     */
+    public $primarykey = 'id';
+
+    /**
      * The table associated with the model.
      *
      * @var string
@@ -77,6 +84,6 @@ class Users extends Model
      */
     public function getPMO()
     {
-        return $this->belongsTo('App\Models\PMO','pmo');
+        return $this->belongsTo('App\Models\PMOProject','pmo');
     }
 }

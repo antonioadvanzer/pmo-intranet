@@ -60,7 +60,7 @@
                         <tr>
                             <td>{{ $p->name }}</td>
                             <td>{{ $p->getBusinessUnitAssociated()->first()->getCompanyAssociated()->first()->name}}</td>
-                            <td><i class="fa fa-cog" aria-hidden="true"></i></td>
+                            <td><a class="fa fa-cog" href="{{ URL::to('pmo-admin/showProject').'/'.$p->id }}" ></a></td>
                         </tr>
                         @endforeach
                       </tbody>

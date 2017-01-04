@@ -67,7 +67,7 @@
                                 @endforeach
                                 </ul>
                             </td>
-                            <td><i class="fa fa-cog" aria-hidden="true"></i></td>
+                            <td><a class="fa fa-cog" href="{{ URL::to('pmo-admin/showPMO').'/'.$pt->id }}" ></a></td>
                         </tr>
                         @endforeach
                       </tbody>

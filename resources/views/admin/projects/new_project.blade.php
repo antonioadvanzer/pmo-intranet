@@ -159,7 +159,8 @@
                       <div class="ln_solid"></div>
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">Cancelar</button>
+                          <!--<button type="submit" class="btn btn-primary">Cancelar</button>-->
+                            <a href="{{ URL::to('pmo-admin/projects') }}" class="btn btn-primary">Cancelar</a>
                           <button type="submit" class="btn btn-success">Guardar</button>
                         </div>
                       </div>
@@ -179,30 +180,30 @@
     <!-- bootstrap-progressbar -->
     <script src="{{URL::to('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
     <!-- iCheck -->
-    <script src="{{URL::to('vendors/iCheck/icheck.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/iCheck/icheck.min.js') }}"></script>
     <!-- bootstrap-daterangepicker -->
-    <script src="{{URL::to('js/moment/moment.min.js') }}"></script>
-    <script src="{{URL::to('js/datepicker/daterangepicker.js') }}"></script>
+    <script src="{{ URL::to('js/moment/moment.min.js') }}"></script>
+    <script src="{{ URL::to('js/datepicker/daterangepicker.js') }}"></script>
     <!-- bootstrap-wysiwyg -->
-    <script src="{{URL::to('vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js') }}"></script>
-    <script src="{{URL::to('vendors/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
-    <script src="{{URL::to('vendors/google-code-prettify/src/prettify.js') }}"></script>
+    <script src="{{ URL::to('vendors/bootstrap-wysiwyg/js/bootstrap-wysiwyg.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/jquery.hotkeys/jquery.hotkeys.js') }}"></script>
+    <script src="{{ URL::to('vendors/google-code-prettify/src/prettify.js') }}"></script>
     <!-- jQuery Tags Input -->
-    <script src="{{URL::to('vendors/jquery.tagsinput/src/jquery.tagsinput.js') }}"></script>
+    <script src="{{ URL::to('vendors/jquery.tagsinput/src/jquery.tagsinput.js') }}"></script>
     <!-- Switchery -->
-    <script src="{{URL::to('vendors/switchery/dist/switchery.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/switchery/dist/switchery.min.js') }}"></script>
     <!-- Select2 -->
-    <script src="{{URL::to('vendors/select2/dist/js/select2.full.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/select2/dist/js/select2.full.min.js') }}"></script>
     <!-- Parsley -->
-    <script src="{{URL::to('vendors/parsleyjs/dist/parsley.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/parsleyjs/dist/parsley.min.js') }}"></script>
     <!-- Autosize -->
-    <script src="{{URL::to('vendors/autosize/dist/autosize.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/autosize/dist/autosize.min.js') }}"></script>
     <!-- jQuery autocomplete -->
-    <script src="{{URL::to('vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/devbridge-autocomplete/dist/jquery.autocomplete.min.js') }}"></script>
     <!-- starrr -->
-    <script src="{{URL::to('vendors/starrr/dist/starrr.js') }}"></script>
+    <script src="{{ URL::to('vendors/starrr/dist/starrr.js') }}"></script>
     <!-- jQuery Knob -->
-    <script src="{{URL::to('vendors/jquery-knob/dist/jquery.knob.min.js') }}"></script>
+    <script src="{{ URL::to('vendors/jquery-knob/dist/jquery.knob.min.js') }}"></script>
     
     <!-- jQuery Knob -->
     <script>

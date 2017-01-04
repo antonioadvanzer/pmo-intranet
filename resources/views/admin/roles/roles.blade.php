@@ -60,7 +60,7 @@
                         <tr>
                             <td>{{ $r->name }}</td>
                             <td>{{ $r->description}}</td>
-                            <td><i class="fa fa-cog" aria-hidden="true"></i></td>
+                            <td><a class="fa fa-cog" href="{{ URL::to('pmo-admin/showRol').'/'.$r->id }}" ></a></td>
                         </tr>
                         @endforeach
                       </tbody>

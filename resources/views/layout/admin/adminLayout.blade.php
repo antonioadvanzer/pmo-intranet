@@ -17,8 +17,10 @@
     <!-- NProgress -->
     <link href="{{ URL::to('vendors/nprogress/nprogress.css') }}" rel="stylesheet">
     <!-- jQuery custom content scroller -->
-    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css') }}" rel="stylesheet"/>
-
+    <link href="{{ URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css') }}" rel="stylesheet"/> 
+    <!-- bootstrap-progressbar -->
+    <link href="{{ URL::to('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" rel="stylesheet">
+      
     <!-- Custom Theme Style -->
     <!--<link href="{{ URL::to('build/css/custom.min.css') }}" rel="stylesheet">-->
     <link href="{{ URL::to('build/css/custom.css') }}" rel="stylesheet">
@@ -238,7 +240,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">{{ AdvEnt::getCurrentUser()['name']." ".AdvEnt::getCurrentUser()['lastname']}}
+                    <img src="http://www.iconsfind.com/wp-content/uploads/2015/08/20150831_55e46b18e2a80.png" alt="">{{ AdvEnt::getCurrentUser()['name']." ".AdvEnt::getCurrentUser()['lastname']}}
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -362,11 +364,11 @@
     <script src="{{URL::to('vendors/nprogress/nprogress.js') }}"></script>
     <!-- jQuery custom content scroller -->
     <script src="{{URL::to('vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-
-    <!-- Custom Theme Scripts -->
-    <script src="{{URL::to('build/js/custom.min.js') }}"></script>
       
     @yield('script')
+      
+    <!-- Custom Theme Scripts -->
+    <script src="{{URL::to('build/js/custom.min.js') }}"></script>
       
   </body>
 </html>

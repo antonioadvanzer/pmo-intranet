@@ -7,8 +7,7 @@
     
     <div class="page-title">
         <div class="title_left">
-        <!--<h3>Fixed Sidebar <small> Just add class <strong>menu_fixed</strong></small></h3>-->
-          <h3>Proyectos <small></small></h3>
+          <h3>Unidades Negocios <small></small></h3>
         </div>
     </div>
 
@@ -18,7 +17,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Nueva Atributo <small></small></h2>
+                    <h2>Ver Unidad de Negocio <small></small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -37,43 +36,60 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      
-                    <div class="form-group">
-                        @if ($errors->has())
-                        <div class="alert alert-danger">
-                            @foreach ($errors->all() as $error)
-                                {{ $error }}<br>        
-                            @endforeach
-                        </div>
-                        @endif
-                    </div>
-                      
+                    
                       <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post"
-                          action="{{ URL::to('pmo-admin/saveNewProjectAttribute') }}">
-                        
-                        <input name="_token" type="hidden" value="{!! csrf_token() !!}"/>
+                          action="">
                         
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-name">Nombre <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="proa-name" name="proa-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('bu-name') }}">
+                              <input id="bu-name" name="bu-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ $business_unit->name }}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-descripion">Descripci&oacute;n <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-company">Empresa <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <textarea id="proa-description" name="proa-description" class="form-control col-md-7 col-xs-12 rol-attr"></textarea>
+                                <input id="bu-company" name="bu-company" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ $business_unit->getCompanyAssociated()->first()->name }}" disabled>
                             </div>
                         </div>
-                        <div class="ln_solid"></div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-description">Descipci&oacute;n <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="bu-description" name="bu-description" class="form-control col-md-7 col-xs-12 rol-attr" disabled>{{ $business_unit->description }}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-icon">Icono <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <a class="btn btn-app">
+                                  <!--<span class="badge bg-red">6</span>-->
+                                  <i class="fa {{ $business_unit->icon }}"></i> {{ $business_unit->icon }}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-icon">Atributos <span class="required"></span>
+                            </label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <?php $attributes = $business_unit->getAttributesValues()->get(); ?>
+                                <div class="btn-group-vertical">
+                                    @foreach($attributes as $attr)
+                                    <button class="btn btn-default" type="button">{{ $attr->getBusinessUnitAttributeAssociated()->first()->name}}</button>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        
+                      <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <!--<button type="submit" class="btn btn-primary">Cancelar</button>-->
-                            <a href="{{ URL::to('pmo-admin/projects_attributes') }}" class="btn btn-primary">Cancelar</a>
-                          <button type="submit" class="btn btn-success">Guardar</button>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">                          
+                            <a href="{{ URL::to('pmo-admin/business_units') }}" class="btn btn-primary">Todos</a>
+                            <a href="#" class="btn btn-success">Editar</a>
                         </div>
                       </div>
 
@@ -117,29 +133,7 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
-            
-            $.ajaxSetup({
-                headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
-            });
-            
-            $.listen('parsley:field:validate', function() {
-              validateFront();
-            });
-            $('#demo-form2 .btn').on('click', function() {
-              $('#demo-form2').parsley().validate();
-              validateFront();
-            });
-            var validateFront = function() {
-              if (true === $('#demo-form2').parsley().isValid()) {
-                $('.bs-callout-info').removeClass('hidden');
-                $('.bs-callout-warning').addClass('hidden');
-              } else {
-                $('.bs-callout-info').addClass('hidden');
-                $('.bs-callout-warning').removeClass('hidden');
-              }
-            };
-            
-        });
         
+        });
     </script>
 @endsection

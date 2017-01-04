@@ -486,8 +486,7 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function admin_storeNewPMOTemplate(Request $request)
-    {//dd($request);
-
+    {
         DB::beginTransaction();
 
         $attr = array();
@@ -527,6 +526,61 @@ class AdminController extends Controller
     public function show($id)
     {
         //
+    }
+
+    /**
+     * Display the specified user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_showUser($id)
+    {
+        return View::make('admin.users.show_user',["user" => Users::where('id',$id)->first()]);
+    }
+
+    /**
+     * Display the specified rol with them permissions.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_showRol($id)
+    {
+        return View::make('admin.roles.show_rol',["rol" => Rol::where('id',$id)->first()]);
+    }
+
+    /**
+     * Display the specified busines unit.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_showBusinessUnit($id)
+    {
+        return View::make('admin.business_units.show_business_unit',["business_unit" => BusinessUnit::where('id',$id)->first()]);
+    }
+
+    /**
+     * Display the specified project.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_showProject($id)
+    {
+        return View::make('admin.projects.show_project',["project" => Project::where('id',$id)->first()]);
+    }
+
+    /**
+     * Display the specified pmo template.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_showPMOTemplate($id)
+    {
+        return View::make('admin.pmo.show_pmo_template',["pmo_template" => PMOCategory::where('id',$id)->first()]);
     }
 
     /**
