@@ -25,6 +25,9 @@
     <!--<link href="{{ URL::to('build/css/custom.min.css') }}" rel="stylesheet">-->
     <link href="{{ URL::to('build/css/custom.css') }}" rel="stylesheet">
       
+    <!-- Custom Admin -->
+    <link rel="stylesheet" href="{{ URL::to('css/admin/custom.css') }}">
+      
   </head>
 
   <body class="nav-md">

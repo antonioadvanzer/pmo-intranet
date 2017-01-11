@@ -44,6 +44,8 @@ Route::group(['middleware' => 'advent.partner'], function(){
         Route::get('/newUser', ['as' => 'users', 'uses' => 'AdminController@admin_getFormNewUser']);
         Route::post('/saveNewUser', ['as' => 'users', 'uses' => 'AdminController@admin_storeNewUser']);
         Route::get('/showUser/{id}', ['as' => 'users', 'uses' => 'AdminController@admin_showUser']);
+        Route::get('/editUser/{id}', ['as' => 'users', 'uses' => 'AdminController@admin_editUser']);
+        Route::post('/updateUser/{id}', ['as' => 'users', 'uses' => 'AdminController@admin_updateUser']);
 
         // Roles and permissions managment
         Route::get('/roles', ['as' => 'roles', 'uses' => 'AdminController@admin_getRoles']);
@@ -59,6 +61,8 @@ Route::group(['middleware' => 'advent.partner'], function(){
         Route::get('/newBusinessUnitAttribute', ['as' => 'businesunitAttr', 'uses' => 'AdminController@admin_getFormNewBusinessUnitAttribute']);
         Route::post('/saveNewBusinessUnitAttribute', ['as' => 'businesunitAttr', 'uses' => 'AdminController@admin_storeNewBusinessUnitAttribute']);
         Route::get('/showBusinessUnit/{id}', ['as' => 'businesunitAttr', 'uses' => 'AdminController@admin_showBusinessUnit']);
+        Route::get('/editBusinessUnit/{id}', ['as' => 'businesunit', 'uses' => 'AdminController@admin_editBusinessUnit']);
+        Route::post('/updateBusinessUnit/{id}', ['as' => 'businesunit', 'uses' => 'AdminController@admin_updateBusinessUnit']);
 
         // Projects managment
         Route::get('/projects', ['as' => 'project', 'uses' => 'AdminController@admin_getProjects']);

@@ -142,9 +142,10 @@
 
                       <div class="ln_solid"></div>
                       <div class="form-group">
+                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3 alert alert-warning" align="center">Los Roles no pueden ser modificados</div>
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">                          
                             <a href="{{ URL::to('pmo-admin/roles') }}" class="btn btn-primary">Todos</a>
-                            <a href="#" class="btn btn-success">Editar</a>
+                            <!--<a href="#" class="btn btn-success">Editar</a>-->
                         </div>
                       </div>
 

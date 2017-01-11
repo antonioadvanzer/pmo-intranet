@@ -38,9 +38,15 @@
                   </div>
                   <div class="x_content">
                     
+                    @if(Session::has('message'))
+                    <div class="alert alert-success">
+                        {{ Session::get('message') }}
+                    </div>
+                    @endif
+                      
                       <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post"
-                          action="{{ URL::to('pmo-admin/saveNewUser') }}">
+                          action="">
                         
                         <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required"></span>
@@ -116,7 +122,7 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">                          
                             <a href="{{ URL::to('pmo-admin/users') }}" class="btn btn-primary">Todos</a>
-                            <a href="#" class="btn btn-success">Editar</a>
+                            <a href="{{ URL::to('pmo-admin/editUser').'/'.$user->id }}" class="btn btn-success">Editar</a>
                         </div>
                       </div>
 

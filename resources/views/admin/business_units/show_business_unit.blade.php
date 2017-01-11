@@ -73,6 +73,13 @@
                             </div>
                         </div>
                         <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-company">Proyectos <span class="required"></span>
+                            </label>
+                            <div class="col-md-1 col-sm-1 col-xs-6">
+                                <input id="bu-company" name="bu-company" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ count($business_unit->getProjects()->get()) }}" disabled>
+                            </div>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="bu-icon">Atributos <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -89,7 +96,7 @@
                       <div class="form-group">
                         <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">                          
                             <a href="{{ URL::to('pmo-admin/business_units') }}" class="btn btn-primary">Todos</a>
-                            <a href="#" class="btn btn-success">Editar</a>
+                            <a href="{{ URL::to('pmo-admin/editBusinessUnit').'/'.$business_unit->id }}" class="btn btn-success">Editar</a>
                         </div>
                       </div>
 

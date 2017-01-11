@@ -49,8 +49,8 @@ class AdminController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function admin_getUsers()
-    {
-        return View::make('admin.users.users',["users" => Users::all()]);
+    {   
+        return View::make('admin.users.users',["users" => Users::where('id','!=',AdvEnt::getCurrentUser()['id'])->get()]);
     }
 
     /**
@@ -213,6 +213,7 @@ class AdminController extends Controller
     public function admin_storeNewUser(Request $request)
     {
         $type = null;
+
         $data = [
             'name' => $request->input('first-name'),
             'last_name' => $request->input('last-name'),
@@ -232,7 +233,8 @@ class AdminController extends Controller
             break;
             case "3":
                 $data['company'] = $request->input('company');
-                $data['pmo'] = $request->input('pmo');
+                //$data['pmo'] = $request->input('pmo');
+                $data['pmo'] = Project::where('id',$request->input('pmo-project'))->first()->getPMO()->first()->id;
             break;
         }
         //dd($data);
@@ -595,6 +597,28 @@ class AdminController extends Controller
     }
 
     /**
+     * Show the form for editing the specified user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_editUser($id)
+    {
+        return View::make('admin.users.edit_user',["user" => Users::where('id',$id)->first(), "companies" => Company::all(), "rol" => Rol::all()]);
+    }
+
+    /**
+     * Show the form for editing the specified user.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_editBusinessUnit($id)
+    {
+        return View::make('admin.business_units.edit_business_unit',["business_unit"=> BusinessUnit::where('id',$id)->first(), "companies" => Company::all(), "attributes" => BusinessUnitAttribute::all()]);
+    }
+
+    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -604,6 +628,144 @@ class AdminController extends Controller
     public function update(Request $request, $id)
     {
         //
+    }
+
+    /**
+     * Update the specified user in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_updateUser(Request $request, $id)
+    {
+        $type = $request->input('type');
+
+        $data = [
+            'name' => $request->input('first-name'),
+            'last_name' => $request->input('last-name'),
+            'email' => $request->input('email')
+        ];
+
+        if(($password = $request->input('password')) != ""){
+            $data['password'] = Hash::make($password);
+        }
+
+        switch($type){
+            case "1":
+                $data['rol'] = $request->input('rol');
+            break;
+            case "2":
+                $data['company'] = $request->input('company');
+                $data['rol'] = $request->input('rol');
+            break;
+            case "3":
+                $data['company'] = $request->input('company');
+                //$data['pmo'] = $request->input('pmo');
+                $data['pmo'] = Project::where('id',$request->input('pmo-project'))->first()->getPMO()->first()->id;
+            break;
+        }
+
+        // do the validation ----------------------------------
+        // validate against the inputs from our form
+        $validator = Validator::make($data, Users::$rules, Users::$messages);
+
+        // check if the validator failed -----------------------
+        if($validator->fails()) {
+
+            // get the error messages from the validator
+            $messages = $validator->messages();
+
+            // redirect our user back to the form with the errors from the validator
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+
+        }else{
+            // validation successful ---------------------------
+
+            // our user has passed some tests!
+            // let him enter the database
+
+            Users::where('id',$id)->update($data);
+        }
+
+        $request->session()->flash('message','El Usuario fue actualizado con exito');
+        return redirect('pmo-admin/showUser/'.$id);
+    }
+
+    /**
+     * Update the specified busines unit in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function admin_updateBusinessUnit(Request $request, $id)
+    {
+        $data = [
+            'name' => $request->input('bu-name'),
+            'description' => $request->input('bu-description'),
+            'company' => $request->input('bu-company'),
+            'icon' => $request->input('bu-icon')
+        ];
+        
+        /*$bua = BusinessUnitAttribute::all();
+        foreach($bua as $b){
+            echo $request->input(''.$b->id)."<br>";
+        }*/
+
+        $bua = BusinessUnitAttribute::all();
+        $buav = BusinessUnit::where('id',$id)->first()->getAttributesValues()->get();
+
+        //echo "Atributo     Almacenado     Seleccionado<br>";
+        
+        //$store = false;
+        //$checked = false;
+        $dir_bu = 'PMO-Files/BUSINESS_UNITS/'.$data['name'];
+        if(!is_dir($dir_bu)){
+          $directory = File::makeDirectory($dir_bu, 0777);
+        }
+
+        foreach($bua as $ba){        
+            //echo "$ba->name ---> ";
+            $store = true;
+            $checked = false;
+
+            foreach($buav as $bv){
+                if($bv->getBusinessUnitAttributeAssociated()->first()->id == $ba->id){
+                    //echo "Si";
+                    //unset($ba);
+                    $store = false;
+                    break;
+                }
+            }
+
+            if($request->input(''.$ba->id) == "on"){
+                //echo "|     Si";
+                $checked = true;
+            }else{
+                //echo "|     No";
+            }
+
+            $dir_bu_attr = $dir_bu.'/'.$ba->name;
+            if($store and $checked){
+                File::makeDirectory($dir_bu_attr, 0777);
+                $dir = GDLink::create(['link_format' => $dir_bu_attr]);
+                BusinessUnitAttributeValue::create(['business_unit' => $id, 'business_unit_attribute' => $ba->id, 'link' => $dir->id]);
+            }elseif(($store==true) and ($checked==false)){//dd();
+                //$success = File::deleteDirectory($dir_bu_attr);
+                BusinessUnitAttributeValue::where(['id' => $bv->id])->delete();
+                GDLink::where(['id' => $bv->link])->delete();      
+            }
+
+            //echo "<br>";
+        }
+
+        BusinessUnit::where('id',$id)->update($data);
+
+        $request->session()->flash('message','El Unidad de Negocio fue actualizada con exito');
+        return redirect('pmo-admin/business_units');
     }
 
     /**

@@ -18,7 +18,7 @@
         <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Nuevo Usuario <small></small></h2>
+                    <h2>Editar Usuario <small>{{ $user->getTypeUser()->first()->name }}</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                       <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                       </li>
@@ -37,7 +37,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                      
+                    
                     <div class="form-group">
                         @if ($errors->has())
                         <div class="alert alert-danger">
@@ -50,95 +50,92 @@
                       
                       <br />
                     <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" method="post"
-                          action="{{ URL::to('pmo-admin/saveNewUser') }}">
+                          action="{{ URL::to('pmo-admin/updateUser/'.$user->id) }}">
                         
                         <input name="_token" type="hidden" value="{!! csrf_token() !!}"/>
                         <input id="busuni" type="hidden" value="{!! URL::to('pmo-admin/get_business_units') !!}"/>
                         <input id="propmo" type="hidden" value="{!! URL::to('pmo-admin/get_projects') !!}"/>
+                        <input id="type" name="type" type="hidden" value="{{ $user->type }}"/>
+                        <input id="id-user" name="id-user" type="hidden" value="{{ $user->id }}"/>
                         
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Nombre <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="first-name" name="first-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('first-name') }}">
+                              <input id="first-name" name="first-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ $user->name }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido <span class="required">*</span>
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="last-name">Apellido <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="last-name" name="last-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('last-name') }}">
+                              <input id="last-name" name="last-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ $user->last_name }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="nick-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre de Usuario <span class="required">*</span>
+                            <label for="nick-name" class="control-label col-md-3 col-sm-3 col-xs-12">Nombre de Usuario <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="nick-name" name="nick-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('nick-name') }}">
+                                <small>El nombre de usuario no puede ser cambiado</small>
+                              <input id="nick-name" name="nick-name" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ $user->nickname }}" disabled>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Direcci&oacute;n de Correo Electr&oacute;nico <span class="required">*</span>
+                            <label for="email" class="control-label col-md-3 col-sm-3 col-xs-12">Direcci&oacute;n de Correo Electr&oacute;nico <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="email" name="email" type="email" required="required" class="form-control col-md-7 col-xs-12" value="{{ old('email') }}">
+                              <input id="email" name="email" type="email" required="required" class="form-control col-md-7 col-xs-12" value="{{ $user->email }}">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Contraseña <span class="required">*</span>
+                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Contraseña <span class="required"></span>
                             </label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="password" name="password" type="password" required="required" class="form-control col-md-7 col-xs-12">
+                                <small>Para cambiar la contraseña, solo escriba una nueva</small>
+                              <input id="password" name="password" type="text" class="form-control col-md-7 col-xs-12" value="">
                             </div>
                         </div>
-                        <!--<div class="form-group">
-                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Confirmar Contraseña <span class="required">*</span>
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="confirm-password" name="confirm-password" type="password" required="required" class="form-control col-md-7 col-xs-12">
-                            </div>
-                        </div>-->
-                        <div id="attr-typeuser" class="form-group">
+                        <!--<div id="attr-typeuser" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Tipo de Usuario</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select id="type" name="type" class="form-control" required="required">
-                                <option disabled selected value>-- Elegir --</option>
-                                @foreach($type_user as $tu)
-                                <option value="{{ $tu->id }}">{{ $tu->name }}</option>
-                                @endforeach
-                              </select>
+                                <input id="type" name="type" type="text" required="required" class="form-control col-md-7 col-xs-12" value="{{ $user->getTypeUser()->first()->name }}" disabled>
                             </div>
-                        </div>
+                        </div>-->
+                        @if(($user->type == 2)|| ($user->type == 3))
                         <div id="attr-company" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Empresa</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select id="company" name="company" class="form-control" required="required">
-                                <option disabled selected value>-- Elegir --</option>
-                                @foreach($companies as $co)
-                                <option value="{{ $co->id }}">{{ $co->name }}</option>
-                                @endforeach
+                                <select id="company" name="company" class="form-control" required="required">
+                                    <!--<option disabled  value>-- Elegir --</option>-->
+                                    @foreach($companies as $co)
+                                    <option value="{{ $c = $co->id }}" {{ ($c == $user->company)? 'selected' : ''}} >{{ $co->name }}</option>
+                                    @endforeach
                               </select>
                             </div>
                         </div>
+                        @endif
+                        @if(($user->type == 1)|| ($user->type == 2))
                         <div id="attr-rol" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">Rol</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select id="rol" name="rol" class="form-control" required="required">
-                                <option disabled selected value>-- Elegir --</option>
-                                @foreach($rol as $r)
-                                <option value="{{ $r->id }}">{{ $r->name }}</option>
-                                @endforeach
+                                <select id="rol" name="rol" class="form-control" required="required">
+                                    <!--<option disabled  value>-- Elegir --</option>-->
+                                    @foreach($rol as $r)
+                                    <option value="{{ $rl = $r->id }}" {{ ($rl == $user->rol)? 'selected' : ''}} >{{ $r->name }}</option>
+                                    @endforeach
                               </select>
                             </div>
                         </div>
+                        @endif
+                        @if($user->type == 3)
                         <div id="attr-pmoproject" class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12">PMO</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <!--Empresa
-                                <select id="pmo-company" name="pmo" class="form-control" required="required">
-                                    <option disabled selected value>-- Elegir --</option>
-
-                                </select>-->
+                                
+                                <input id="vbu" type="hidden" value="{{ $user->getPMO()->first()->getProjectAssociated()->first()->getBusinessUnitAssociated()->first()->id }}">
+                                
+                                <input id="vpro" type="hidden" value="{{ $user->getPMO()->first()->getProjectAssociated()->first()->id }}">
+                                
                                 Unidad de Negocio
                                 <select id="pmo-businessunit" name="pmo-businessunit" class="form-control" required="required">
                                     <option disabled selected value>-- Elegir --</option>
@@ -149,13 +146,13 @@
                                 </select>
                             </div>
                         </div>
+                        @endif
 
                       <div class="ln_solid"></div>
                       <div class="form-group">
-                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                          <!--<button type="submit" class="btn btn-primary">Cancelar</button>-->
-                            <a href="{{ URL::to('pmo-admin/users') }}" class="btn btn-primary">Cancelar</a>
-                          <button type="submit" class="btn btn-success">Guardar</button>
+                        <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">                          
+                            <a href="{{ URL::to('pmo-admin/users') }}" class="btn btn-warning">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Actualizar</button>
                         </div>
                       </div>
 
@@ -199,90 +196,29 @@
     
     <script type="text/javascript">
         $(document).ready(function() {
-            
-            $.ajaxSetup({
-                headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
-            });
-            
-            $.listen('parsley:field:validate', function() {
-              validateFront();
-            });
-            $('#demo-form2 .btn').on('click', function() {
-              $('#demo-form2').parsley().validate();
-              validateFront();
-            });
-            var validateFront = function() {
-              if (true === $('#demo-form2').parsley().isValid()) {
-                $('.bs-callout-info').removeClass('hidden');
-                $('.bs-callout-warning').addClass('hidden');
-              } else {
-                $('.bs-callout-info').addClass('hidden');
-                $('.bs-callout-warning').removeClass('hidden');
-              }
-            };
-            
-            
-            //$('#attr-typeuser').hide();
-            $('#attr-company').hide()
-            $('#attr-rol').hide();
-            $('#attr-pmoproject').hide();
-            
+            getBU();
+            //getPro();
         });
         
-        $('#type').change(function (){
-            val = $(this).val();
-            
-            switch(val){
-                case "1":
-                    $('#attr-rol').show("fast");
-                    $('#attr-company').hide("fast");
-                    $('#attr-pmoproject').hide("fast");
-                    
-                    $('#rol').prop('required',true);
-                    $('#company').prop('required',false);
-                    $('#pmo-businessunit').prop('required',false);
-                    $('#pmo-project').prop('required',false);
-                break;
-                case "2":
-                    $('#attr-rol').show("fast");
-                    $('#attr-company').show("fast");
-                    $('#attr-pmoproject').hide("fast");
-                    
-                    $('#rol').prop('required',true);
-                    $('#company').prop('required',true);
-                    $('#pmo-businessunit').prop('required',false);
-                    $('#pmo-project').prop('required',false);
-                break;
-                case "3":
-                    $('#attr-rol').hide("fast");
-                    $('#attr-company').show("fast");
-                    $('#attr-pmoproject').show("fast");
-                    
-                    $('#rol').prop('required',false);
-                    $('#company').prop('required',true);
-                    $('#pmo-businessunit').prop('required',true);
-                    $('#pmo-project').prop('required',true);
-                break;
-            }
-        });
-        
-        $('#company').change(function (){
-            
-            if($("#type").val() == "3"){
-                
-                getResources($("#busuni").val(),{id:$(this).val()},1);
-                options = "<option disabled selected value>-- Elegir --</option>";
-                $("#pmo-project").html(options);
-                
-            }
-            
+        $('#company').change(function(){
+            getBU();
         });
         
         $('#pmo-businessunit').change(function (){
-                
-            getResources($("#propmo").val(),{id:$(this).val()},2);
-            
+             getPro();
         });
+        
+        function getBU(){
+            if($("#type").val() == "3"){
+                getResources($("#busuni").val(),{id:$('#company').val()},1);
+                options = "<option disabled selected value>-- Elegir --</option>";
+                $("#pmo-project").html(options);
+            }
+        }
+        
+        function getPro(){
+            getResources($("#propmo").val(),{id:$('#pmo-businessunit').val()},2);
+        }
         
         function insertBusinessUnit(datos){
             
@@ -290,13 +226,14 @@
                 options = "<option disabled selected value>-- Elegir --</option>";
 
                 for(i = 0; i < datos.length; i++){
-                    options += "<option value="+datos[i]["id"]+">"+datos[i]["name"]+"</option>";
+                    options += "<option value="+ (vbu = datos[i]["id"])+" "+(($("#vbu").val()) == vbu ?'selected':'')+" >"+datos[i]["name"]+"</option>";
                 }
             }else{
                 options = "<option disabled selected value>-- No hay datos disponibles --</option>";
             }
             
             $("#pmo-businessunit").html(options);
+            getPro();
         }
         
         function insertProjects(datos){
@@ -305,7 +242,7 @@
                 options = "<option disabled selected value>-- Elegir --</option>";
 
                 for(i = 0; i < datos.length; i++){
-                    options += "<option value="+datos[i]["id"]+">"+datos[i]["name"]+"</option>";
+                    options += "<option value="+ (vp = datos[i]["id"])+" "+(($("#vpro").val()) == vp ?'selected':'')+" >"+datos[i]["name"]+"</option>";
                 }
             }else{
                 options = "<option disabled selected value>-- No hay datos disponibles --</option>";
@@ -319,9 +256,7 @@
             response = true;
             token = {_token: $('meta[name=_token]').attr('content')};
             
-            //data.concat(token);
             data = collect(token, data);
-            //alert(data);
             
             $.ajax({
                 url: url,

@@ -44,7 +44,7 @@ class Users extends Model
      * Create the validation rules 
      */
     public static $rules = array(
-        'email'            => 'unique:user',     // required and must be unique in the ducks table
+        //'email'            => 'unique:user',     // required and must be unique in the ducks table
         'nickname'         => 'unique:user'
     );
 
