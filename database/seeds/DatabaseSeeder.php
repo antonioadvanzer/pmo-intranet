@@ -32,7 +32,119 @@ class DatabaseSeeder extends Seeder
         // Seed links to google drive ----------
         GDLink::create([
             'id' => 1,
-            'link_format' => "PMO-Files/TEMPLATE PMO GOBIERNO"
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Automotriz/Administración del Conocimiento"
+        ]);
+        GDLink::create([
+            'id' => 2,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Automotriz/Administrativo"
+        ]);
+        GDLink::create([
+            'id' => 3,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Industria Privada/Administración del Conocimiento"
+        ]);
+        GDLink::create([
+            'id' => 4,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Industria Privada/Administrativo"
+        ]);
+        GDLink::create([
+            'id' => 5,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Gobierno/Administración del Conocimiento"
+        ]);
+        GDLink::create([
+            'id' => 6,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Gobierno/Administrativo"
+        ]);
+        GDLink::create([
+            'id' => 7,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Financieras y Mesa de Ayuda/Administración del Conocimiento"
+        ]);
+        GDLink::create([
+            'id' => 8,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Financieras y Mesa de Ayuda/Administrativo"
+        ]);
+        GDLink::create([
+            'id' => 9,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Proyectos de Consultoria/Administración del Conocimiento"
+        ]);
+        GDLink::create([
+            'id' => 10,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Proyectos de Consultoria/Administrativo"
+        ]);
+        GDLink::create([
+            'id' => 11,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Proyectos de Tecnología/Administración del Conocimiento"
+        ]);
+        GDLink::create([
+            'id' => 12,
+            'link_format' => "PMO-Files/BUSINESS_UNITS/Proyectos de Tecnología/Administrativo"
+        ]);
+        GDLink::create([
+            'id' => 13,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/ATTRIBUTES/Documentos Internos"
+        ]);
+        GDLink::create([
+            'id' => 14,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/ATTRIBUTES/Documentos Internos"
+        ]);
+        GDLink::create([
+            'id' => 15,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/PMO/Organización"
+        ]);
+        GDLink::create([
+            'id' => 16,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/PMO/Modelo"
+        ]);
+        GDLink::create([
+            'id' => 17,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/PMO/Planeación y metodología"
+        ]);
+        GDLink::create([
+            'id' => 18,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/PMO/Seguimiento"
+        ]);
+        GDLink::create([
+            'id' => 19,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/PMO/Implementación"
+        ]);
+        GDLink::create([
+            'id' => 20,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/PMO/GoLive"
+        ]);
+        GDLink::create([
+            'id' => 21,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 1/PMO/Cierre del proyecto"
+        ]);
+        GDLink::create([
+            'id' => 22,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/CONTRATO"
+        ]);
+        GDLink::create([
+            'id' => 23,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/ANEXOS Y/O BASES DE LICITACION"
+        ]);
+        GDLink::create([
+            'id' => 24,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/FASE I - Preparación del proyecto"
+        ]);
+        GDLink::create([
+            'id' => 25,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/FASE II - Planos de Negocio"
+        ]);
+        GDLink::create([
+            'id' => 26,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/Realización"
+        ]);
+        GDLink::create([
+            'id' => 27,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/PREPARACION FINAL"
+        ]);
+        GDLink::create([
+            'id' => 28,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/GoLive y soporte"
+        ]);
+        GDLink::create([
+            'id' => 29,
+            'link_format' => "PMO-Files/PROJECTS/Ejemplo 2/PMO/Seguimiento del proyecto"
         ]);
         // -------------------------
 
@@ -156,21 +268,6 @@ class DatabaseSeeder extends Seeder
         ]);
         // ---------------------------------------------
 
-        // Seed values of attributes projects --------------------------------
-        ProjectAttributeValue::create([
-            'id' => 1,
-            'project' => 1,
-            'project_attribute' => 1,
-            'link' => 1
-        ]);
-        ProjectAttributeValue::create([
-            'id' => 2,
-            'project' => 2,
-            'project_attribute' => 1,
-            'link' => 1
-        ]);
-        // -------------------------------------------------------------------
-
         // Seed values of attributes business unit ---------------------------
         BusinessUnitAttributeValue::create([
             'id' => 1,
@@ -182,67 +279,82 @@ class DatabaseSeeder extends Seeder
             'id' => 2,
             'business_unit' => 1,
             'business_unit_attribute' => 2,
-            'link' => 1
+            'link' => 2
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 3,
             'business_unit' => 2,
             'business_unit_attribute' => 1,
-            'link' => 1
+            'link' => 3
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 4,
             'business_unit' => 2,
             'business_unit_attribute' => 2,
-            'link' => 1
+            'link' => 4
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 5,
             'business_unit' => 3,
             'business_unit_attribute' => 1,
-            'link' => 1
+            'link' => 5
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 6,
             'business_unit' => 3,
             'business_unit_attribute' => 2,
-            'link' => 1
+            'link' => 6
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 7,
             'business_unit' => 4,
             'business_unit_attribute' => 1,
-            'link' => 1
+            'link' => 7
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 8,
             'business_unit' => 4,
             'business_unit_attribute' => 2,
-            'link' => 1
+            'link' => 8
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 9,
             'business_unit' => 5,
             'business_unit_attribute' => 1,
-            'link' => 1
+            'link' => 9
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 10,
             'business_unit' => 5,
             'business_unit_attribute' => 2,
-            'link' => 1
+            'link' => 10
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 11,
             'business_unit' => 6,
             'business_unit_attribute' => 1,
-            'link' => 1
+            'link' => 11
         ]);
         BusinessUnitAttributeValue::create([
             'id' => 12,
             'business_unit' => 6,
             'business_unit_attribute' => 2,
-            'link' => 1
+            'link' => 12
+        ]);
+        // -------------------------------------------------------------------
+        
+        // Seed values of attributes projects --------------------------------
+        ProjectAttributeValue::create([
+            'id' => 1,
+            'project' => 1,
+            'project_attribute' => 1,
+            'link' => 13
+        ]);
+        ProjectAttributeValue::create([
+            'id' => 2,
+            'project' => 2,
+            'project_attribute' => 1,
+            'link' => 14
         ]);
         // -------------------------------------------------------------------
 
@@ -368,91 +480,91 @@ class DatabaseSeeder extends Seeder
             'id' => 1,
             'pmo_project' => 1,
             'pmo_attribute' => 1,
-            'link' => 1
+            'link' => 15
         ]);
         PMOProjectAttribute::create([
             'id' => 2,
             'pmo_project' => 1,
             'pmo_attribute' => 2,
-            'link' => 1
+            'link' => 16
         ]);
         PMOProjectAttribute::create([
             'id' => 3,
             'pmo_project' => 1,
             'pmo_attribute' => 3,
-            'link' => 1
+            'link' => 17
         ]);
         PMOProjectAttribute::create([
             'id' => 4,
             'pmo_project' => 1,
             'pmo_attribute' => 4,
-            'link' => 1
+            'link' => 18
         ]);
         PMOProjectAttribute::create([
             'id' => 5,
             'pmo_project' => 1,
             'pmo_attribute' => 5,
-            'link' => 1
+            'link' => 19
         ]);
         PMOProjectAttribute::create([
             'id' => 6,
             'pmo_project' => 1,
             'pmo_attribute' => 6,
-            'link' => 1
+            'link' => 20
         ]);
         PMOProjectAttribute::create([
             'id' => 7,
             'pmo_project' => 1,
             'pmo_attribute' => 7,
-            'link' => 1
+            'link' => 21
         ]);
         PMOProjectAttribute::create([
             'id' => 8,
             'pmo_project' => 2,
             'pmo_attribute' => 8,
-            'link' => 1
+            'link' => 22
         ]);
         PMOProjectAttribute::create([
             'id' => 9,
             'pmo_project' => 2,
             'pmo_attribute' => 9,
-            'link' => 1
+            'link' => 23
         ]);
         PMOProjectAttribute::create([
             'id' => 10,
             'pmo_project' => 2,
             'pmo_attribute' => 10,
-            'link' => 1
+            'link' => 24
         ]);
         PMOProjectAttribute::create([
             'id' => 11,
             'pmo_project' => 2,
             'pmo_attribute' => 11,
-            'link' => 1
+            'link' => 25
         ]);
         PMOProjectAttribute::create([
             'id' => 12,
             'pmo_project' => 2,
             'pmo_attribute' => 12,
-            'link' => 1
+            'link' => 26
         ]);
         PMOProjectAttribute::create([
             'id' => 13,
             'pmo_project' => 2,
             'pmo_attribute' => 13,
-            'link' => 1
+            'link' => 27
         ]);
         PMOProjectAttribute::create([
             'id' => 14,
             'pmo_project' => 2,
             'pmo_attribute' => 14,
-            'link' => 1
+            'link' => 28
         ]);
         PMOProjectAttribute::create([
             'id' => 15,
             'pmo_project' => 2,
             'pmo_attribute' => 15,
-            'link' => 1
+            'link' => 29
         ]);
         // ----------------------------------------------------------
 
